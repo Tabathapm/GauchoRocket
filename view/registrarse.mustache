@@ -1,0 +1,74 @@
+{{> header}}
+{{> navbar}}
+
+<!--    FORMULARIO DE REGISTRO DE USUARIO    -->
+<section class="container-fluid w-100 d-flex justify-content-center align-items-center home">
+    <article class="d-flex justify-content-center d-flex flex-column">
+        <h1 class="m-auto text-light mb-3" style="">Mundo Turismo Espacial</h1>
+        <h5 class="m-auto text-light mb-3">Viaja con nosotros y vivi una gran experiencia</h5>
+        <div class="d-flex justify-content-center d-flex flex-row mt-4 botones">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-auto bg-light p-5 rounded-3 shadow-lg">
+
+                    <form action="registrarse/validarRegistro" method="POST" enctype="multipart/form-data">
+                        <div class="d-flex justify-content-evenly align-items-baseline mb-4">
+                            <h4><span class="me-4">¡Animate a viajar con nosotros!</span> <i class="fas fa-hand-spock"></i></h4>
+                        </div>
+
+                        <div class="input-group justify-content-between">
+                            <div class="w-50 p-2 input-group d-flex align-items-center">
+                                <h5>
+                                    <i class="fas fa-user me-2"></i>
+                                </h5>
+                                <input class="form-control" type="text" name="nombre" placeholder="Nombre">
+                            </div>
+
+                            <div class="w-50 p-2 input-group d-flex align-items-center">
+                                <input class="form-control" type="text" name="apellido" placeholder="Apellido">
+                            </div>
+                        </div>
+
+                        <div class="input-group p-2 d-flex align-items-center">
+                            <h5>
+                                <i class="far fa-envelope me-2"></i>
+                            </h5>
+                            <input class="form-control" type="email" name="email" placeholder="tuemail@servidor.com">
+                        </div>
+
+
+                        <div class="input-group p-2 d-flex align-items-center">
+                            <h5>
+                                <i class="fas fa-key me-2"></i>
+                            </h5>
+                            <input class="form-control" type="password" name="clave" placeholder="Contraseña">
+                        </div>
+
+                        <div class="input-group p-2 d-flex align-items-center">
+                            <h5>
+                                <i class="fas fa-key me-2"></i>
+                            </h5>
+                            <input class="form-control" type="password" name="clave-repetida" placeholder="Repetir Contraseña">
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-6" >
+                                <button class="btn btn-danger w-100" href="/GauchoRocket/" role="button">Cancelar</button>
+                            </div>
+
+                            <div class="col-sm-6" >
+                                <button class="btn btn-primary w-100" href="index.php" name="registro" role="button">Registrarme!</button>
+                            </div>
+                            <p class="w3-text-green w3-center">{{registroCorrecto}}</p>
+                            <p class="w3-text-red w3-center">{{emailExistente}}</p>
+                            <p class="w3-text-red w3-center">{{clavesIncorrectas}}</p>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+
+{{> footer}}

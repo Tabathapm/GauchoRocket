@@ -1,0 +1,51 @@
+{{> header}}
+{{> navbar}}
+
+<section class="container-fluid w-100 d-flex justify-content-center align-items-center home">
+    <article class="d-flex justify-content-center d-flex flex-column">
+        <h1 class="m-auto text-light mb-3" style="">Mundo Turismo Espacial</h1>
+        <h5 class="m-auto text-light mb-3">Viaja con nosotros y vivi una gran experiencia</h5>
+        <div class="d-flex justify-content-center d-flex flex-row mt-4 botones">
+            <div class="row justify-content-center align-items-center w-75">
+                <div class="col-auto bg-light p-5 rounded-3 shadow-lg">
+                    <form action="login/validarLogin" method="POST" enctype="multipart/form-data">
+                        <div class="d-flex justify-content-evenly align-items-baseline mb-4">
+                            <h4><span class="me-4">¡Bienvenido!</span> <i class="fas fa-hand-spock"></i></h4>
+                        </div>
+
+                        <div class="input-group justify-content-between">
+                            <div class="input-group p-2 d-flex align-items-center">
+                                <h5>
+                                    <i class="far fa-envelope me-2"></i>
+                                </h5>
+                                <input class="form-control" type="email" name="email" placeholder="tuemail@servidor.com">
+                            </div>
+
+                            <div class="input-group p-2 d-flex align-items-center">
+                                <h5>
+                                    <i class="fas fa-key me-2"></i>
+                                </h5>
+                                <input class="form-control" type="password" name="password" placeholder="Ingresar Contraseña">
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-sm-6" >
+                                <button class="btn btn-danger w-100" href="/GauchoRocket/" role="button">Cancelar</button>
+                            </div>
+
+                            <div class="col-sm-6" >
+                                <button class="btn btn-primary w-100 " name="ingreso" role="button">Iniciar sesión</button>
+                                <p class="w3-text-red w3-center">{{MensajeErrorLogin}}</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+
+{{> footer}}
