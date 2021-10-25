@@ -42,24 +42,23 @@ class LoginController{
     }
 
     public function validarLogin(){
-        if (isset($_POST['ingreso'])){
-            if (isset($_POST["email"]) && isset($_POST["clave"])) {
-                $email = $_POST["email"];
-                $password = md5($_POST["clave"]);
 
-                $user = $this->usuarioModel->getUsuarioByEmailPassword($email,$password);
+        if (isset($_POST["email"]) && isset($_POST["clave"])) {
+            $email = $_POST["email"];
+            $password = md5($_POST["clave"]);
 
-                if(empty($user)){
-                    $_SESSION["errorLogin"] = 1;
-                    header("Location: /GauchoRocket/");
-                    exit();
-                } else {
-//                    header("Location: /GauchoRocket/home");
-//                    exit();
-                    echo $this->render->renderizar("view/home.mustache");
-                }
+            $user = $this->usuarioModel->getUsuarioByEmailPassword($email,$password);
+
+            if(empty($user)){
+                $_SESSION["errorLogin"] = 1;
+                header("Location: /GauchoRocket/");
+                exit();
+            } else {
+                header("Location: /GauchoRocket/home");
+                exit();
             }
         }
+
     }
 
 

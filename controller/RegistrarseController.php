@@ -27,7 +27,7 @@ class RegistrarseController{
                     $password = md5($pass);
                     $this->usuarioModel->registrarUsuario($nombre,$apellido,$email,$password);
                     $_SESSION['registroCorrecto'] = 1;
-                    header("Location: /GauchoRocket/");
+                    header("Location: /GauchoRocket/login");
                 }else{
                     $_SESSION['emailExistente'] = 1;
                     header("Location: /GauchoRocket/");
