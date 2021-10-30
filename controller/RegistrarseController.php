@@ -28,17 +28,21 @@ class RegistrarseController{
                     $this->usuarioModel->registrarUsuario($nombre,$apellido,$email,$password);
                     $_SESSION['registroCorrecto'] = 1;
                     header("Location: /GauchoRocket/login");
+                    exit();
                 }else{
                     $_SESSION['emailExistente'] = 1;
                     header("Location: /GauchoRocket/");
+                    exit();
                 }
             }else{
                 $_SESSION['clavesIncorrectas'] = 1;
                 header("Location: /GauchoRocket/");
+                exit();
             }
         }else{
             $_SESSION['registroIncorrecto'] = 1;
             header("Location: /GauchoRocket/");
+            exit();
         }
     }
 }
