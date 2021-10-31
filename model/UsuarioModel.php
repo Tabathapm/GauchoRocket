@@ -22,4 +22,8 @@ class UsuarioModel
     public function getUsuarioSiExisteMail($email){
         return $this->database->consulta("SELECT * FROM usuario WHERE email ='$email'");
     }
+
+    public function getNombre($email){
+        return $this->database->consulta("SELECT nombre_usuario FROM usuario WHERE email = '$email'");
+    }
 }

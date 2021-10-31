@@ -128,8 +128,22 @@ create table contiene_una(id_reserva integer,
                             foreign key(id_reserva) references reserva(id_reserva),
                             foreign key(id_lista_espera) references lista_de_espera(id_lista_espera));                            
                     
-INSERT INTO usuario (rol_usuario, clave, email)
-VALUES ('ADMIN', 123, 'admin@admin.com' );
+INSERT INTO usuario (rol_usuario, clave, email, nombre_usuario)
+VALUES 
+('ADMIN1', "202cb962ac59075b964b", 'admin1@admin.com', "Julieta" ),
+('ADMIN2', "202cb962ac59075b964b", 'admin2@admin.com', "Leandro" ),
+('ADMIN3', "202cb962ac59075b964b", 'admin3@admin.com', "Tabatha" );
 
 USE web2;
 SELECT * FROM usuario;
+
+SELECT *
+FROM usuario
+WHERE clave = 123;
+
+SELECT md5(123), email
+FROM usuario;
+
+SELECT nombre_usuario
+FROM usuario
+WHERE clave = "202cb962ac59075b964b";

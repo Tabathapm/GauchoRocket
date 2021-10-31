@@ -14,20 +14,47 @@
 
         <div class="collapse navbar-collapse  align-items-center" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/GauchoRocket/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#alojamiento">Alojamientos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#viajes">Viajes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
-                </li>
+                {{#_SESSION.esClient}}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/GauchoRocket/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#alojamiento">Alojamientos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#viajes">Viajes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                {{/_SESSION.esClient}}
+
+                {{#_SESSION.esAdmin}}
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#facturacion">Facturación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reportes">Reportes</a>
+                    </li>
+                {{/_SESSION.esAdmin}}
             </ul>
         </div>
+        {{#_SESSION.logueado}}
+            <div>
+                <div class="text-light usuario d-flex align-items-center justify-content-end">
+                    <h5>Hola {{_SESSION.nombre}}</h5>
+                </div>
+            </div>
+
+            <div>
+                <div class="text-light usuario d-flex align-items-center justify-content-end">
+                    <i class="fas fa-user me-3"></i>
+                    <!--                <a href="/cerrar-sesion.php"><i class="fas fa-sign-out-alt text-light"></i></a>-->
+                    <a href="/GauchoRocket/logout"><i class="fas fa-sign-out-alt text-light"></i></a>
+                </div>
+            </div>
+        {{/_SESSION.logueado}}
+
     </div>
 </nav>
 

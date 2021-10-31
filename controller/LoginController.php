@@ -11,6 +11,13 @@ class LoginController{
     }
 
     public function execute(){
+        $data = array();
+
+        if (isset($_SESSION["errorLogin"]) && $_SESSION["errorLogin"] == 1) {
+            $data["MensajeErrorLogin"] = "E-Mail o contraseña incorrecta";
+            unset($_SESSION["errorLogin"]);
+        }
+
         echo $this->render->renderizar("view/login.mustache");
     }
 
@@ -21,18 +28,30 @@ class LoginController{
 
             $user = $this->usuarioModel->getUsuarioByEmailPassword($email,$pass);
 
-            if(empty($user)){
-                header("Location: /GauchoRocket/");
-                exit();
-            }
-            elseif($this->usuarioModel->getUsuarioSiExisteMail($email) < 0) {
-                header("Location: /GauchoRocket/");
+            if(!empty($user)){
+                session_start();
+                $_SESSION["logueado"] = 0;
+//                $nombre = $this->usuarioModel->getNombre($email);
+//                $_SESSION["nombre"] = $nombre;
+                $_SESSION["nombre"] = $user[0]["nombre_usuario"];
+                $_SESSION["esAdmin"] = $this->esAdmin($user[0]["rol_usuario"]);
+                $_SESSION["esClient"] = $this->esCliente($user[0]["rol_usuario"]);
+                header("Location: /GauchoRocket/home");
                 exit();
             } else  {
-                header("Location: /GauchoRocket/home");
+                $_SESSION["errorLogin"] = 1;
+                header("Location: /GauchoRocket/login");
                 exit();
             }
         }
+    }
+
+    public function esAdmin($rol){
+        return  $rol == "ADMIN" ? true : false;
+    }
+
+    public function esCliente($rol){
+        return  $rol == null ? true : false;
     }
 
 }

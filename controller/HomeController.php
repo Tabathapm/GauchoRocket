@@ -9,7 +9,11 @@ class HomeController{
     }
 
     public function execute(){
-
-        echo $this->render->renderizar("view/home.mustache");
+        if (isset($_SESSION["logueado"])) {
+            echo $this->render->renderizar("view/home.mustache");
+        } else {
+            header("location: /GauchoRocKet/");
+            exit();
+        }
     }
 }
