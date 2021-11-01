@@ -17,7 +17,7 @@ class TurnoController{
         
     }
 
-     public function turnos($centroMedico){
+     public function turnos(){
 
         $centroMedico=$_POST['centro-medico'];
        
