@@ -11,7 +11,7 @@ class Render{
         (
             array(
                 'partials_loader' => new Mustache_Loader_FilesystemLoader($partialsPathLoader),
-                'helpers' => array('_SESSION' => $_SESSION)
+//                'helpers' => array('_SESSION' => $_SESSION)
             )
         );
     }

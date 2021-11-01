@@ -1,11 +1,29 @@
-<h1>{{centroMedico}}</h1>
+{{> header}}
+<div class="d-flex justify-content-center d-flex flex-row mt-4 botones">
+    <div class="row justify-content-center align-items-center w-75">
+        <div class="col-auto bg-light p-5 rounded-3 shadow-lg">
+            <h1>{{centroMedico}}</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">FECHA</th>
+                    <th scope="col">HORARIO</th>
+                    <th scope="col">DISPONIBLE</th>
+                </tr>
+                </thead>
 
- {{#turnos}}
-        <tr>
-        	<input type='hidden' value='{id_turno}'>
-            <td>{{fecha}}</td>
-            <td>{{horario}}</td>
-            <td>{{disponible}}</td>
-            <td> <a href="turno/crearTurno">Solicitar Turno</a> </td>
-        </tr>
- {{/turnos}}
+                <tbody>
+                {{#turnos}}
+                    <tr>
+                        <input type='hidden' value='{id_turno}'>
+                        <td>{{fecha}}</td>
+                        <td>{{horario}}</td>
+                        <td>{{disponible}}</td>
+                        <td> <a href="turno/crearTurno">Solicitar Turno</a> </td>
+                    </tr>
+                {{/turnos}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

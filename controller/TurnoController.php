@@ -10,30 +10,40 @@ class TurnoController{
         $this->centroMedicoModel = $centroMedicoModel;
     }
 
-
     public function centroMedico(){
 
-     echo $this->render->renderizar("view/centroMedico.mustache");
-        
+        echo $this->render->renderizar("view/centroMedico.mustache");
+
     }
 
-     public function turnos(){
-
+    public function execute(){
         $centroMedico=$_POST['centro-medico'];
-       
+
         $turnos= $this->centroMedicoModel->getTurnosCentroMedico($centroMedico);
 
         $data["centroMedico"] = $centroMedico;
         $data["turnos"] =  $turnos;
-              
+
+        echo $this->render->renderizar("view/turno.mustache",$data);
+    }
+
+    public function turnos(){
+
+        $centroMedico=$_POST['centro-medico'];
+
+        $turnos= $this->centroMedicoModel->getTurnosCentroMedico($centroMedico);
+
+        $data["centroMedico"] = $centroMedico;
+        $data["turnos"] =  $turnos;
+
         echo $this->render->renderizar("view/turno.mustache", $data);
-        
+
     }
 
-    public function crearTurno(){
-
-        
-    }
+//    public function crearTurno(){
+//
+//
+//    }
 
 
 }
