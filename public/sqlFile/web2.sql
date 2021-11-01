@@ -37,7 +37,7 @@ create table turno( id_turno integer AUTO_INCREMENT,
                     id_centro_medico integer,
                     usuario integer,
                     fecha date,
-                    horario datetime,
+                    horario varchar(10),
                     disponible bool,
                     primary key(id_turno),
                     foreign key(usuario) references usuario(id_usuario),
@@ -149,15 +149,15 @@ SELECT * FROM centro_medico;
 
 INSERT INTO turno(cant_turno,id_centro_medico, usuario, fecha, horario, disponible)
 VALUES
-(300,1, null, '2021/11/10','14:00:00',true),
-(300,1, null, '2021/11/11','15:00:00',true),
-(300,1, null, '2021/11/12','16:00:00',true),
-(210,2,null,'2021/11/10','14:00:00',true),
-(210,2, null, '2021/11/11','15:00:00',true),
-(210,2, null, '2021/11/12','16:00:00',true),
-(200,3, null,'2021/11/10','14:00:00',true),
-(200,3, null,'2021/11/11','15:00:00',true),
-(200,3, null,'2021/11/12','16:00:00',true);
+(300,1, null, '2021/11/10','14:30',true),
+(300,1, null, '2021/11/11','15:30',true),
+(300,1, null, '2021/11/12','16:30',true),
+(210,2,null,'2021/11/10','14:15',true),
+(210,2, null, '2021/11/11','15:15',true),
+(210,2, null, '2021/11/12','16:15',true),
+(200,3, null,'2021/11/10','14:00',true),
+(200,3, null,'2021/11/11','15:00',true),
+(200,3, null,'2021/11/12','16:00',true);
 
 
 
