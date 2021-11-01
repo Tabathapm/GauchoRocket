@@ -5,11 +5,11 @@ create table tarjeta_de_credito(id_tarjeta integer,
 							    nom_tarjeta varchar(40),
                                 primary key (id_tarjeta));
                                 
-create table centro_medico(id_centro_medico integer,
+create table centro_medico(id_centro_medico integer AUTO_INCREMENT,
 					       nom_centro_medico varchar(40),
                            primary key(id_centro_medico));   
                            
-create table chequeo_medico(id_chequeo integer,
+create table chequeo_medico(id_chequeo integer AUTO_INCREMENT,
 							primary key(id_chequeo));  
                             
 create table se_realiza_en(id_chequeo integer,
@@ -32,30 +32,35 @@ create table usuario(id_usuario integer AUTO_INCREMENT ,
                     foreign key(id_tarjeta) references tarjeta_de_credito(id_tarjeta));
                     
                    
-create table turno(id_turno integer,
+create table turno( id_turno integer AUTO_INCREMENT,
 					cant_turno integer,
                     id_centro_medico integer,
+                    usuario integer,
+                    fecha date,
+                    horario datetime,
+                    disponible bool,
                     primary key(id_turno),
+                    foreign key(usuario) references usuario(id_usuario),
                     foreign key(id_centro_medico) references centro_medico(id_centro_medico));  
                     
-create table viaje(id_viaje integer,
+create table viaje(id_viaje integer AUTO_INCREMENT,
 					tipo varchar(20),
 					f_partida date,
 					duracion double,
 					primary key(id_viaje));       
                     
-create table pasaje(id_pasaje integer,
+create table pasaje(id_pasaje integer AUTO_INCREMENT,
 					tarifa double,
                     cant_dias_en_espacio integer,
                     id_viaje integer,
                     primary key(id_pasaje),
                     foreign key(id_viaje) references viaje(id_viaje));     
 			
-create table equipo(id_equipo integer,
+create table equipo(id_equipo integer AUTO_INCREMENT,
 					tipo varchar(20),
 					primary key(id_equipo));       
                     
-create table nivel_vuelo(id_nivel_vuelo integer,
+create table nivel_vuelo(id_nivel_vuelo integer AUTO_INCREMENT,
 							num_nivel integer,
                             primary key(id_nivel_vuelo));       
                             
@@ -66,19 +71,19 @@ create table contiene_un(id_cliente integer,
                          foreign key(id_cliente) references usuario(id_usuario),
                          foreign key(id_equipo) references equipo(id_equipo));
                          
-create table cabina(id_cabina integer,
+create table cabina(id_cabina integer AUTO_INCREMENT,
 					tipo varchar(20),
 					primary key(id_cabina));
                     
-create table escala(id_escala integer,
+create table escala(id_escala integer AUTO_INCREMENT,
 					primary key(id_escala));
                     
-create table tour(id_tour integer,
+create table tour(id_tour integer AUTO_INCREMENT,
 					id_equipo integer,
                     primary key(id_tour),
                     foreign key(id_equipo) references equipo(id_equipo));     
                     
-create table destino(id_destino integer,
+create table destino(id_destino integer AUTO_INCREMENT,
 					descripcion varchar(40),
                     id_escala integer,
                     id_tour integer,
@@ -86,7 +91,7 @@ create table destino(id_destino integer,
                     foreign key(id_escala) references escala(id_escala),
                     foreign key(id_tour) references tour(id_tour));     
                     
-create table vuelo(id_vuelo integer,
+create table vuelo(id_vuelo integer AUTO_INCREMENT,
 					duracion double,
                     capacidad_vuelo integer,
                     id_cabina integer,
@@ -97,7 +102,7 @@ create table vuelo(id_vuelo integer,
                     foreign key(id_nivel_vuelo) references nivel_vuelo(id_nivel_vuelo),
                     foreign key(id_viaje) references viaje(id_viaje));
                     
-create table vuela_hacia(id_vuelo integer,
+create table vuela_hacia(id_vuelo integer ,
 						 id_destino integer,
                          primary key(id_vuelo,id_destino),
                          foreign key(id_vuelo) references vuelo(id_vuelo),
@@ -108,7 +113,7 @@ create table tipo_servicio_a_bordo(id_tipo_servicio integer,
 									descripcion_tipo varchar(20),
 									primary key(id_tipo_servicio));    
 			
-create table reserva(id_reserva integer,
+create table reserva(id_reserva integer AUTO_INCREMENT,
 						hora_reserva time,
                         id_tarjeta integer,
                         id_vuelo integer,
@@ -134,8 +139,32 @@ VALUES
 ('ADMIN2', "202cb962ac59075b964b", 'admin2@admin.com', "Leandro" ),
 ('ADMIN3', "202cb962ac59075b964b", 'admin3@admin.com', "Tabatha" );
 
+INSERT INTO centro_medico(nom_centro_medico)
+VALUES
+('Buenos Aires'),
+('Shanghai'),
+('Ankara');
+
+SELECT * FROM centro_medico;
+
+INSERT INTO turno(cant_turno,id_centro_medico, usuario, fecha, horario, disponible)
+VALUES
+(300,1, null, '2021/11/10','14:00:00',true),
+(300,1, null, '2021/11/11','15:00:00',true),
+(300,1, null, '2021/11/12','16:00:00',true),
+(210,2,null,'2021/11/10','14:00:00',true),
+(210,2, null, '2021/11/11','15:00:00',true),
+(210,2, null, '2021/11/12','16:00:00',true),
+(200,3, null,'2021/11/10','14:00:00',true),
+(200,3, null,'2021/11/11','15:00:00',true),
+(200,3, null,'2021/11/12','16:00:00',true);
+
+
+
 USE web2;
 SELECT * FROM usuario;
+delete from usuario
+where id_usuario is null;
 
 SELECT *
 FROM usuario
@@ -147,3 +176,9 @@ FROM usuario;
 SELECT nombre_usuario
 FROM usuario
 WHERE clave = "202cb962ac59075b964b";
+
+
+SELECT * FROM turno t
+                                          INNER JOIN centro_medico cm
+                                          ON cm.id_centro_medico= t.id_centro_medico
+                                          where nom_centro_medico='Buenos Aires';
