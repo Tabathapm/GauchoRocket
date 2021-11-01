@@ -1,0 +1,11 @@
+<h1>{{centroMedico}}</h1>
+
+ {{#turnos}}
+        <tr>
+        	<input type='hidden' value='{id_turno}'>
+            <td>{{fecha}}</td>
+            <td>{{horario}}</td>
+            <td>{{disponible}}</td>
+            <td> <a href="turno/crearTurno">Solicitar Turno</a> </td>
+        </tr>
+ {{/turnos}}
