@@ -1,16 +1,41 @@
 {{> header}}
+{{> navbarConSesion}}
 
-<div>
+<div class="mt-0 pb-5"></div>
+<div class="mt-0 pb-5"></div>
+
+<div class='mt-0 pb-5'>
+
   						{{#estado}}
-                     			<div class='alert alert-success text-center' role='alert'>
+                     			<div class='alert alert-success text-center container' role='alert'>
                                   <h4> 
                                   <i class='fas fa-check-circle'></i> 
                                   Turno registrado con exito
                                   </h4>
                                 </div>
+
+                                <div class="card container w-75">
+                                  <div class="card-body">
+                                    <h5 class="card-title text-center">Turno Solicitado</h5>
+                                  </div>
+                                  <ul class="list-group list-group-flush">
+                                   {{#usuario}}
+                                    <li class="list-group-item">Nombre: {{nombre_usuario}}</li>
+                                    <li class="list-group-item">Apellido: {{apellido_usuario}}</li>
+                                    {{/usuario}}
+                                    {{#centroMedico}}
+                                     <li class="list-group-item">Centro Medico: {{nom_centro_medico}}</li>
+                                     {{/centroMedico}}
+                                     {{#turno}}
+                                     <li class="list-group-item">Fecha: {{fecha}}</li>
+                                     <li class="list-group-item">Hora: {{horario}}</li>
+                                     {{/turno}}
+                                     <li class="list-group-item">Nivel de vuelo: {{tipo}}</li>
+                                  </ul>
+                                </div>
                         {{/estado}}
                         {{^estado}}
-					  		<div class='alert alert-danger text-center' role='alert'>
+					  		<div class='alert alert-danger text-center container' role='alert'>
 					  		  <h4>
                               <i class='fas fa-times-circle'></i>
                                Error! Intente mas tarde
