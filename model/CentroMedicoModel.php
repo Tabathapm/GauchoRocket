@@ -9,6 +9,11 @@ class CentroMedicoModel
     }
 
 
+      public function getCentrosMedico(){
+       return $this->database->consulta("SELECT * FROM centro_medico");
+    }
+
+
     public function getTurnosCentroMedico($centroMedico){
         return $this->database->consulta("SELECT * FROM turno t
                                           INNER JOIN centro_medico cm

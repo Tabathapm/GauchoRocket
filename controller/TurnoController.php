@@ -12,7 +12,9 @@ class TurnoController{
 
     public function centroMedico(){
 
-        echo $this->render->renderizar("view/centroMedico.mustache");
+        $data['centrosMedico'] = $this->centroMedicoModel->getCentrosMedico();
+
+        echo $this->render->renderizar("view/centroMedico.mustache",$data);
 
     }
 
