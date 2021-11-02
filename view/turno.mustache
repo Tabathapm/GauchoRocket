@@ -1,7 +1,11 @@
 {{> header}}
-<div class="d-flex justify-content-center d-flex flex-row mt-4 botones">
+{{> navbarConSesion}}
+
+<div class="mt-0 pb-5"></div>
+
+<form class="d-flex justify-content-center d-flex flex-row mt-0 pt-5 botones" action="turno/crearTurno" method="post">
     <div class="row justify-content-center align-items-center w-75">
-        <div class="col-auto bg-light p-5 rounded-3 shadow-lg">
+        <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow-lg">
             <h1>{{centroMedico}}</h1>
             <table class="table">
                 <thead>
@@ -15,15 +19,22 @@
                 <tbody>
                 {{#turnos}}
                     <tr>
-                        <input type='hidden' value='{id_turno}'>
+                        <input type='hidden' value='{id_turno}' name="idTurno">
                         <td>{{fecha}}</td>
                         <td>{{horario}}</td>
-                        <td>{{disponible}}</td>
-                        <td> <a href="turno/crearTurno">Solicitar Turno</a> </td>
+                        {{#disponible}}
+                       <td> <button type="button" class="btn btn-secondary">Solicitar Turno</button></td>
+                        {{/disponible}}
+                        {{^disponible}}
+					    <td> <button type="button" class="btn btn-secondary" disabled>Solicitar Turno</button></td>
+					    {{/disponible}}
+                        
                     </tr>
                 {{/turnos}}
                 </tbody>
             </table>
         </div>
     </div>
-</div>
+</form>
+
+{{> footer}}
