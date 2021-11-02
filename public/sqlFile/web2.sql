@@ -7,6 +7,7 @@ create table tarjeta_de_credito(id_tarjeta integer,
                                 
 create table centro_medico(id_centro_medico integer AUTO_INCREMENT,
 					       nom_centro_medico varchar(40),
+                           foto varchar(100),
                            primary key(id_centro_medico));   
                            
 create table chequeo_medico(id_chequeo integer AUTO_INCREMENT,
@@ -139,11 +140,11 @@ VALUES
 ('ADMIN2', "202cb962ac59075b964b", 'admin2@admin.com', "Leandro" ),
 ('ADMIN3', "202cb962ac59075b964b", 'admin3@admin.com', "Tabatha" );
 
-INSERT INTO centro_medico(nom_centro_medico)
+INSERT INTO centro_medico(nom_centro_medico, foto)
 VALUES
-('Buenos Aires'),
-('Shanghai'),
-('Ankara');
+('Buenos Aires','BuenosAires.jpg'),
+('Shanghai','Shanghai.jpg'),
+('Ankara','Ankara.jpg');
 
 SELECT * FROM centro_medico;
 
@@ -159,7 +160,9 @@ VALUES
 (200,3, null,'2021/11/11','15:00',true),
 (200,3, null,'2021/11/12','16:00',true);
 
-
+INSERT INTO turno(cant_turno,id_centro_medico, usuario, fecha, horario, disponible)
+VALUES
+(300,1, 1, '2021/11/10','14:30',false),
 
 USE web2;
 SELECT * FROM usuario;
