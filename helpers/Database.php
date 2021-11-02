@@ -25,6 +25,12 @@ class Database
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function update($sql)
+    {
+        $result = $this->conn->query($sql);
+        return $result;
+    }
+
     public function ejecutar($sql){
         mysqli_query($this->conn, $sql);
     }
