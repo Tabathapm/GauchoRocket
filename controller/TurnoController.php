@@ -42,10 +42,23 @@ class TurnoController{
 
     }
 
-//    public function crearTurno(){
-//
-//
-//    }
+    public function crearTurno(){
+
+        $usuario=2;
+        $idTurno=$_POST['idTurno'];
+
+        $resultado=$this->centroMedicoModel->updateTurno($idTurno, $usuario);
+
+        if($resultado){
+
+            $data['estado'] = true;
+
+        }else{
+             $data['estado'] = false;
+        }
+
+        echo $this->render->renderizar("view/resultadoCheckeo.mustache", $data);
+    }
 
 
 }
