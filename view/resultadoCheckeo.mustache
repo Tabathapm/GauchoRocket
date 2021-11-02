@@ -1,0 +1,22 @@
+{{> header}}
+
+<div>
+  						{{#estado}}
+                     			<div class='alert alert-success text-center' role='alert'>
+                                  <h4> 
+                                  <i class='fas fa-check-circle'></i> 
+                                  Turno registrado con exito
+                                  </h4>
+                                </div>
+                        {{/estado}}
+                        {{^estado}}
+					  		<div class='alert alert-danger text-center' role='alert'>
+					  		  <h4>
+                              <i class='fas fa-times-circle'></i>
+                               Error! Intente mas tarde
+                              </h4>
+                            </div>
+					    {{/estado}}
+</div>
+
+{{> footer}}
