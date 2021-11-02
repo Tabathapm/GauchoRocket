@@ -162,7 +162,7 @@ VALUES
 
 INSERT INTO turno(cant_turno,id_centro_medico, usuario, fecha, horario, disponible)
 VALUES
-(300,1, 1, '2021/11/10','14:30',false),
+(300,1, 1, '2021/11/13','17:30',false);
 
 USE web2;
 SELECT * FROM usuario;
@@ -180,8 +180,4 @@ SELECT nombre_usuario
 FROM usuario
 WHERE clave = "202cb962ac59075b964b";
 
-
-SELECT * FROM turno t
-                                          INNER JOIN centro_medico cm
-                                          ON cm.id_centro_medico= t.id_centro_medico
-                                          where nom_centro_medico='Buenos Aires';
+                              
