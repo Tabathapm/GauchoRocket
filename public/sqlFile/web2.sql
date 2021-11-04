@@ -140,6 +140,12 @@ VALUES
 ('ADMIN2', "202cb962ac59075b964b", 'admin2@admin.com', "Leandro", "Martinez"),
 ('ADMIN3', "202cb962ac59075b964b", 'admin3@admin.com', "Tabatha", "Peralta");
 
+
+
+
+
+
+
 INSERT INTO centro_medico(nom_centro_medico, foto)
 VALUES
 ('Buenos Aires','BuenosAires.jpg'),
@@ -180,4 +186,9 @@ SELECT nombre_usuario
 FROM usuario
 WHERE clave = "202cb962ac59075b964b";
 
-                              
+INSERT INTO usuario (rol_usuario, clave, email, nombre_usuario, apellido_usuario)
+VALUES('Cliente',123,'lea@gmail.com','Lea','Shaila');
+
+select * from usuario;
+
+select * from reserva;

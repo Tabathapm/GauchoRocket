@@ -35,6 +35,12 @@ class Configuracion{
         return new CentroMedicoModel($database);
     }
 
+    public static function getReservaModel(){
+        $database = self::getDatabase();
+        include_once ("model/ReservaModel.php");
+        return new ReservaModel($database);
+    }
+
     public static function getLoginController(){
         $render = self::getRender();
         $usuarioModel = self::getUsuarioModel();
@@ -64,6 +70,13 @@ class Configuracion{
         $centroMedicoModel = self::getCentroMedicoModel();
         include_once("controller/TurnoController.php");
         return new TurnoController($render, $centroMedicoModel);
+    }
+
+    public static function getReservaController(){
+        $render = self::getRender();
+        $reservaModel = self::getReservaModel();
+        include_once("controller/ReservaController.php");
+        return new ReservaController($render,$reservaModel);
     }
 
     public function getRouter(){
