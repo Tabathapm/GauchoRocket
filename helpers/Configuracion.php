@@ -29,10 +29,16 @@ class Configuracion{
         return new UsuarioModel($database);
     }
 
-     public static function getCentroMedicoModel(){
+    public static function getCentroMedicoModel(){
         $database = self::getDatabase();
         include_once ("model/CentroMedicoModel.php");
         return new CentroMedicoModel($database);
+    }
+
+    public static function getTurnoModel(){
+        $database = self::getDatabase();
+        include_once ("model/TurnoModel.php");
+        return new TurnoModel($database);
     }
 
     public static function getLoginController(){
@@ -59,12 +65,20 @@ class Configuracion{
         return new RegistrarseController($render,$usuarioModel);
     }
 
-    public static function getTurnoController(){
+    public static function getCentroMedicoController(){
         $render = self::getRender();
         $centroMedicoModel = self::getCentroMedicoModel();
-        include_once("controller/TurnoController.php");
-        return new TurnoController($render, $centroMedicoModel);
+        include_once("controller/CentroMedicoController.php");
+        return new CentroMedicoController($render, $centroMedicoModel);
     }
+
+    public static function getTurnoController(){
+        $render = self::getRender();
+        $turnoModel = self::getTurnoModel();
+        include_once("controller/TurnoController.php");
+        return new TurnoController($render, $turnoModel);
+    }
+
 
     public function getRouter(){
         include_once("Router.php");
