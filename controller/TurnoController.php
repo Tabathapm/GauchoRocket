@@ -3,25 +3,25 @@
 class TurnoController{
 
     private $render;
-    private $centroMedicoModel;
+    private $turnoModel;
 
-    public function __construct(\Render $render, \CentroMedicoModel $centroMedicoModel){
+    public function __construct(\Render $render, \TurnoModel $turnoModel){
         $this->render = $render;
-        $this->centroMedicoModel = $centroMedicoModel;
+        $this->turnoModel = $turnoModel;
     }
 
-    public function centroMedico(){
+    /*public function centroMedico(){
 
-        $data['centrosMedico'] = $this->centroMedicoModel->getCentrosMedico();
+        $data['centrosMedico'] = $this->turnoModel->getCentrosMedico();
 
         echo $this->render->renderizar("view/centroMedico.mustache",$data);
 
-    }
+    }*/
 
     public function execute(){
         $centroMedico=$_POST['centro-medico'];
 
-        $turnos= $this->centroMedicoModel->getTurnosCentroMedico($centroMedico);
+        $turnos= $this->turnoModel->getTurnosCentroMedico($centroMedico);
 
         $data["centroMedico"] = $centroMedico;
         $data["turnos"] =  $turnos;
@@ -33,7 +33,7 @@ class TurnoController{
 
         $centroMedico=$_POST['centro-medico'];
 
-        $turnos= $this->centroMedicoModel->getTurnosCentroMedico($centroMedico);
+        $turnos= $this->turnoModel->getTurnosCentroMedico($centroMedico);
 
         $data["centroMedico"] = $centroMedico;
         $data["turnos"] =  $turnos;
@@ -47,11 +47,11 @@ class TurnoController{
         $usuario=2;
         $idTurno=$_POST['idTurno'];
 
-        $resultado=$this->centroMedicoModel->updateTurno($idTurno, $usuario);
+        $resultado=$this->turnoModel->updateTurno($idTurno, $usuario);
 
-        $usuarioEncontrado=$this->centroMedicoModel->getUsuarioPorTurno($usuario);
-        $turnoEncontrado =$this->centroMedicoModel->getTurno($idTurno);
-        $centroMedicoEncontrado = $this->centroMedicoModel->getCentroMedicoPorTurno($idTurno);
+        $usuarioEncontrado=$this->turnoModel->getUsuarioPorTurno($usuario, $idTurno);
+        $turnoEncontrado =$this->turnoModel->getTurno($idTurno);
+        $centroMedicoEncontrado = $this->turnoModel->getCentroMedicoPorTurno($idTurno);
 
         $data['turno']=$turnoEncontrado;
         $data['usuario']=$usuarioEncontrado;
