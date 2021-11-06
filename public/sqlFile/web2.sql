@@ -136,14 +136,9 @@ create table contiene_una(id_reserva integer,
                     
 INSERT INTO usuario (rol_usuario, clave, email, nombre_usuario, apellido_usuario)
 VALUES 
-('ADMIN1', "202cb962ac59075b964b", 'admin1@admin.com', "Julieta", "Barraza"),
-('ADMIN2', "202cb962ac59075b964b", 'admin2@admin.com', "Leandro", "Martinez"),
-('ADMIN3', "202cb962ac59075b964b", 'admin3@admin.com', "Tabatha", "Peralta");
-
-
-
-
-
+('ADMIN', "202cb962ac59075b964b", 'admin1@admin.com', "Julieta", "Barraza"),
+('ADMIN', "202cb962ac59075b964b", 'admin2@admin.com', "Leandro", "Martinez"),
+('ADMIN', "202cb962ac59075b964b", 'admin3@admin.com', "Tabatha", "Peralta");
 
 
 INSERT INTO centro_medico(nom_centro_medico, foto)
@@ -171,7 +166,10 @@ VALUES
 (300,1, 1, '2021/11/13','17:30',false);
 
 USE web2;
-SELECT * FROM usuario;
+
+SELECT * 
+FROM usuario;
+
 delete from usuario
 where id_usuario is null;
 
@@ -185,10 +183,3 @@ FROM usuario;
 SELECT nombre_usuario
 FROM usuario
 WHERE clave = "202cb962ac59075b964b";
-
-INSERT INTO usuario (rol_usuario, clave, email, nombre_usuario, apellido_usuario)
-VALUES('Cliente',123,'lea@gmail.com','Lea','Shaila');
-
-select * from usuario;
-
-select * from reserva;
