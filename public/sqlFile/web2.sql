@@ -192,3 +192,11 @@ VALUES('Cliente',123,'lea@gmail.com','Lea','Shaila');
 select * from usuario;
 
 select * from reserva;
+
+INSERT INTO viaje(id_viaje, tipo, f_partida, duracion)
+VALUES(100,'Suborbital','2021-12-14',18.00),
+       (101,'Orbitales','2021-12-12',26.00);
+       
+
+       
+
