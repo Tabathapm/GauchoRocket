@@ -30,7 +30,10 @@ class LoginController{
 
             if(!empty($user)){
                 $_SESSION["logueado"] = 0;
+                $_SESSION["id"] = $user[0]["id_usuario"];
                 $_SESSION["nombre"] = $user[0]["nombre_usuario"];
+                $_SESSION["apellido"] = $user[0]["apellido_usuario"];
+                $_SESSION["email"] = $user[0]["email"];
                 $_SESSION["esAdmin"] = $this->esAdmin($user[0]["rol_usuario"]);
                 $_SESSION["esClient"] = $this->esCliente($user[0]["rol_usuario"]);
                 header("Location: /GauchoRocket/home");
