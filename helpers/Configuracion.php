@@ -35,6 +35,12 @@ class Configuracion{
         return new CentroMedicoModel($database);
     }
 
+    public static function getTurnoModel(){
+        $database = self::getDatabase();
+        include_once ("model/TurnoModel.php");
+        return new TurnoModel($database);
+    }
+
     public static function getReservaModel(){
         $database = self::getDatabase();
         include_once ("model/ReservaModel.php");
@@ -75,8 +81,9 @@ class Configuracion{
     public static function getTurnoController(){
         $render = self::getRender();
         $turnoModel = self::getTurnoModel();
+        $phpMailer= self::getPHPMailer();
         include_once("controller/TurnoController.php");
-        return new TurnoController($render, $turnoModel);
+        return new TurnoController($render, $turnoModel, $phpMailer);
     }
 
     public static function getReservaController(){
@@ -84,6 +91,13 @@ class Configuracion{
         $reservaModel = self::getReservaModel();
         include_once("controller/ReservaController.php");
         return new ReservaController($render,$reservaModel);
+    }
+
+    public function getPHPMailer(){
+        include_once("helpers/PHPMailerGmail.php");
+        $email="gauchorocketsa@gmail.com";
+        $pass="!:D!:)#2021pW2#TPLMJB!:)0f1g5d9g8e7m1";
+        return new PHPMailerGmail($email, $pass);
     }
 
     public function getRouter(){
