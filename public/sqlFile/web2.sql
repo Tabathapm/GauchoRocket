@@ -50,12 +50,19 @@ create table viaje(id_viaje integer AUTO_INCREMENT,
 					duracion double,
 					primary key(id_viaje));       
                     
+insert into viaje(tipo,f_partida,duracion)
+values('orbital','2021-11-09',30.00);                    
+                    
+                    
+                    
 create table pasaje(id_pasaje integer AUTO_INCREMENT,
 					tarifa double,
                     cant_dias_en_espacio integer,
                     id_viaje integer,
                     primary key(id_pasaje),
                     foreign key(id_viaje) references viaje(id_viaje));     
+                    
+                
 			
 create table equipo(id_equipo integer AUTO_INCREMENT,
 					tipo varchar(20),
@@ -183,7 +190,7 @@ FROM usuario;
 SELECT nombre_usuario
 FROM usuario
 WHERE clave = "202cb962ac59075b964b";
-<<<<<<< HEAD
+
 
 INSERT INTO usuario (rol_usuario, clave, email, nombre_usuario, apellido_usuario)
 VALUES('Cliente',123,'lea@gmail.com','Lea','Shaila');
@@ -199,5 +206,9 @@ VALUES(100,'Suborbital','2021-12-14',18.00),
 select * from viaje;
        
 select * from vuelo;
-=======
->>>>>>> c0f4a4602a8a739cc8ae8d62b80f0f67af610fcb
+
+create table alojamiento(id_alojamiento integer AUTO_INCREMENT,
+							cant_habitaciones integer,
+                            id_destino integer,
+                            primary key(id_alojamiento),
+                            foreign key(id_destino) references destino(id_destino));
