@@ -64,7 +64,7 @@ create table pasaje(id_pasaje integer AUTO_INCREMENT,
                     
                 
 			
-create table equipo(id_equipo integer AUTO_INCREMENT,
+create table equipo(id_equipo varchar(40),
 					tipo varchar(20),
 					primary key(id_equipo));       
                     
@@ -73,7 +73,7 @@ create table nivel_vuelo(id_nivel_vuelo integer AUTO_INCREMENT,
                             primary key(id_nivel_vuelo));       
                             
 create table contiene_un(id_cliente integer, 
-                         id_equipo integer,
+                         id_equipo varchar(40),
                          id_nivel_vuelo integer,
                          primary key(id_cliente,id_equipo),
                          foreign key(id_cliente) references usuario(id_usuario),
@@ -87,7 +87,7 @@ create table escala(id_escala integer AUTO_INCREMENT,
 					primary key(id_escala));
                     
 create table tour(id_tour integer AUTO_INCREMENT,
-					id_equipo integer,
+					id_equipo varchar(40),
                     primary key(id_tour),
                     foreign key(id_equipo) references equipo(id_equipo));     
                     
@@ -212,3 +212,55 @@ create table alojamiento(id_alojamiento integer AUTO_INCREMENT,
                             id_destino integer,
                             primary key(id_alojamiento),
                             foreign key(id_destino) references destino(id_destino));
+                            
+                            
+                
+INSERT INTO equipo(id_equipo,tipo)
+values('AA1','Aguila'),
+      ('AA5','Aguila'),
+      ('AA9','Aguila'),
+      ('AA13','Aguila'),
+      ('AA17','Aguila'),
+      ('BA8','Aguilucho'),
+      ('BA9','Aguilucho'),
+      ('BA10','Aguilucho'),
+      ('BA11','Aguilucho'),
+      ('BA12','Aguilucho'),
+      ('O1','Calandria'),
+      ('O2','Calandria'),
+      ('O6','Calandria'),
+      ('O7','Calandria'),
+      ('BA13','Canario'),
+      ('BA14','Canario'),
+      ('BA15','Canario'),
+      ('BA16','Canario'),
+      ('BA17','Canario'),
+      ('BA4','Carancho'),
+      ('BA5','Carancho'),
+      ('BA6','Carancho'),
+      ('BA7','Carancho'),
+      ('O3','Colibri'),
+      ('O4','Colibri'),
+      ('O5','Colibri'),
+      ('O8','Colibri'),
+      ('O9','Colibri'),
+      ('AA2','Condor'),
+      ('AA6','Condor'),
+      ('AA10','Condor'),
+      ('AA14','Condor'),
+      ('AA18','Condor'),
+      ('AA4','Guanaco'),
+      ('AA8','Guanaco'),
+      ('AA12','Guanaco'),
+      ('AA16','Guanaco'),
+      ('AA3','Halcon'),
+      ('AA7','Halcon'),
+      ('AA11','Halcon'),
+      ('AA15','Halcon'),
+      ('AA19','Halcon'),
+      ('BA1','Zorzal'),
+      ('BA2','Zorzal'),
+      ('BA3','Zorzal');
+      
+      select * from equipo;
+      

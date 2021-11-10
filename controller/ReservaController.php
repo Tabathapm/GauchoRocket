@@ -18,32 +18,24 @@ class ReservaController{
 
     public function execute(){
 
-        $data = array();
-        if (isset($_SESSION["logueado"])) {
-            $data["logueado"] = $_SESSION["logueado"];
+        if(isset($_SESSION['logueado'])){
+            echo $this->render->renderizar("view/reservas.mustache");
+        }
+        else{
+            header("Location: /GauchoRocket/login");
         }
 
-        if (isset($_SESSION["nombre"])) {
-            $data["nombre"] = $_SESSION["nombre"];
-        }
-
-        if (isset($_SESSION["esAdmin"])) {
-            $data["esAdmin"] = $_SESSION["esAdmin"];
-        }
-
-        if (isset($_SESSION["esClient"])) {
-            $data["esClient"] = $_SESSION["esClient"];
-        }
-
-        if (isset($data["logueado"])) {
-            $data["estadoLogueado"]=true;
-            echo $this->render->renderizar("view/home.mustache", $data);
-        } else {
-
-            $data["estadoLogueado"] = false;
 
 
-        }
+
+
+    }
+
+
+
+
+
+
 
 
 
@@ -57,7 +49,7 @@ class ReservaController{
 
 
 //        echo $this->render->renderizar("view/reservas.mustache");
-    }
+
 
 
 
