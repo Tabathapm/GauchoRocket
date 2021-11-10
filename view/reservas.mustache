@@ -1,136 +1,141 @@
-{{>header}}
+{{> header}}
+{{> navbar}}
 
+<div class="mt-0 pb-5"></div>
+<div class="mt-0 pb-5"></div>
 
-<div class="formularioReserva container">
-    <form action="" method="post">
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Servicio</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">Leandro</th>
-                <td>Martinez</td>
+<div class='mt-0 pb-5'>
+    <div class="formularioReserva container">
+        <form action="" method="post">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Servicio</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Leandro</th>
+                    <td>Martinez</td>
 
+                    <td><select class="form-select" aria-label="Default select example">
+                        <option selected>Seleccione</option>
+                        <option value="1">Standard</option>
+                        <option value="2">Gourmet</option>
+                        <option value="3">Spa</option>
+                    </select>
+                    </td>
+                </tr>
+                <!--    <tr>-->
+                <!--        <th scope="row">2</th>-->
+                <!--        <td>Jacob</td>-->
+                <!--        <td>Thornton</td>-->
+                <!--        <td>@fat</td>-->
+                <!--    </tr>-->
+                <!--    <tr>-->
+                <!--        <th scope="row">3</th>-->
+                <!--        <td>Larry</td>-->
+                <!--        <td>the Bird</td>-->
+                <!--        <td>@twitter</td>-->
+                <!--    </tr>-->
+                </tbody>
+            </table>
+
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Vuelo</th>
+                    <th scope="col">Cabina</th>
+                </tr>
+                </thead>
+                <tbody>
                 <td><select class="form-select" aria-label="Default select example">
-                    <option selected>Seleccione</option>
-                    <option value="1">Standard</option>
-                    <option value="2">Gourmet</option>
-                    <option value="3">Spa</option>
+                    <option selected>Seleccione tipo de vuelo</option>
+                    <option value="1">Tipo 1</option>
+                    <option value="2">Tipo 2</option>
+                    <option value="3">Tipo 3</option>
                 </select>
                 </td>
-            </tr>
-            <!--    <tr>-->
-            <!--        <th scope="row">2</th>-->
-            <!--        <td>Jacob</td>-->
-            <!--        <td>Thornton</td>-->
-            <!--        <td>@fat</td>-->
-            <!--    </tr>-->
-            <!--    <tr>-->
-            <!--        <th scope="row">3</th>-->
-            <!--        <td>Larry</td>-->
-            <!--        <td>the Bird</td>-->
-            <!--        <td>@twitter</td>-->
-            <!--    </tr>-->
-            </tbody>
-        </table>
+                <td><select class="form-select" aria-label="Default select example">
+                    <option selected>Seleccione cabina</option>
+                    <option value="1">Cabina Familiar</option>
+                    <option value="2">Cabina General</option>
+                    <option value="3">Cabina Suite</option>
+                </select>
+                </td>
 
-        <table class="table">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">Vuelo</th>
-                <th scope="col">Cabina</th>
-            </tr>
-            </thead>
-            <tbody>
-            <td><select class="form-select" aria-label="Default select example">
-                <option selected>Seleccione tipo de vuelo</option>
-                <option value="1">Tipo 1</option>
-                <option value="2">Tipo 2</option>
-                <option value="3">Tipo 3</option>
-            </select>
-            </td>
-            <td><select class="form-select" aria-label="Default select example">
-                <option selected>Seleccione cabina</option>
-                <option value="1">Cabina Familiar</option>
-                <option value="2">Cabina General</option>
-                <option value="3">Cabina Suite</option>
-            </select>
-            </td>
+                </tbody>
+            </table>
 
-            </tbody>
-        </table>
+           <div class="butacas">
+               <table class="table caption-top">
+                   <caption>ASIENTOS DISPONIBLES</caption>
+                   <thead>
+                   <tr>
+                       <th scope="col">A</th>
+                       <th scope="col"><input type="radio" id="a1" name="asiento"> A1
+                       <label for="a1"></label>
+                       </th>
 
-       <div class="butacas">
-           <table class="table caption-top">
-               <caption>ASIENTOS DISPONIBLES</caption>
-               <thead>
-               <tr>
-                   <th scope="col">A</th>
-                   <th scope="col"><input type="radio" id="a1" name="asiento"> A1
-                   <label for="a1"></label>
-                   </th>
-
-                   <th scope="col"><input type="radio" id="a2" name="asiento"> A2
-                   <label for="a2"></label></th>
-                   <th scope="col"><input type="radio" id="a3" name="asiento"> A3
-                   <label for="a3"></label></th>
-               </tr>
-               </thead>
-               <tbody>
-               <tr>
-                   <th scope="row">B</th>
-                   <th scope="col"><input type="radio" id="b1" name="asiento"> B1
-                       <label for="b1"></label>
-                   </th>
-                   <th scope="col"><input type="radio" id="b2" name="asiento"> B2
-                       <label for="b2"></label>
-                   </th>
-                   <th scope="col"><input type="radio" id="b3" name="asiento"> B3
-                       <label for="b3"></label>
-                   </th>
-               </tr>
-               <tr>
-                   <th scope="row">C</th>
-                   <th scope="col"><input type="radio" id="c1" name="asiento"> C1
-                       <label for="c1"></label>
-                   </th>
-                   <th scope="col"><input type="radio" id="c1" name="asiento"> C2
-                       <label for="c2"></label>
-                   </th>
-                   <th scope="col"><input type="radio" id="a1" name="asiento"> C3
-                       <label for="c3"></label>
-                   </th>
-               </tr>
-               <tr>
-                   <th scope="row">D</th>
-                   <th scope="col"><input type="radio" id="d1" name="asiento"> D1
-                       <label for="d1"></label>
-                   </th>
-                   <th scope="col"><input type="radio" id="d2" name="asiento"> D2
-                       <label for="d2"></label>
-                   </th>
-                   <th scope="col"><input type="radio" id="d3" name="asiento"> D3
-                       <label for="d3"></label>
-                   </th>
-               </tr>
-               </tbody>
-           </table>
-       </div>
+                       <th scope="col"><input type="radio" id="a2" name="asiento"> A2
+                       <label for="a2"></label></th>
+                       <th scope="col"><input type="radio" id="a3" name="asiento"> A3
+                       <label for="a3"></label></th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   <tr>
+                       <th scope="row">B</th>
+                       <th scope="col"><input type="radio" id="b1" name="asiento"> B1
+                           <label for="b1"></label>
+                       </th>
+                       <th scope="col"><input type="radio" id="b2" name="asiento"> B2
+                           <label for="b2"></label>
+                       </th>
+                       <th scope="col"><input type="radio" id="b3" name="asiento"> B3
+                           <label for="b3"></label>
+                       </th>
+                   </tr>
+                   <tr>
+                       <th scope="row">C</th>
+                       <th scope="col"><input type="radio" id="c1" name="asiento"> C1
+                           <label for="c1"></label>
+                       </th>
+                       <th scope="col"><input type="radio" id="c1" name="asiento"> C2
+                           <label for="c2"></label>
+                       </th>
+                       <th scope="col"><input type="radio" id="a1" name="asiento"> C3
+                           <label for="c3"></label>
+                       </th>
+                   </tr>
+                   <tr>
+                       <th scope="row">D</th>
+                       <th scope="col"><input type="radio" id="d1" name="asiento"> D1
+                           <label for="d1"></label>
+                       </th>
+                       <th scope="col"><input type="radio" id="d2" name="asiento"> D2
+                           <label for="d2"></label>
+                       </th>
+                       <th scope="col"><input type="radio" id="d3" name="asiento"> D3
+                           <label for="d3"></label>
+                       </th>
+                   </tr>
+                   </tbody>
+               </table>
+           </div>
 
 
 
-        <div class="botones d-flex justify-content-evenly pb-3">
-            <button type="button" class="btn btn-primary btn-lg">RESERVAR</button>
-            <button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
-        </div>
+            <div class="botones d-flex justify-content-evenly pb-3">
+                <button type="button" class="btn btn-primary btn-lg">RESERVAR</button>
+                <button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
+            </div>
 
 
-    </form>
+        </form>
+    </div>
 </div>
 
 

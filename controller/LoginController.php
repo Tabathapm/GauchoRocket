@@ -30,6 +30,7 @@ class LoginController{
 
             if(!empty($user)){
                 $_SESSION["logueado"] = 0;
+                $_SESSION["usuario_completo"] = $user[0];
                 $_SESSION["id"] = $user[0]["id_usuario"];
                 $_SESSION["nombre"] = $user[0]["nombre_usuario"];
                 $_SESSION["apellido"] = $user[0]["apellido_usuario"];

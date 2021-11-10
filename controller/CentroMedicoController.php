@@ -10,11 +10,33 @@ class CentroMedicoController{
         $this->centroMedicoModel = $centroMedicoModel;
     }
 
-    public function centrosMedicos(){
+    public function execute(){
+
+        $data = array();
+
+        if (isset($_SESSION["logueado"])) {
+            $data["logueado"] = $_SESSION["logueado"];
+        }
+
+        if (isset($_SESSION["nombre"])) {
+            $data["nombre"] = $_SESSION["nombre"];
+        }
+
+        if (isset($_SESSION["esAdmin"])) {
+            $data["esAdmin"] = $_SESSION["esAdmin"];
+        }
+
+        if (isset($_SESSION["esClient"])) {
+            $data["esClient"] = $_SESSION["esClient"];
+        }
 
         $data['centrosMedico'] = $this->centroMedicoModel->getCentrosMedico();
 
-        echo $this->render->renderizar("view/centroMedico.mustache",$data);
+        if (isset($data["logueado"])) {
+            echo $this->render->renderizar("view/centroMedico.mustache", $data);
+        }
+
+//        echo $this->render->renderizar("view/centroMedico.mustache",$data);
 
     }
 
