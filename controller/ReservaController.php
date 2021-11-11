@@ -18,24 +18,32 @@ class ReservaController{
 
     public function execute(){
 
-        if(isset($_SESSION['logueado'])){
-            echo $this->render->renderizar("view/reservas.mustache");
-        }
-        else{
-            header("Location: /GauchoRocket/login");
-        }
-
-
-
-
-
-    }
-
-
-
-
-
-
+//        $data = array();
+//        if (isset($_SESSION["logueado"])) {
+//            $data["logueado"] = $_SESSION["logueado"];
+//        }
+//
+//        if (isset($_SESSION["nombre"])) {
+//            $data["nombre"] = $_SESSION["nombre"];
+//        }
+//
+//        if (isset($_SESSION["esAdmin"])) {
+//            $data["esAdmin"] = $_SESSION["esAdmin"];
+//        }
+//
+//        if (isset($_SESSION["esClient"])) {
+//            $data["esClient"] = $_SESSION["esClient"];
+//        }
+//
+//        if (isset($data["logueado"])) {
+//            $data["estadoLogueado"]=true;
+//            echo $this->render->renderizar("view/home.mustache", $data);
+//        } else {
+//
+//            $data["estadoLogueado"] = false;
+//
+//
+//        }
 
 
 
@@ -47,9 +55,37 @@ class ReservaController{
 //        $data["reserva"] = $reservas;
 //        $data["turnos"] =  $turnos;
 
+//        $data = array();
+//
+//        if (isset($_SESSION["logueado"])) {
+//            $data["logueado"] = $_SESSION["logueado"];
+//        }
+//
+//        if (isset($_SESSION["nombre"])) {
+//            $data["nombre"] = $_SESSION["nombre"];
+//        }
+//
+//        if (isset($_SESSION["esAdmin"])) {
+//            $data["esAdmin"] = $_SESSION["esAdmin"];
+//        }
+//
+//        if (isset($_SESSION["esClient"])) {
+//            $data["esClient"] = $_SESSION["esClient"];
+//        }
+//
+//        if (isset($data["logueado"])) {
+//            echo $this->render->renderizar("view/reservas.mustache", $data);
+//        }else{
+//            echo $this->render->renderizar("view/login.mustache");
+//        }
 
-//        echo $this->render->renderizar("view/reservas.mustache");
-
+        if(isset($_SESSION['logueado'])){
+            echo $this->render->renderizar("view/reservas.mustache");
+        }
+        else{
+            header("Location: /GauchoRocket/login");
+        }
+    }
 
 
 

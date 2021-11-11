@@ -47,6 +47,7 @@ class Configuracion{
         return new ReservaModel($database);
     }
 
+
     public static function getLoginController(){
         $render = self::getRender();
         $usuarioModel = self::getUsuarioModel();
@@ -93,6 +94,7 @@ class Configuracion{
         return new ReservaController($render,$reservaModel);
     }
 
+
     public function getPHPMailer(){
         include_once("helpers/PHPMailerGmail.php");
         $email="gauchorocketsa@gmail.com";
@@ -109,4 +111,34 @@ class Configuracion{
         include_once("helpers/UrlHelper.php");
         return new UrlHelper();
     }
+
+
+
+    public static function getAlojamientoModel(){
+        $database = self::getDatabase();
+        include_once ("model/AlojamientoModel.php");
+        return new AlojamientoModel($database);
+    }
+
+    public static function getAlojamientoController(){
+        $render = self::getRender();
+        $alojamientoModel = self::getAlojamientoModel();
+        include_once ("controller/AlojamientoController.php");
+        return new AlojamientoController($render,$alojamientoModel);
+    }
+
+    public static function getViajeModel(){
+        $database = self::getDatabase();
+        include_once ("model/ViajeModel.php");
+        return new ViajeModel($database);
+    }
+
+    public static function getViajeController(){
+        $render = self::getRender();
+        $viajeModel = self::getViajeModel();
+        include_once ("controller/ViajeController.php");
+        return new ViajeController($render,$viajeModel);
+    }
+
+
 }

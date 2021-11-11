@@ -264,3 +264,31 @@ values('AA1','Aguila'),
       
       select * from equipo;
       
+	insert into tour(id_equipo)
+    values('AA1');
+    
+   insert into escala()
+   values();
+   
+select * from escala;
+
+  insert into destino(descripcion,id_escala,id_tour)
+   values('Luna',1,1);
+   
+  
+  insert into alojamiento(cant_habitaciones,id_destino)
+  values(4,1);
+  
+  select * from alojamiento;
+  
+  select * 
+  from equipo
+  inner join tour on equipo.id_equipo = tour.id_equipo
+  inner join destino on tour.id_tour = destino.id_tour
+  inner join escala on destino.id_escala = escala.id_escala
+  inner join alojamiento on destino.id_destino = alojamiento.id_destino;
+  
+  
+ 
+
+  
