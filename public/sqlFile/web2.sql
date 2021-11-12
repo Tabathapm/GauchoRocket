@@ -52,7 +52,7 @@ create table viaje(id_viaje integer AUTO_INCREMENT,
                     
 insert into viaje(tipo,f_partida,duracion)
 values('orbital','2021-11-09',30.00);                    
-                    
+                  
                     
                     
 create table pasaje(id_pasaje integer AUTO_INCREMENT,
@@ -68,9 +68,17 @@ create table equipo(id_equipo varchar(40),
 					tipo varchar(20),
 					primary key(id_equipo));       
                     
+                   
+                    
 create table nivel_vuelo(id_nivel_vuelo integer AUTO_INCREMENT,
 							num_nivel integer,
-                            primary key(id_nivel_vuelo));       
+                            primary key(id_nivel_vuelo));      
+                            
+insert into nivel_vuelo(num_nivel)
+values(1),
+      (2),
+      (3);
+      select * from nivel_vuelo;
                             
 create table contiene_un(id_cliente integer, 
                          id_equipo varchar(40),
@@ -83,6 +91,11 @@ create table cabina(id_cabina integer AUTO_INCREMENT,
 					tipo varchar(20),
 					primary key(id_cabina));
                     
+   insert into cabina(tipo)
+   values('General'),
+         ('Familiar'),
+         ('Suite');
+                    select * from cabina;
 create table escala(id_escala integer AUTO_INCREMENT,
 					primary key(id_escala));
                     
@@ -109,6 +122,16 @@ create table vuelo(id_vuelo integer AUTO_INCREMENT,
                     foreign key(id_cabina) references cabina(id_cabina),
                     foreign key(id_nivel_vuelo) references nivel_vuelo(id_nivel_vuelo),
                     foreign key(id_viaje) references viaje(id_viaje));
+                    
+insert into vuelo(duracion,capacidad_vuelo,id_cabina,id_nivel_vuelo,id_viaje)
+values(30.00,300,1,1,1),
+	  (30.00,300,2,2,1),
+      (30.00,300,3,3,1),
+      (26.00,120,1,1,101),
+      (26.00,120,2,2,101),
+      (26.00,120,3,3,101); 
+      
+      
                     
 create table vuela_hacia(id_vuelo integer ,
 						 id_destino integer,
@@ -290,5 +313,17 @@ select * from escala;
   
   
  
+select * from alojamiento;
 
+select * from alojamiento
+where cant_habitaciones = 4;
+
+select * from tour;
+
+
+select * from viaje;
+select * from vuelo;
+
+insert into vuela_hacia(id_vuelo,id_destino)
+values()
   

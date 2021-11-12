@@ -9,23 +9,23 @@ class AlojamientoModel{
     }
 
     public function getAlojamientos(){
-
+        return $this->database->consulta("SELECT * FROM ALOJAMIENTO");
     }
 
-    public function getAlojamientoCon1Habitacion(){
-
+    public function getAlojamientoCon1Habitacion($cant_habitaciones){
+        return $this->database->consulta("SELECT * FROM ALOJAMIENTO WHERE CANT_HABITACIONES = '$cant_habitaciones'");
 }
 
-    public function getAlojamientoCon2Habitaciones(){
-
+    public function getAlojamientoCon2Habitaciones($cant_habitaciones){
+        return $this->database->consulta("SELECT * FROM ALOJAMIENTO WHERE CANT_HABITACIONES = '$cant_habitaciones'");
     }
 
-    public function getAlojamientoCon3Habitaciones(){
-
+    public function getAlojamientoCon3Habitaciones($cant_habitaciones){
+        return $this->database->consulta("SELECT * FROM ALOJAMIENTO WHERE CANT_HABITACIONES = '$cant_habitaciones'");
     }
 
-    public function getAlojamientoCon4Habitaciones(){
-
+    public function getAlojamientoCon4Habitaciones($cant_habitaciones){
+        return $this->database->consulta("SELECT * FROM ALOJAMIENTO WHERE CANT_HABITACIONES = '$cant_habitaciones'");
     }
 
 
