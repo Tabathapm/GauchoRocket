@@ -6,7 +6,7 @@
 
 <div class='mt-0 pb-5'>
     <div class="formularioReserva container">
-        <form action="" method="post">
+        <form action="/GauchoRocket/reservas/generarReserva" method="post">
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
@@ -17,29 +17,17 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <th scope="row">Leandro</th>
-                    <td>Martinez</td>
+                    <th scope="row">{{nombre}}</th>
+                    <td>{{apellido}}</td>
 
-                    <td><select class="form-select" aria-label="Default select example">
+                    <td><select class="form-select" aria-label="Default select example" name="servicio">
                         <option selected>Seleccione</option>
-                        <option value="1">Standard</option>
-                        <option value="2">Gourmet</option>
-                        <option value="3">Spa</option>
+                        {{#servicios}}
+                        <option value="{{id_tipo_servicio}}">{{descripcion_tipo}}</option>
+                        {{/servicios}}
                     </select>
                     </td>
                 </tr>
-                <!--    <tr>-->
-                <!--        <th scope="row">2</th>-->
-                <!--        <td>Jacob</td>-->
-                <!--        <td>Thornton</td>-->
-                <!--        <td>@fat</td>-->
-                <!--    </tr>-->
-                <!--    <tr>-->
-                <!--        <th scope="row">3</th>-->
-                <!--        <td>Larry</td>-->
-                <!--        <td>the Bird</td>-->
-                <!--        <td>@twitter</td>-->
-                <!--    </tr>-->
                 </tbody>
             </table>
 
@@ -51,18 +39,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <td><select class="form-select" aria-label="Default select example">
-                    <option selected>Seleccione tipo de vuelo</option>
-                    <option value="1">Tipo 1</option>
-                    <option value="2">Tipo 2</option>
-                    <option value="3">Tipo 3</option>
-                </select>
+                <td>
+                        {{#tipoVuelo}}
+                        <input type="text" value="{{resultado}}" name="tipoVuelo">
+                        {{/tipoVuelo}}
+              
                 </td>
-                <td><select class="form-select" aria-label="Default select example">
+                <td><select class="form-select" aria-label="Default select example" name="cabina">
                     <option selected>Seleccione cabina</option>
-                    <option value="1">Cabina Familiar</option>
-                    <option value="2">Cabina General</option>
-                    <option value="3">Cabina Suite</option>
+                    {{#cabinas}}
+                        <option value="{{id_cabina}}" >{{tipo}}</option>
+                    {{/cabinas}}
                 </select>
                 </td>
 
@@ -71,8 +58,12 @@
 
            <div class="butacas">
                <table class="table caption-top">
-                   <caption>ASIENTOS DISPONIBLES</caption>
+                    <caption>SELECCIONE SU ASIENTO</caption>
+                    <br>
+                    <span class="badge bg-success">Disponible</span>
+                    <span class="badge bg-danger">Ocupado</span>
                    <thead>
+
                    <tr>
                        <th scope="col">A</th>
                        <th scope="col"><input type="radio" id="a1" name="asiento"> A1
@@ -129,8 +120,8 @@
 
 
             <div class="botones d-flex justify-content-evenly pb-3">
-                <button type="button" class="btn btn-primary btn-lg">RESERVAR</button>
-                <button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
+                <button type="submit" class="btn btn-primary btn-lg">RESERVAR</button>
+                <button type="submit" class="btn btn-secondary btn-lg">Cancelar</button>
             </div>
 
 
