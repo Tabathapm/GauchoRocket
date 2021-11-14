@@ -25,6 +25,10 @@ class TurnoController{
             $data["nombre"] = $_SESSION["nombre"];
         }
 
+        if (isset($_SESSION["apellido"])) {
+            $data["apellido"] = $_SESSION["apellido"];
+        }
+
         if (isset($_SESSION["esAdmin"])) {
             $data["esAdmin"] = $_SESSION["esAdmin"];
         }
@@ -74,30 +78,15 @@ class TurnoController{
         $data['usuario'] = $usuarioEncontrado;
         $data['centroMedico'] = $centroMedicoEncontrado;
 
-        $message ="
-        <div>
-            <div>
-                <span>
-                    <img src='public/images/icon-email.png'>
-                </span>
-                <h1>Gaucho Rocket</h1>
-            </div>
-            <div>
-               <p>
-               Estimada/o ".$nombre.", usted tiene un turno para el
-               Centro Medico: ".$cm." , para el dia ".$data['turno'][0]["fecha"]." a las ".$data['turno'][0]["horario"]." hs.
-               </p>
-            </div>
-        </div> ";
+        $fecha=$data['turno'][0]["fecha"];
+        $hora=$data['turno'][0]["horario"];
 
-        $resultadoEmail = $this->phpMailer->send($emailUsuario, "Turno Solicitado", $message);
+        $resultadoEmail = $this->sendMessageEmail($nombre, $apellido,$emailUsuario, $cm, $fecha, $hora);
 
 //        $this->phpMailer->send("tabathapm@gmail.com", "Turno Solicitado", $message);
 
 
         if($resultado && $resultadoEmail){
-
-           // $this->phpMailer->send("julietabarraza21@gmail.com", "Turno Solicitado", $message);
 
             $data['estado'] = true;
             $resultadoChequeoMedico = rand(10, 60);
@@ -141,6 +130,31 @@ class TurnoController{
             echo $this->render->renderizar("view/resultadoCheckeo.mustache", $data);
         }
     }
+
+
+    public function sendMessageEmail($nombreUsuario, $apelllidoUsuario, $email, $centroMedico, $fecha, $hora){
+
+        $message ="
+        <div>
+            <div>
+                <span>
+                    <img src='public/images/icon-email.png'>
+                </span>
+                <h1>Gaucho Rocket</h1>
+            </div>
+            <div>
+               <p>
+               Estimada/o $nombreUsuario $apelllidoUsuario, usted tiene un turno para el
+               Centro Medico: $centroMedico , para el dia $fecha a las $hora
+               </p>
+            </div>
+        </div> ";
+
+        return $this->phpMailer->send($email, "Turno Solicitado", $message);
+
+    }
+
+
 
 
 }
