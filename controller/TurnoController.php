@@ -89,20 +89,12 @@ class TurnoController{
         if($resultado && $resultadoEmail){
 
             $data['estado'] = true;
-            $resultadoChequeoMedico = rand(10, 60);
 
-            if($resultadoChequeoMedico >= 10 && $resultadoChequeoMedico < 30){
+            $tipo = $this->resultadoCheckeo();
 
-                $data['tipo']="Tipo 1";
+            $data['tipo']=$tipo;
 
-            }else if($resultadoChequeoMedico>=30 && $resultadoChequeoMedico<60){
-
-                $data['tipo']="Tipo 2";
-
-            }else{
-
-                $data['tipo']="Tipo 3";
-            }
+            $this->turnoModel->cargarCheckeo($tipo, $centroMedicoEncontrado[0]["id_centro_medico"], $idTurno);
 
         }else{
              $data['estado'] = false;
@@ -152,6 +144,29 @@ class TurnoController{
 
         return $this->phpMailer->send($email, "Turno Solicitado", $message);
 
+    }
+
+
+    public function resultadoCheckeo(){
+
+         $resultadoChequeoMedico = rand(10, 60);
+
+         $tipo ="";
+
+          if($resultadoChequeoMedico >= 10 && $resultadoChequeoMedico < 30){
+
+                $tipo="Tipo 1";
+
+            }else if($resultadoChequeoMedico>=30 && $resultadoChequeoMedico<60){
+
+                $tipo="Tipo 2";
+
+            }else{
+
+               $tipo="Tipo 3";
+            }
+
+        return $tipo;
     }
 
 

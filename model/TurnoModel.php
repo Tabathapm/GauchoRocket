@@ -50,5 +50,10 @@ class TurnoModel
                                         WHERE id_turno='$idTurno'");
     }
 
+    public function cargarCheckeo($resultado, $centroMedico, $turno){
+        return $this->database->ejecutar("INSERT INTO chequeo_medico(resultado, id_centro_medico, turno)
+                                          VALUES('$resultado','$centroMedico','$turno')");
+    }
+
    
 }
