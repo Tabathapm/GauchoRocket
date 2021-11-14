@@ -100,6 +100,16 @@ class Configuracion{
         return new PHPMailerGmail($email, $pass);
     }
 
+    public static function getPDF(){
+        include_once("helpers/PDF.php");
+        return new PDF();
+    }
+
+    public static function getQR(){
+        include_once("helpers/QR.php");
+        return new QR();
+    }
+
     public function getRouter(){
         include_once("Router.php");
         return new Router($this);
