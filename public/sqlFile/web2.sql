@@ -192,8 +192,12 @@ FROM usuario
 WHERE clave = "202cb962ac59075b964b";
 
 
-INSERT INTO usuario (rol_usuario, clave, email, nombre_usuario, apellido_usuario)
-VALUES('Cliente',123,'lea@gmail.com','Lea','Shaila');
+INSERT INTO usuario (clave, email, nombre_usuario, apellido_usuario)
+VALUES(123,'lea@gmail.com','Lea','Shaila');
+
+INSERT INTO usuario (clave, email, nombre_usuario, apellido_usuario)
+VALUES 
+("202cb962ac59075b964b", 'julietabarraza21@gmail.com', "Rocio", "Rodriguez");
 
 select * from usuario;
 
