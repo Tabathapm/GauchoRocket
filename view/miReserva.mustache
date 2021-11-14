@@ -1,0 +1,12 @@
+
+
+
+
+
+<form method="post" action='/GauchoRocket/reservas/crearPDF'>
+    {{#usuario}}
+    <input type='hidden' name='nombre' value='{{nombre_usuario}}'>
+    <input type='hidden' name='apellido' value='{{apellido_usuario}}'>
+    {{/usuario}}
+    <button type="submit" class="btn btn-success">DESCARGAR COMPROBANTE</button>
+</form>
