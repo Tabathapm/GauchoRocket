@@ -87,10 +87,11 @@ class Configuracion{
     }
 
     public static function getReservaController(){
+        $pdf = self::getPDF();
         $render = self::getRender();
         $reservaModel = self::getReservaModel();
         include_once("controller/ReservaController.php");
-        return new ReservaController($render,$reservaModel);
+        return new ReservaController($render,$reservaModel, $pdf);
     }
 
     public function getPHPMailer(){
