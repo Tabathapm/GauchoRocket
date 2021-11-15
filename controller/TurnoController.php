@@ -57,7 +57,7 @@ class TurnoController{
 
     public function crearTurno(){
 
-        $usuario=1;
+        $usuario=4;
 //        $usuario = $_SESSION["id"];
         $nombre = $_SESSION["nombre"];
         $apellido = $_SESSION["apellido"];

@@ -46,8 +46,8 @@ class ReservaController{
 //
 //
 //        }
-<<<<<<< HEAD
-=======
+
+
 
 
 
@@ -103,7 +103,7 @@ class ReservaController{
         $nombre=$datosVuelo[0]['nombre'];
         $apellido=$datosVuelo[0]['apellido'];
         $horarioReserva=$datosVuelo[0]['horaReserva'];
->>>>>>> 197a8be4fabfa3ee9f2b1898c8d0b9d7cbf80f6b
+
 
         $message ="
          <div>
@@ -122,7 +122,7 @@ class ReservaController{
 
          $data['pdf']=$this->pdf->createPDF($message,'reserva');
 
-<<<<<<< HEAD
+
 //        $data = array();
 //
 //        if (isset($_SESSION["logueado"])) {
@@ -153,7 +153,7 @@ class ReservaController{
         else{
             header("Location: /GauchoRocket/login");
         }
-=======
+
          echo $this->render->renderizar("view/pdf.mustache", $data);
      }
 
@@ -178,7 +178,7 @@ class ReservaController{
 
 
         echo $this->render->renderizar("view/miReserva.mustache");
->>>>>>> 197a8be4fabfa3ee9f2b1898c8d0b9d7cbf80f6b
+
     }
 
 

@@ -6,7 +6,7 @@ class ViajeController{
     private $viajeModel;
     private $phpMailer;
 
-    public function __construct(\Render $render, \ViajeModel $viajeModel, \PHPMailerGmail $phpMailer){
+    public function __construct(\Render $render, \HomeModel $viajeModel, \PHPMailerGmail $phpMailer){
         $this->render = $render;
         $this->viajeModel = $viajeModel;
         $this->phpMailer = $phpMailer;

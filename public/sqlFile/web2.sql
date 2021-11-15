@@ -55,16 +55,15 @@ create table viaje(id_viaje integer AUTO_INCREMENT,
 					f_partida date,
 					duracion double,
 					primary key(id_viaje));       
-<<<<<<< HEAD
+
                     
 insert into viaje(tipo,f_partida,duracion)
-values('orbital','2021-11-09',30.00);                    
+values('orbital','2021-11-09',30.00);     
+select * from viaje;               
                   
                     
                     
-=======
-         
->>>>>>> 197a8be4fabfa3ee9f2b1898c8d0b9d7cbf80f6b
+
 create table pasaje(id_pasaje integer AUTO_INCREMENT,
 					tarifa double,
                     cant_dias_en_espacio integer,
@@ -134,19 +133,21 @@ create table vuelo(id_vuelo integer AUTO_INCREMENT,
                     id_nivel_vuelo integer,
                     id_viaje integer,
                     id_asiento integer,
+                    vuelo_origen varchar(40),
+                    vuelo_destino varchar(40),
                     primary key(id_vuelo),
                     foreign key(id_cabina) references cabina(id_cabina),
                     foreign key(id_asiento) references asiento(id_asiento),
                     foreign key(id_nivel_vuelo) references nivel_vuelo(id_nivel_vuelo),
                     foreign key(id_viaje) references viaje(id_viaje));
                     
-insert into vuelo(duracion,capacidad_vuelo,id_cabina,id_nivel_vuelo,id_viaje)
-values(30.00,300,1,1,1),
-	  (30.00,300,2,2,1),
-      (30.00,300,3,3,1),
-      (26.00,120,1,1,101),
-      (26.00,120,2,2,101),
-      (26.00,120,3,3,101); 
+insert into vuelo(duracion,capacidad_vuelo,id_cabina,id_nivel_vuelo,id_viaje,vuelo_origen,vuelo_destino)
+values(30.00,300,1,1,1,'Buenos Aires','Luna'),
+	  (30.00,300,2,2,1,'Buenos Aires','Marte'),
+      (30.00,300,3,3,1,'Ankara','Europa'),
+      (26.00,120,1,1,1,'Ankara','Titan'),
+      (26.00,120,2,2,1,'Buenos Aires','OrtibelHotel'),
+      (26.00,120,3,3,1,'Ankara','Ganimedes'); 
       
       
                     
@@ -198,8 +199,11 @@ VALUES
 ('ADMIN', "202cb962ac59075b964b", 'admin2@admin.com', "Leandro", "Martinez"),
 ('ADMIN', "202cb962ac59075b964b", 'admin3@admin.com', "Tabatha", "Peralta");
 
-INSERT INTO usuario (clave, email, nombre_usuario, apellido_usuario)
-VALUES(123,'lea@gmail.com','Lea','Shaila');
+insert into usuario(clave,email,nombre_usuario,apellido_usuario)
+values("202cb962ac59075b964b",'warhead.soad@gmail.com',"Lea","Shaila");
+
+
+
 
 INSERT INTO usuario (clave, email, nombre_usuario, apellido_usuario)
 VALUES 
@@ -331,7 +335,7 @@ WHERE t.usuario =1;
        
 select * from vuelo;
 
-<<<<<<< HEAD
+
 create table alojamiento(id_alojamiento integer AUTO_INCREMENT,
 							cant_habitaciones integer,
                             id_destino integer,
@@ -421,14 +425,26 @@ select * from alojamiento
 where cant_habitaciones = 4;
 
 select * from tour;
-
+select * from equipo;
 
 select * from viaje;
 select * from vuelo;
 
 insert into vuela_hacia(id_vuelo,id_destino)
-values()
+values();
   
-=======
+
 select * from chequeo_medico;
->>>>>>> 197a8be4fabfa3ee9f2b1898c8d0b9d7cbf80f6b
+
+select * from usuario;
+
+select * from viaje;
+
+SELECT vuelo_origen from vuelo;
+
+
+select * from vuelo;
+select * from destino;
+
+select * from vuelo
+inner join viaje on vuelo.id_viaje = viaje.id_viaje;

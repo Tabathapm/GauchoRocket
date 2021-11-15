@@ -79,28 +79,29 @@
     <article class="d-flex justify-content-center d-flex flex-column pb-5">
         <h3 class="m-auto text-dark mt-4 mb-3" id="viajes">Viajes</h3>
         <div class="d-flex justify-content-center d-flex flex-column mt-4 botones">
-            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" style="background: #C5CCD9">
+            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" action="/GauchoRocket/reserva" style="background: #C5CCD9">
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-street-view me-3" style="font-size: 30px"></i>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" name="origen">
                         <option selected>Origen</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {{#vuelos}}
+                        <option value="{{id_vuelo}}">{{vuelo_origen}}</option>
+                            {{/vuelos}}
+
                     </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-map-marker-alt me-3" style="font-size: 30px"></i>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" name="destino">
                         <option selected>Destino</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {{#vuelos}}
+                        <option value="{{id_vuelo}}">{{vuelo_destino}}</option>
+                        {{/vuelos}}
                     </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-map-marked-alt me-3" style="font-size: 30px"></i>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" name="tipoViaje">
                         <option selected>Tipo de Viaje</option>
                         <option value="1">Suborbital</option>
                         <option value="2">Orbital</option>
@@ -108,7 +109,7 @@
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-calendar-alt me-3" style="font-size: 30px"></i>
-                    <input type="date" class="form-control text-center">
+                    <input type="date" class="form-control text-center" name="fecha">
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <button type="submit" class="btn buscar-a" style="background: #555973;color: #fff">BUSCAR</button>

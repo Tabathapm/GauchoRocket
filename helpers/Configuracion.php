@@ -62,8 +62,10 @@ class Configuracion{
 
     public static function getHomeController(){
         $render = self::getRender();
+        $homeModel = self::getHomeModel();
         include_once("controller/HomeController.php");
-        return new HomeController($render);
+        return new HomeController($render,$homeModel);
+
     }
     public static function getRegistrarseController(){
         $render = self::getRender();
@@ -96,7 +98,7 @@ class Configuracion{
     }
 
 
-    public function getPHPMailer(){
+    public static function getPHPMailer(){
         include_once("helpers/PHPMailerGmail.php");
         $email="gauchorocketsa@gmail.com";
         $pass="!:D!:)#2021pW2#TPLMJB!:)0f1g5d9g8e7m1";
@@ -138,10 +140,10 @@ class Configuracion{
         return new AlojamientoController($render,$alojamientoModel);
     }
 
-    public static function getViajeModel(){
+    public static function getHomeModel(){
         $database = self::getDatabase();
-        include_once ("model/ViajeModel.php");
-        return new ViajeModel($database);
+        include_once("model/HomeModel.php");
+        return new HomeModel($database);
     }
 
     public static function getViajeController(){

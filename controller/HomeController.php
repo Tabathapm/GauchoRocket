@@ -3,13 +3,16 @@
 class HomeController{
 
     private $render;
-
-    public function __construct(\Render $render){
+    private $homeModel;
+    public function __construct(\Render $render, \HomeModel $homeModel){
         $this->render = $render;
+        $this->homeModel= $homeModel;
     }
 
     public function execute(){
         $data = array();
+        $data['vuelos'] = $this->homeModel->getVuelos();
+
 
         if (isset($_SESSION["logueado"])) {
             $data["logueado"] = $_SESSION["logueado"];
@@ -33,4 +36,22 @@ class HomeController{
             echo $this->render->renderizar("view/gauchoRocket.mustache");
         }
     }
+
+    public function obtenerViaje(){
+        $origen = $_POST['origen'];
+        $destino = $_POST['destino'];
+        $fecha = $_POST['fecha'];
+        $tipoViaje = $_POST['tipoViaje'];
+
+        $data['origen'] = $origen;
+        $data['destino'] = $destino;
+        $data['fecha'] = $fecha;
+        $data['tipoViaje'] = $tipoViaje;
+
+
+    }
+
+
+
+
 }
