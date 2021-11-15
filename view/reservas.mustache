@@ -21,7 +21,7 @@
                     <td>{{apellido}}</td>
 
                     <td><select class="form-select" aria-label="Default select example" name="servicio">
-                        <option selected>Seleccione</option>
+                        <option selected disabled> Seleccione</option>
                         {{#servicios}}
                         <option value="{{id_tipo_servicio}}">{{descripcion_tipo}}</option>
                         {{/servicios}}
@@ -126,8 +126,15 @@
 
 
         </form>
+
+<!--        <form action="/GauchoRocket/reserva/crearQr" method="post">-->
+<!--            <input type="hidden" value="QRRRRR" name="qr">-->
+<!--            <button type="submit">QR</button></form>-->
+
     </div>
 </div>
+
+
 
 
 

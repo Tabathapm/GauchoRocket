@@ -93,8 +93,9 @@ class Configuracion{
         $pdf = self::getPDF();
         $render = self::getRender();
         $reservaModel = self::getReservaModel();
+        $qr = self::getQR();
         include_once("controller/ReservaController.php");
-        return new ReservaController($render,$reservaModel, $pdf);
+        return new ReservaController($render,$reservaModel, $pdf,$qr);
     }
 
 
@@ -109,6 +110,7 @@ class Configuracion{
         include_once("helpers/PDF.php");
         return new PDF();
     }
+
 
     public static function getQR(){
         include_once("helpers/QR.php");
