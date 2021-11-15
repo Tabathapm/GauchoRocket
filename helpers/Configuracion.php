@@ -88,10 +88,11 @@ class Configuracion{
     }
 
     public static function getReservaController(){
+        $pdf = self::getPDF();
         $render = self::getRender();
         $reservaModel = self::getReservaModel();
         include_once("controller/ReservaController.php");
-        return new ReservaController($render,$reservaModel);
+        return new ReservaController($render,$reservaModel, $pdf);
     }
 
 
@@ -100,6 +101,16 @@ class Configuracion{
         $email="gauchorocketsa@gmail.com";
         $pass="!:D!:)#2021pW2#TPLMJB!:)0f1g5d9g8e7m1";
         return new PHPMailerGmail($email, $pass);
+    }
+
+    public static function getPDF(){
+        include_once("helpers/PDF.php");
+        return new PDF();
+    }
+
+    public static function getQR(){
+        include_once("helpers/QR.php");
+        return new QR();
     }
 
     public function getRouter(){
