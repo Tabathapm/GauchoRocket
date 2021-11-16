@@ -14,7 +14,8 @@ class LoginController{
         $data = array();
 
         if (isset($_SESSION["errorLogin"]) && $_SESSION["errorLogin"] == 1) {
-            $data["MensajeErrorLogin"] = "E-Mail o contraseña incorrecta";
+            $data["MensajeErrorLogin"] = "E-Mail o contraseña incorrecta.";
+            $data["MensajeErrorLogin2"] ="Asegúrese de validar la cuanta a través del link por email.";
             unset($_SESSION["errorLogin"]);
         }
 

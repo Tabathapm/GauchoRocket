@@ -12,12 +12,12 @@ class UsuarioModel
 
     public function getUsuarioByEmailPassword($email,$password){
 //        return $this->database->consulta("SELECT * FROM usuario WHERE email = '$email' and clave = '$password'");
-        return $this->database->consulta("SELECT md5('$password'), email, rol_usuario, nombre_usuario FROM usuario WHERE email = '$email'");
+        return $this->database->consulta("SELECT md5('$password'), email, rol_usuario, nombre_usuario FROM usuario WHERE email = '$email' AND activo = 1");
     }
 
-    public function registrarUsuario($nombre, $apellido, $email, $password){
-        return $this->database->ejecutar("INSERT INTO usuario(nombre_usuario, apellido_usuario, email, clave) 
-                                              VALUES ('$nombre', '$apellido', '$email', '$password')");
+    public function registrarUsuario($nombre, $apellido, $email, $password, $hash){
+        return $this->database->ejecutar("INSERT INTO usuario(nombre_usuario, apellido_usuario, email, clave, hash) 
+                                              VALUES ('$nombre', '$apellido', '$email', '$password', '$hash')");
     }
 
     public function getUsuarioSiExisteMail($email){
@@ -26,5 +26,13 @@ class UsuarioModel
 
     public function getNombre($email){
         return $this->database->consulta("SELECT nombre_usuario FROM usuario WHERE email = '$email'");
+    }
+
+    public function buscar($email, $hash){
+        return $this->database->consulta("SELECT email, hash, activo FROM usuario WHERE email = '$email' AND hash = '$hash' AND activo = 0");
+    }
+
+    public function activar($email, $hash){
+        return $this->database->update("UPDATE usuario SET activo = 1 WHERE email= '$email' AND hash = '$hash' AND activo = 0");
     }
 }

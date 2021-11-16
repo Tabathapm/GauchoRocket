@@ -17,6 +17,8 @@ create table usuario(id_usuario integer AUTO_INCREMENT ,
 					apellido_usuario varchar(30),
                     clave varchar(20),
                     email varchar(40),
+                    hash varchar(32) NOT NULL,
+                    activo integer(1) NOT NULL DEFAULT '0',
                     id_tarjeta integer,
                     primary key(id_usuario),
                     foreign key(id_tarjeta) references tarjeta_de_credito(id_tarjeta));                           
@@ -40,16 +42,7 @@ create table turno( id_turno integer AUTO_INCREMENT,
 							foreign key(turno) references turno(id_turno),
 							foreign key(id_centro_medico) references centro_medico(id_centro_medico));                          
                            
-						
-/*create table se_realiza_en(id_chequeo integer,
-						   id_centro_medico integer,
-                           primary key(id_chequeo,id_centro_medico),
-                           foreign key(id_chequeo) references chequeo_medico(id_chequeo),
-                           foreign key(id_centro_medico) references centro_medico(id_centro_medico));*/
-                           
-                           
- 
-			
+
 create table viaje(id_viaje integer AUTO_INCREMENT,
 					tipo varchar(20),
 					f_partida date,
@@ -59,11 +52,7 @@ create table viaje(id_viaje integer AUTO_INCREMENT,
                     
 insert into viaje(tipo,f_partida,duracion)
 values('orbital','2021-11-09',30.00);     
-select * from viaje;               
-                  
-                    
-                    
-
+               
 create table pasaje(id_pasaje integer AUTO_INCREMENT,
 					tarifa double,
                     cant_dias_en_espacio integer,
@@ -85,7 +74,6 @@ insert into nivel_vuelo(num_nivel)
 values(1),
       (2),
       (3);
-      select * from nivel_vuelo;
                             
 create table contiene_un(id_cliente integer, 
                          id_equipo varchar(40),
@@ -98,11 +86,11 @@ create table cabina(id_cabina integer AUTO_INCREMENT,
 					tipo varchar(20),
 					primary key(id_cabina));
                     
-   insert into cabina(tipo)
-   values('General'),
-         ('Familiar'),
-         ('Suite');
-                    select * from cabina;
+insert into cabina(tipo)
+values('General'),
+	  ('Familiar'),
+      ('Suite');
+
 create table escala(id_escala integer AUTO_INCREMENT,
 					primary key(id_escala));
                     
@@ -141,16 +129,7 @@ create table vuelo(id_vuelo integer AUTO_INCREMENT,
                     foreign key(id_nivel_vuelo) references nivel_vuelo(id_nivel_vuelo),
                     foreign key(id_viaje) references viaje(id_viaje));
                     
-insert into vuelo(duracion,capacidad_vuelo,id_cabina,id_nivel_vuelo,id_viaje,vuelo_origen,vuelo_destino)
-values(30.00,300,1,1,1,'Buenos Aires','Luna'),
-	  (30.00,300,2,2,1,'Buenos Aires','Marte'),
-      (30.00,300,3,3,1,'Ankara','Europa'),
-      (26.00,120,1,1,1,'Ankara','Titan'),
-      (26.00,120,2,2,1,'Buenos Aires','OrtibelHotel'),
-      (26.00,120,3,3,1,'Ankara','Ganimedes'); 
-      
-      
-                    
+
 create table vuela_hacia(id_vuelo integer ,
 						 id_destino integer,
                          primary key(id_vuelo,id_destino),
@@ -191,19 +170,24 @@ create table contiene_una(id_reserva integer,
                             id_destino integer,
                             primary key(id_alojamiento),
                             foreign key(id_destino) references destino(id_destino));
+                            
  -- INSERT
- 
-INSERT INTO usuario (rol_usuario, clave, email, nombre_usuario, apellido_usuario)
+insert into vuelo(duracion,capacidad_vuelo,id_cabina,id_nivel_vuelo,id_viaje,vuelo_origen,vuelo_destino)
+values(30.00,300,1,1,1,'Buenos Aires','Luna'),
+	  (30.00,300,2,2,1,'Buenos Aires','Marte'),
+      (30.00,300,3,3,1,'Ankara','Europa'),
+      (26.00,120,1,1,1,'Ankara','Titan'),
+      (26.00,120,2,2,1,'Buenos Aires','OrtibelHotel'),
+      (26.00,120,3,3,1,'Ankara','Ganimedes'); 
+      
+INSERT INTO usuario (rol_usuario, clave, email, nombre_usuario, apellido_usuario, activo)
 VALUES 
-('ADMIN', "202cb962ac59075b964b", 'admin1@admin.com', "Julieta", "Barraza"),
-('ADMIN', "202cb962ac59075b964b", 'admin2@admin.com', "Leandro", "Martinez"),
-('ADMIN', "202cb962ac59075b964b", 'admin3@admin.com', "Tabatha", "Peralta");
+('ADMIN', "202cb962ac59075b964b", 'admin1@admin.com', "Julieta", "Barraza", 1),
+('ADMIN', "202cb962ac59075b964b", 'admin2@admin.com', "Leandro", "Martinez", 1),
+('ADMIN', "202cb962ac59075b964b", 'admin3@admin.com', "Tabatha", "Peralta", 1);
 
 insert into usuario(clave,email,nombre_usuario,apellido_usuario)
 values("202cb962ac59075b964b",'warhead.soad@gmail.com',"Lea","Shaila");
-
-
-
 
 INSERT INTO usuario (clave, email, nombre_usuario, apellido_usuario)
 VALUES 
@@ -220,7 +204,7 @@ VALUES
 (300,1, null, '2021/11/10','14:30',true),
 (300,1, null, '2021/11/11','15:30',true),
 (300,1, null, '2021/11/12','16:30',true),
-(210,2,null,'2021/11/10','14:15',true),
+(210,2, null,'2021/11/10','14:15',true),
 (210,2, null, '2021/11/11','15:15',true),
 (210,2, null, '2021/11/12','16:15',true),
 (200,3, null,'2021/11/10','14:00',true),
@@ -298,52 +282,6 @@ values
 ('D','D21', true),
 ('D','D22', true);
 
-/*insert into vuelo(duracion, capacidad_vuelo, id_cabina, id_nivel_vuelo, id_viaje, id_asiento)
-values
-();*/
-
--- CONSULTAS
-
-SELECT * 
-FROM usuario;
-
-delete from usuario
-where id_usuario is null;
-
-SELECT *
-FROM usuario
-WHERE clave = 123;
-
-SELECT md5(123), email
-FROM usuario;
-
-SELECT nombre_usuario
-FROM usuario
-WHERE clave = "202cb962ac59075b964b";
-
-select * from usuario;
-
-select * from reserva;
-
-select * from viaje;
-select * from turno;
-
-SELECT resultado FROM chequeo_medico cm
-INNER JOIN turno t
-ON cm.turno= t.id_turno
-WHERE t.usuario =1;
-       
-select * from vuelo;
-
-
-create table alojamiento(id_alojamiento integer AUTO_INCREMENT,
-							cant_habitaciones integer,
-                            id_destino integer,
-                            primary key(id_alojamiento),
-                            foreign key(id_destino) references destino(id_destino));
-                            
-                            
-                
 INSERT INTO equipo(id_equipo,tipo)
 values('AA1','Aguila'),
       ('AA5','Aguila'),
@@ -391,24 +329,57 @@ values('AA1','Aguila'),
       ('BA2','Zorzal'),
       ('BA3','Zorzal');
       
-      select * from equipo;
-      
-	insert into tour(id_equipo)
-    values('AA1');
-    
-   insert into escala()
-   values();
-   
-select * from escala;
+-- CONSULTAS
 
-  insert into destino(descripcion,id_escala,id_tour)
-   values('Luna',1,1);
+/*SELECT * 
+FROM usuario;
+
+delete from usuario
+where id_usuario is null;
+
+SELECT *
+FROM usuario
+WHERE clave = 123;
+
+SELECT md5(123), email
+FROM usuario;
+
+SELECT nombre_usuario
+FROM usuario
+WHERE clave = "202cb962ac59075b964b";
+
+select * from usuario;
+
+select * from reserva;
+
+select * from viaje;
+select * from turno;
+
+SELECT resultado FROM chequeo_medico cm
+INNER JOIN turno t
+ON cm.turno= t.id_turno
+WHERE t.usuario =1;
+       
+select * from vuelo; */
+            
+-- select * from equipo;
+      
+insert into tour(id_equipo)
+values('AA1');
+    
+insert into escala()
+values();
+   
+/*select * from escala; */
+
+insert into destino(descripcion,id_escala,id_tour)
+values('Luna',1,1);
    
   
-  insert into alojamiento(cant_habitaciones,id_destino)
-  values(4,1);
+insert into alojamiento(cant_habitaciones,id_destino)
+values(4,1);
   
-  select * from alojamiento;
+  /*select * from alojamiento;
   
   select * 
   from equipo
@@ -428,17 +399,16 @@ select * from tour;
 select * from equipo;
 
 select * from viaje;
-select * from vuelo;
+select * from vuelo;*/
 
-insert into vuela_hacia(id_vuelo,id_destino)
-values();
+/*insert into vuela_hacia(id_vuelo,id_destino)
+values(); */
   
-
-select * from chequeo_medico;
+/*select * from chequeo_medico;*/
 
 select * from usuario;
 
-select * from viaje;
+/*select * from viaje;
 
 SELECT vuelo_origen from vuelo;
 
@@ -447,4 +417,5 @@ select * from vuelo;
 select * from destino;
 
 select * from vuelo
-inner join viaje on vuelo.id_viaje = viaje.id_viaje;
+inner join viaje on vuelo.id_viaje = viaje.id_viaje; */
+

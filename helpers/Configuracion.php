@@ -70,8 +70,16 @@ class Configuracion{
     public static function getRegistrarseController(){
         $render = self::getRender();
         $usuarioModel = self::getUsuarioModel();
+        $phpMailer= self::getPHPMailer();
         include_once("controller/RegistrarseController.php");
-        return new RegistrarseController($render,$usuarioModel);
+        return new RegistrarseController($render,$usuarioModel, $phpMailer);
+    }
+
+    public static function getValidacionController(){
+        $render = self::getRender();
+        $usuarioModel = self::getUsuarioModel();
+        include_once("controller/ValidacionController.php");
+        return new ValidacionController($render, $usuarioModel);
     }
 
     public static function getCentroMedicoController(){
@@ -111,7 +119,6 @@ class Configuracion{
         return new PDF();
     }
 
-
     public static function getQR(){
         include_once("helpers/QR.php");
         return new QR();
@@ -126,8 +133,6 @@ class Configuracion{
         include_once("helpers/UrlHelper.php");
         return new UrlHelper();
     }
-
-
 
     public static function getAlojamientoModel(){
         $database = self::getDatabase();

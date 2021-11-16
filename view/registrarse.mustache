@@ -53,18 +53,50 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-6" >
-                                <button class="btn btn-danger w-100" href="/GauchoRocket/" role="button">Cancelar</button>
-                            </div>
+                                <a class="btn btn-danger w-100" tabindex="-1" role="button" href="/GauchoRocket/">Cancelar</a>                            </div>
 
                             <div class="col-sm-6" >
                                 <button class="btn btn-primary w-100" href="index.php" name="registro" role="button">Registrarme!</button>
                             </div>
-                            <p class="w3-text-green w3-center">{{registroCorrecto}}</p>
-                            <p class="w3-text-red w3-center">{{emailExistente}}</p>
-                            <p class="w3-text-red w3-center">{{clavesIncorrectas}}</p>
-
                         </div>
                     </form>
+
+                    {{#registroIncorrecto}}
+                        <div class='alert alert-danger text-center container mt-4 ' role='alert'>
+                            <h4 class="d-flex justify-content-center">
+                                <i class='fas fa-times-circle me-3'></i>
+                                <p class="w3-text-green w3-center mt-2">{{registroIncorrecto}}</p>
+                            </h4>
+                        </div>
+                    {{/registroIncorrecto}}
+
+                    {{#emailExistente}}
+                        <div class='alert alert-danger text-center container mt-4 ' role='alert'>
+                            <h4 class="d-flex justify-content-center">
+                                <i class='fas fa-times-circle me-3'></i>
+                                <p class="w3-text-red w3-center mt-2">{{emailExistente}}</p>
+                            </h4>
+                        </div>
+                    {{/emailExistente}}
+
+                    {{#clavesIncorrectas}}
+                        <div class='alert alert-danger text-center container mt-4 ' role='alert'>
+                            <h4 class="d-flex justify-content-center">
+                                <i class='fas fa-times-circle me-3'></i>
+                                <p class="w3-text-red w3-center mt-2">{{clavesIncorrectas}}</p>
+                            </h4>
+                        </div>
+                    {{/clavesIncorrectas}}
+
+                    {{#mensaje}}
+                        <div class="alert alert-success text-center container mt-4" role="alert">
+                            <h4 class="d-flex justify-content-center">
+                                <i class="fas fa-check-circle me-3"></i>
+                                <p class="w3-text-red w3-center mt-2">{{mensaje}}</p>
+                            </h4>
+                        </div>
+                    {{/mensaje}}
+
                 </div>
             </div>
         </div>
