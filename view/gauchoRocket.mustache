@@ -118,11 +118,21 @@ i__p__ /  |  ##############  | | ####### |__l___xp____| ooooo |      |~~~~|
             <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" style="background: #C5CCD9">
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-street-view me-3" style="font-size: 30px"></i>
-                    <input type="text" class="form-control bg bg-light rounded text-center" id="staticEmail2" placeholder="Origen" style="outline: 0">
+                    <select class="form-select" aria-label="Default select example" name="origen">
+                        <option selected disabled>Origen</option>
+                        {{#vuelos}}
+                            <option value="{{id_vuelo}}">{{vuelo_origen}}</option>
+                        {{/vuelos}}
+                    </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-map-signs me-3" style="font-size: 30px"></i>
-                    <input type="text" class="form-control text-center" placeholder="Destino">
+                    <select class="form-select" aria-label="Default select example" name="destino">
+                        <option selected disabled>Destino</option>
+                        {{#vuelos}}
+                            <option value="{{id_vuelo}}">{{vuelo_destino}}</option>
+                        {{/vuelos}}
+                    </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-map-marked-alt me-3" style="font-size: 30px"></i>

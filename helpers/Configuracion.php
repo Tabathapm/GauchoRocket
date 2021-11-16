@@ -19,8 +19,9 @@ class Configuracion{
     }
     public static function getGauchoRocketController(){
         $render = self:: getRender();
+        $model = self::getHomeModel();
         include_once ("controller/GauchoRocketController.php");
-        return new GauchoRocketController($render);
+        return new GauchoRocketController($render, $model);
     }
 
     public static function getUsuarioModel(){
