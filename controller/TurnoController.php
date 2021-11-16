@@ -57,8 +57,7 @@ class TurnoController{
 
     public function crearTurno(){
 
-        $usuario=4;
-//        $usuario = $_SESSION["id"];
+        $usuario = $_SESSION["id"];
         $nombre = $_SESSION["nombre"];
         $apellido = $_SESSION["apellido"];
 
@@ -83,9 +82,6 @@ class TurnoController{
 
         $resultadoEmail = $this->sendMessageEmail($nombre, $apellido,$emailUsuario, $cm, $fecha, $hora);
 
-//        $this->phpMailer->send("tabathapm@gmail.com", "Turno Solicitado", $message);
-
-
         if($resultado && $resultadoEmail){
 
             $data['estado'] = true;
@@ -99,8 +95,6 @@ class TurnoController{
         }else{
              $data['estado'] = false;
         }
-
-
 
         if (isset($_SESSION["logueado"])) {
             $data["logueado"] = $_SESSION["logueado"];
@@ -123,7 +117,6 @@ class TurnoController{
         }
     }
 
-
     public function sendMessageEmail($nombreUsuario, $apelllidoUsuario, $email, $centroMedico, $fecha, $hora){
 
         $message ="
@@ -145,7 +138,6 @@ class TurnoController{
         return $this->phpMailer->send($email, "Turno Solicitado", $message);
 
     }
-
 
     public function resultadoCheckeo(){
 

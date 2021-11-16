@@ -11,8 +11,9 @@ class UsuarioModel
 //  SE TIRAN TODAS LAS CONSULTAS QUE PODEMOS HACER DESDE LA BASE DE DATOS
 
     public function getUsuarioByEmailPassword($email,$password){
-//        return $this->database->consulta("SELECT * FROM usuario WHERE email = '$email' and clave = '$password'");
-        return $this->database->consulta("SELECT md5('$password'), email, rol_usuario, nombre_usuario FROM usuario WHERE email = '$email' AND activo = 1");
+        return $this->database->consulta("SELECT md5('$password'), email, rol_usuario, nombre_usuario, id_usuario, apellido_usuario 
+                                              FROM usuario 
+                                              WHERE email = '$email' AND activo = 1");
     }
 
     public function registrarUsuario($nombre, $apellido, $email, $password, $hash){

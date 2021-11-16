@@ -36,8 +36,6 @@ class CentroMedicoController{
             echo $this->render->renderizar("view/centroMedico.mustache", $data);
         }
 
-//        echo $this->render->renderizar("view/centroMedico.mustache",$data);
-
     }
 
 }
