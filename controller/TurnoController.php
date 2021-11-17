@@ -80,17 +80,18 @@ class TurnoController{
         $fecha=$data['turno'][0]["fecha"];
         $hora=$data['turno'][0]["horario"];
 
-        $resultadoEmail = $this->sendMessageEmail($nombre, $apellido,$emailUsuario, $cm, $fecha, $hora);
+        if($resultado){
 
-        if($resultado && $resultadoEmail){
+            if($this->sendMessageEmail($nombre, $apellido,$emailUsuario, $cm, $fecha, $hora)){
 
-            $data['estado'] = true;
+                $data['estado'] = true;
 
-            $tipo = $this->resultadoCheckeo();
+                $tipo = $this->resultadoCheckeo();
 
-            $data['tipo']=$tipo;
+                $data['tipo']=$tipo;
 
-            $this->turnoModel->cargarCheckeo($tipo, $centroMedicoEncontrado[0]["id_centro_medico"], $idTurno);
+                $this->turnoModel->cargarCheckeo($tipo, $centroMedicoEncontrado[0]["id_centro_medico"], $idTurno);
+            }
 
         }else{
              $data['estado'] = false;
