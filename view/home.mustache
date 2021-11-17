@@ -1,12 +1,20 @@
 {{> header}}
 {{> navbar}}
 
-<section class="container-fluid w-100 d-flex justify-content-center align-items-center home">
+<section class="container-fluid w-100 d-flex justify-content-center align-items-center home" id="chequeo">
     <article class="d-flex justify-content-center d-flex flex-column">
         <h1 class="m-auto text-light mb-3" style="">Mundo Turismo Espacial</h1>
         <h5 class="m-auto text-light mb-3">Viaja con nosotros y vivi una gran experiencia</h5>
-        <div class="d-flex justify-content-center d-flex flex-row mt-4 botones">
+        <div class="d-flex justify-content-center d-flex flex-row mt-4 bchequeoones">
+            {{#solicitoTurno}}
             <a href="#alojamiento" class="btn registrate" style="background: #555973;color: #fff">COMENZAR BUSQUEDA DESTINO</a>
+            {{/solicitoTurno}}
+            {{^solicitoTurno}}
+            <a href="/GauchoRocket/centroMedico" id="chequeo" class="btn registrate" style="background: #555973;color: #fff">
+              REALIZAR CHEQUEO MEDICO                 
+            </a> 
+           {{/solicitoTurno}}
+
         </div>
     </article>
 </section>
@@ -127,7 +135,12 @@
                             <span class=""><strong>Horario:</strong> 10:00 AM</span>
                             <br>
                             <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
-                        <a href="/GauchoRocket/reserva" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                        {{#solicitoTurno}}
+                        <a href="/GauchoRocket/reserva/" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                        {{/solicitoTurno}}
+                        {{^solicitoTurno}}
+                        <a href="#chequeo" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                        {{/solicitoTurno}}
                     </div>
                 </div>
 
@@ -141,7 +154,12 @@
                             <span class=""><strong>Horario:</strong> 10:00 AM</span>
                             <br>
                             <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
+                        {{#solicitoTurno}}
                         <a href="/GauchoRocket/reserva/" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                        {{/solicitoTurno}}
+                        {{^solicitoTurno}}
+                        <a href="#chequeo" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                        {{/solicitoTurno}}
                     </div>
                 </div>
 
@@ -155,7 +173,12 @@
                             <span class=""><strong>Horario:</strong> 10:00 AM</span>
                             <br>
                             <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
+                        {{#solicitoTurno}}
                         <a href="/GauchoRocket/reserva/" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                        {{/solicitoTurno}}
+                        {{^solicitoTurno}}
+                        <a href="#chequeo" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                        {{/solicitoTurno}}
                     </div>
                 </div>
 
@@ -169,7 +192,12 @@
                             <span class=""><strong>Horario:</strong> 10:00 AM</span>
                             <br>
                             <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
+                        {{#solicitoTurno}}
                         <a href="/GauchoRocket/reserva/" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                        {{/solicitoTurno}}
+                        {{^solicitoTurno}}
+                        <a href="#chequeo" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                        {{/solicitoTurno}}
                     </div>
                 </div>
             </div>
