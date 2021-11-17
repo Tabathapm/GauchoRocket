@@ -22,6 +22,20 @@ class HomeController{
             $data["nombre"] = $_SESSION["nombre"];
         }
 
+        if (isset($_SESSION["id"])) {
+            $data["id"] = $_SESSION["id"];
+        }
+
+    
+        if($this->homeModel->usuarioConTurno($_SESSION["id"])){
+
+            $data['solicitoTurno']=true;
+
+        }else{
+
+             $data['solicitoTurno']=false;
+        }
+
         if (isset($_SESSION["esAdmin"])) {
             $data["esAdmin"] = $_SESSION["esAdmin"];
         }
@@ -51,7 +65,5 @@ class HomeController{
 
     }
 
-
-
-
+    
 }

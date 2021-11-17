@@ -24,6 +24,15 @@ class HomeModel{
     }
 
 
+    public function usuarioConTurno($id){
+
+        return $this->database->consulta("SELECT id_usuario FROM usuario u
+                                          INNER JOIN turno t
+                                          ON u.id_usuario = t.usuario
+                                          WHERE t.usuario='$id'");
+    }
+
+
 
 
 
