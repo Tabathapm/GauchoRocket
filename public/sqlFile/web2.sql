@@ -1,7 +1,7 @@
 create database web2;
 use web2;
 
--- TABLAS
+-- TABLAS----------------------------------------------------------------------------------
 create table tarjeta_de_credito(id_tarjeta integer,
 							    nom_tarjeta varchar(40),
                                 primary key (id_tarjeta));
@@ -49,10 +49,6 @@ create table viaje(id_viaje integer AUTO_INCREMENT,
 					duracion double,
 					primary key(id_viaje));       
 
-                    
-insert into viaje(tipo,f_partida,duracion)
-values('orbital','2021-11-09',30.00);     
-               
 create table pasaje(id_pasaje integer AUTO_INCREMENT,
 					tarifa double,
                     cant_dias_en_espacio integer,
@@ -69,12 +65,7 @@ create table equipo(id_equipo varchar(40),
 create table nivel_vuelo(id_nivel_vuelo integer AUTO_INCREMENT,
 							num_nivel integer,
                             primary key(id_nivel_vuelo));      
-                            
-insert into nivel_vuelo(num_nivel)
-values(1),
-      (2),
-      (3);
-                            
+                            			
 create table contiene_un(id_cliente integer, 
                          id_equipo varchar(40),
                          id_nivel_vuelo integer,
@@ -86,11 +77,6 @@ create table cabina(id_cabina integer AUTO_INCREMENT,
 					tipo varchar(20),
 					primary key(id_cabina));
                     
-insert into cabina(tipo)
-values('General'),
-	  ('Familiar'),
-      ('Suite');
-
 create table escala(id_escala integer AUTO_INCREMENT,
 					primary key(id_escala));
                     
@@ -171,7 +157,22 @@ create table contiene_una(id_reserva integer,
                             primary key(id_alojamiento),
                             foreign key(id_destino) references destino(id_destino));
                             
- -- INSERT
+ -- INSERT---------------------------------------------------------------------------------
+ 
+insert into viaje(tipo,f_partida,duracion)
+values('orbital','2021-11-09',30.00);
+
+insert into nivel_vuelo(num_nivel)
+values(1),
+      (2),
+      (3);
+ 
+insert into cabina(tipo)
+values('General'),
+	  ('Familiar'),
+      ('Suite');
+      
+ 
 insert into vuelo(duracion,capacidad_vuelo,id_cabina,id_nivel_vuelo,id_viaje,vuelo_origen,vuelo_destino)
 values(30.00,300,1,1,1,'Buenos Aires','Luna'),
 	  (30.00,300,2,2,1,'Buenos Aires','Marte'),
@@ -186,12 +187,12 @@ VALUES
 ('ADMIN', "202cb962ac59075b964b", 'admin2@admin.com', "Leandro", "Martinez", 1),
 ('ADMIN', "202cb962ac59075b964b", 'admin3@admin.com', "Tabatha", "Peralta", 1);
 
-insert into usuario(clave,email,nombre_usuario,apellido_usuario)
-values("202cb962ac59075b964b",'warhead.soad@gmail.com',"Lea","Shaila");
+insert into usuario(clave,email,nombre_usuario,apellido_usuario, activo)
+values("202cb962ac59075b964b",'warhead.soad@gmail.com',"Lea","Shaila",1);
 
-INSERT INTO usuario (clave, email, nombre_usuario, apellido_usuario)
+INSERT INTO usuario (clave, email, nombre_usuario, apellido_usuario, activo)
 VALUES 
-("202cb962ac59075b964b", 'julietabarraza21@gmail.com', "Rocio", "Rodriguez");
+("202cb962ac59075b964b", 'julietabarraza21@gmail.com', "Rocio", "Rodriguez",1);
 
 INSERT INTO centro_medico(nom_centro_medico, foto)
 VALUES
@@ -329,7 +330,19 @@ values('AA1','Aguila'),
       ('BA2','Zorzal'),
       ('BA3','Zorzal');
       
--- CONSULTAS
+insert into tour(id_equipo)
+values('AA1');
+    
+insert into escala()
+values(); 
+
+insert into destino(descripcion,id_escala,id_tour)
+values('Luna',1,1);
+
+insert into alojamiento(cant_habitaciones,id_destino)
+values(4,1);
+
+-- CONSULTAS-------------------------------------------------------------------------
 
 /*SELECT * 
 FROM usuario;
@@ -355,30 +368,12 @@ select * from reserva;
 select * from viaje;
 select * from turno;
 
-SELECT resultado FROM chequeo_medico cm
-INNER JOIN turno t
-ON cm.turno= t.id_turno
-WHERE t.usuario =1;
-       
 select * from vuelo; */
             
 -- select * from equipo;
       
-insert into tour(id_equipo)
-values('AA1');
-    
-insert into escala()
-values();
-   
 /*select * from escala; */
 
-insert into destino(descripcion,id_escala,id_tour)
-values('Luna',1,1);
-   
-  
-insert into alojamiento(cant_habitaciones,id_destino)
-values(4,1);
-  
   /*select * from alojamiento;
   
   select * 
