@@ -16,9 +16,6 @@ class ReservaController{
 
         $data = array();
 
-        $data['servicios'] = $this->reservaModel->servicios();
-        $data['cabinas'] = $this->reservaModel->cabinas();
-
         if (isset($_SESSION["logueado"])) {
             $data["logueado"] = $_SESSION["logueado"];
         }
@@ -43,12 +40,20 @@ class ReservaController{
             $data["esClient"] = $_SESSION["esClient"];
         }
 
-        $data['tipoVuelo'] = $this->reservaModel->getResultadoChequeo($_SESSION["id"]);
-
         if (isset($data["logueado"])) {
+
+             $data['servicios'] = $this->reservaModel->servicios();
+             $data['cabinas'] = $this->reservaModel->cabinas();
+             $data['tipoVuelo'] = $this->reservaModel->getResultadoChequeo($_SESSION["id"]);
+
             echo $this->render->renderizar("view/reservas.mustache", $data);
+
         }else{
-            echo $this->render->renderizar("view/login.mustache");
+
+            //echo $this->render->renderizar("view/login.mustache");
+
+            header("Location:/GauchoRocket/login");
+            exit();
         }
     }
 
