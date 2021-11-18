@@ -26,7 +26,7 @@ class HomeController{
             $data["id"] = $_SESSION["id"];
         }
 
-    
+
         if($this->homeModel->usuarioConTurno($_SESSION["id"])){
 
             $data['solicitoTurno']=true;
@@ -45,6 +45,7 @@ class HomeController{
         }
 
         if (isset($data["logueado"])) {
+            $data["primeroElChequeo"] = "PARA PODER RESERVAR, PRIMERO DEBE REALIZARSE EL CHEQUEO MEDICO.";
             echo $this->render->renderizar("view/home.mustache", $data);
         } else {
             echo $this->render->renderizar("view/gauchoRocket.mustache");
