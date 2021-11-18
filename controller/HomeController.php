@@ -64,7 +64,6 @@ class HomeController{
         $data['fecha'] = $fecha;
         $data['tipoViaje'] = $tipoViaje;
 
-
     }
 
     
