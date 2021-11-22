@@ -1,0 +1,44 @@
+{{> header}}
+{{> navbar}}
+
+<div class="mt-0 pb-5"></div>
+<div class="mt-0 pb-5"></div>
+
+<div class='mt-0 pb-5'>
+
+              {{#tieneTurno}}
+                          <form action="/GauchoRocket/turno/miTurno" method="post" class="card container w-75 pb-3">
+                                  <div class="card-body">
+                                    <h5 class="card-title text-center">Turno Solicitado</h5>
+                                  </div>
+                                  <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Nombre: {{nombre}}</li>
+                                    <li class="list-group-item">Apellido: {{apellido}}</li>
+                                    {{#centroMedico}}
+                                     <li class="list-group-item">Centro Medico: {{nom_centro_medico}}</li>
+                                     {{/centroMedico}}
+                                     {{#turno}}
+                                     <li class="list-group-item">Fecha: {{fecha}}</li>
+                                     <li class="list-group-item">Hora: {{horario}}</li>
+                                     {{/turno}}
+                                     <li class="list-group-item">Nivel de vuelo: {{tipoVuelo}}</li>
+                                  </ul>
+                                  {{#turno}}
+                                    <input type="hidden" name="turno" value="{{id_turno}}">
+                                  {{/turno}}
+                                  <input type="hidden" name="cancelarTurno" value="cancelar">
+                                  <button type="submit" class="btn btn-secondary">Cancelar Turno</button>
+                          </form>
+                        {{/tieneTurno}}
+                        {{^tieneTurno}}
+                        <div class='alert  alert-warning text-center container' role='alert'>
+                            <h4>
+                              <i class="fas fa-exclamation-circle"></i>
+                               Aun no posee turno solicitado 
+                            </h4>
+                              <!--<a href="/GauchoRocket/centroMedico" class="btn btn-secondary">Solicitar ahora</a>-->
+                            </div>
+              {{/tieneTurno}}
+</div>
+
+{{> footer}}

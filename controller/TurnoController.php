@@ -162,7 +162,74 @@ class TurnoController{
         return $tipo;
     }
 
+     public function miTurno(){
 
+         $usuario = $_SESSION["id"];
+
+         if(!isset($_POST['cancelarTurno'])){
+
+             if($this->turnoModel->usuarioConTurno($usuario)){
+
+               $nombre = $_SESSION["nombre"];
+               $apellido = $_SESSION["apellido"];
+
+               $data['nombre'] = $nombre;
+               $data['apellido'] = $apellido;
+
+               $turnoEncontrado = $this->turnoModel->getTurnoPorUsuario($usuario);
+               $tipoVueloEncontrado = $this->turnoModel->tipoVueloUsuario($usuario);
+               $centroMedico = $this->turnoModel->getCentroMedicoPorTurno($turnoEncontrado[0]['id_turno']);
+
+               $data['turno'] = $turnoEncontrado;
+               $data['tipoVuelo'] = $tipoVueloEncontrado[0]['resultado'];
+               $data['centroMedico'] = $centroMedico;
+               $data['usuario'] = $usuario;
+
+               $data['tieneTurno']=true;
+
+             }else{
+
+                $data['tieneTurno']=false; 
+             }
+              
+         }else{
+
+              if(isset($_POST['turno'])){
+
+                  $turno = $_POST['turno'];
+                  
+                  if($this->turnoModel->cancelarTurno($turno,$usuario)){
+
+                    $data['tieneTurno']=false;
+
+                  }else{
+                     $data['tieneTurno']=true;
+                  }
+
+              }
+
+         }
+
+
+         if (isset($_SESSION["logueado"])) {
+            $data["logueado"] = $_SESSION["logueado"];
+        }
+
+        if (isset($_SESSION["esAdmin"])) {
+            $data["esAdmin"] = $_SESSION["esAdmin"];
+        }
+
+        if (isset($_SESSION["esClient"])) {
+            $data["esClient"] = $_SESSION["esClient"];
+        }
+
+        if (isset($data["logueado"])) {
+            echo $this->render->renderizar("view/miTurno.mustache", $data);
+        } 
+
+    }
+
+    
 
 
 }
