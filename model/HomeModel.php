@@ -32,6 +32,10 @@ class HomeModel{
                                           WHERE t.usuario='$id'");
     }
 
+    public function getAlojamiento(){
+        return $this->database->consulta("SELECT * FROM ALOJAMIENTO
+                                                LIMIT 4");
+    }
 
 
 

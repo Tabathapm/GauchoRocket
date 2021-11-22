@@ -154,6 +154,9 @@ create table contiene_una(id_reserva integer,
  create table alojamiento(id_alojamiento integer AUTO_INCREMENT,
 							cant_habitaciones integer,
                             id_destino integer,
+                            nombreAlojamiento varchar(40),
+                            precio double,
+                            fotoAlojamiento varchar(20),
                             primary key(id_alojamiento),
                             foreign key(id_destino) references destino(id_destino));
                             
@@ -334,13 +337,28 @@ insert into tour(id_equipo)
 values('AA1');
     
 insert into escala()
-values(); 
+values(),
+	  (),
+      (); 
 
 insert into destino(descripcion,id_escala,id_tour)
-values('Luna',1,1);
+values('Luna',1,1),
+      ('Marte',2,null),
+      ('Marte',2,null),
+      ('Europa',3,1),
+      ('Titan',null,null),
+      ('OrbitelHotel',null,null),
+      ('Ganimedes',null,null);
 
-insert into alojamiento(cant_habitaciones,id_destino)
-values(4,1);
+insert into alojamiento(cant_habitaciones,id_destino,nombreAlojamiento,precio,fotoAlojamiento)
+values(4,1,'Hotel Wanderlust', 50000.00,'alojamiento1.jpg'),
+	  (3,2,'Hotel Yas',35000.0,'alojamiento2.jpg'),
+      (2,2,'Hotel Yas',2000.0,'alojamiento3.jpg'),
+      (4,3,'Hotel Henn na',60000.0,'alojamiento4.jpg'),
+      (1,4,'Iniala Beach House',2000.0,'alojamiento1.jpg'),
+      (2,4,'Iniala Beach House',4000.0,'alojamiento1.jpg'),
+      (3,4,'Iniala Beach House',55000.0,'alojamiento1.jpg'),
+      (4,4,'Iniala Beach House',70000.0,'alojamiento1.jpg');
 
 -- CONSULTAS-------------------------------------------------------------------------
 
@@ -414,3 +432,12 @@ select * from destino;
 select * from vuelo
 inner join viaje on vuelo.id_viaje = viaje.id_viaje; */
 
+select * from alojamiento;
+select * from usuario;
+
+select distinct nombreAlojamiento
+from alojamiento;
+
+
+select * from alojamiento
+inner join destino on alojamiento.id_destino = destino.id_destino;

@@ -1,0 +1,69 @@
+{{>header}}
+{{> navbar}}
+{{>alojamiento}}
+
+
+<div class="container-fluid px-4 py-5 mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class="card border-0">
+            <div class="row set-p justify-content-center">
+                <div class="col-sm-4 px-0"> <img class="image" src="https://i.imgur.com/QNqiaSz.jpg"> </div>
+                <div class="col-sm-8">
+                    <div class="row px-3 mt-4 mb-3">
+                        <p class="rating mb-0 px-2 mr-3"><strong>8.0</strong></p>
+                        <p class="text-primary mb-0 mr-2 grade"><strong>Very Good</strong></p>
+                        <p class="text-secondary mb-0 mr-2">&middot;</p>
+                        <p class="text-secondary mb-0">14K review</p>
+                    </div>
+
+<!--                                    <input type="hidden" name="{{id_alojamiento}}" value="{{nombreAlojamiento}}" ></input>-->
+                                    <h1>{{nombreAlojamiento}}</h1>
+
+
+
+<!--                        <select class="form-select" aria-label="Default select example" name="alojamiento">-->
+
+
+                                <input type="hidden" value="{{id_alojamiento}}" >{{nombreAlojamiento}}
+                                <p>{{nombreAlojamiento}}</p>
+<!--                        </select>-->
+
+
+<!--                    <div class="row px-3 mb-2 mt-2"> <span class="fa fa-star text-warning mr-1"></span> <span class="fa fa-star text-warning mr-1"></span> <span class="fa fa-star text-warning mr-1"></span> <span class="fa fa-star text-warning mr-1"></span> </div>-->
+<!--                    <div class="row px-3">-->
+<!--                        <h5 class="mb-1">1 bedroom &middot; 1 living &middot; 2 beds</h5>-->
+<!--                    </div>-->
+<!--                    <div class="row px-3">-->
+<!--                        <p class="">Mitte, Berlin &middot; 2.6 km from center</p>-->
+<!--                    </div>-->
+<!--                    <div class="line"></div>-->
+<!--                    <div class="row px-3 mt-3">-->
+<!--                        <h5 class="text-secondary mb-1">Sky Suite</h5>-->
+<!--                    </div>-->
+                    <div class="row px-3">
+<!--                        <select class="form-select" aria-label="Default select example" name="precio">-->
+
+<!--                            {{#alojamientos}}-->
+<!--                                <option value="{{id_alojamiento}}" >{{precio}}</option>-->
+<!--                            {{/alojamientos}}-->
+<!--                        </select>-->
+                        <select class="form-select" aria-label="Default select example" name="precio">
+
+                            {{#alojamientos}}
+                                <option value="{{id_alojamiento}}" >{{precio}}</option>
+                            {{/alojamientos}}
+                        </select>
+
+                    </div>
+                    <div class="row px-3 mb-3">
+                        <p class="text-muted mb-0">+ $14 taxes and charges</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{>footer}}
+

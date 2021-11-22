@@ -144,9 +144,11 @@ class Configuracion{
     public static function getAlojamientoController(){
         $render = self::getRender();
         $alojamientoModel = self::getAlojamientoModel();
+
         include_once ("controller/AlojamientoController.php");
         return new AlojamientoController($render,$alojamientoModel);
     }
+
 
     public static function getHomeModel(){
         $database = self::getDatabase();

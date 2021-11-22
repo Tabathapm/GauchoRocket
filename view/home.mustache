@@ -23,14 +23,27 @@
     <article class="d-flex justify-content-center d-flex flex-column pb-5" >
         <h3 class="m-auto text-dark mt-4 mb-3 " id="alojamiento">Alojamiento</h3>
         <div class="d-flex justify-content-center d-flex flex-column mt-4 botones">
-            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" style="background: #C5CCD9">
+            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" action="/GauchoRocket/alojamiento" style="background: #C5CCD9" >
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-map-marker-alt me-3" style="font-size: 30px"></i>
-                    <input type="text" class="form-control bg bg-light rounded text-center" id="staticEmail2" placeholder="Destino" style="outline: 0">
+<!--                    <input type="text" class="form-control bg bg-light rounded text-center" id="staticEmail2" placeholder="Destino" style="outline: 0">-->
+                    <select class="form-select" aria-label="Default select example" name="destino">
+                        <option selected disabled>Destino</option>
+                        {{#vuelos}}
+                            <option value="{{vuelo_destino}}">{{vuelo_destino}}</option>
+                        {{/vuelos}}
+
+                    </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-bed me-3"  style="font-size: 30px"></i>
-                    <input type="text" class="form-control text-center"  placeholder="Cant habitaciones">
+<!--                    <input type="text" class="form-control text-center"  placeholder="Cant habitaciones">-->
+                    <select class="form-select" aria-label="Default select example" name="habitaciones">
+                        <option selected disabled>Cant Habitaciones</option>
+                        {{#alojamiento}}
+                            <option value="{{cant_habitaciones}}">{{cant_habitaciones}}</option>
+                        {{/alojamiento}}
+                    </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <button type="submit" class="btn buscar-a" style="background: #555973;color: #fff">BUSCAR</button>
@@ -38,22 +51,28 @@
             </form>
 
             <div class="d-flex flex-row">
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/alojamientos/alojamiento1.jpg" class="card-img-top img-fluid" alt="...">
+                {{#alojamiento}}
+                <form class="card me-2" style="width: 18rem;" action="/GauchoRocket/alojamiento/">
+                    <img src="public/images/alojamientos/{{fotoAlojamiento}}" class="card-img-top img-fluid" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Alojamiento #1</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="#" class="btn text-light">VER MAS</a>
+                        <h5 class="card-title">{{nombreAlojamiento}}</h5>
+                        <p class="card-text">El mundo se detiene cuando dejas atrás Dickson Road en la Pequeña India y entras en este universo de innovación. Pasar una noche en el hotel Wanderlust es una experiencia única para los viajeros con hambre de aventura pues cada una de sus habitaciones te llevará a un mundo de fantasía sin salir de sus paredes. Pantone, Space y Whimsical son algunos de los nombres de las habitaciones que te sorprenderán.</p>
+                        <a href="/gauchoRocket/alojamiento" class="btn text-light">VER MAS</a>
                     </div>
-                </div>
+                    <input name="precio" type="hidden" value="{{precio}}">
+                    <input name="nombreAlojamiento" type="hidden" value="{{nombreAlojamiento}}">
 
+
+                </form>
+                {{/alojamiento}}
+                <!--
                 <div class="card me-2" style="width: 18rem;">
                     <img src="public/images/alojamientos/alojamiento2.jpg" class="card-img-top img-fluid" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Alojamiento #2</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <h5 class="card-title">Hotel Yas</h5>
+                        <p class="card-text">Nada personfica los avances futuristas como una isla creada por el hombre. Dominante sobre la isla Yas, fabricada por el hombre, encontramos la epítome de la elegancia en Abu Dhabi – el Hotel Yas. Las curvas elegantes y las luces LED conforman un increíble domo que crea un unvierso pacífico de colores cambiantes. Algo de lo más destacado del hotel es la posibilidad de ver los autos de carrera pasar volando por la pista del Circuito Yas Marina Formula 1™ a los pies del hotel.
+
+                            Para obtener la experiencia completa, encuentra un buen lugar bajo la sombra del domo del hotel en el área de la alberca y pide una bebida en el ultra moderno bar Rush que se convierte en discoteca por la noche.</p>
                         <a href="#" class="btn text-light">VER MAS</a>
                     </div>
                 </div>
@@ -61,9 +80,12 @@
                 <div class="card me-2" style="width: 18rem;">
                     <img src="public/images/alojamientos/alojamiento3.jpg" class="card-img-top img-fluid" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Alojamiento #3</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <h5 class="card-title">Hotel Henn na</h5>
+                        <p class="card-text">Hotel futurista que persigue lo extraordinario, así que todos los robots y robots y más robots que verás no serán una repetición.
+
+                            Empezando con los poliglotas dinosaurios robóticos en el mostrador de registro, pasando por el brazo robótico que guarda tu equipaje, o el robot botones que las entrega en tu habitación, te sentirás encantado por esta forma de comunicación súper tecnológica. ¡Solo espera a que tengas que registrar tu cara en el sistema de reconocimiento facial para que puedas pasear por las instalaciones sin necesidad de llaves!
+
+                            El Hotel Henna na se enorgullece de usar estructuras amigables con el medio ambiente como páneles solares, madera laminada (fabricada con madera de bosques sustentables), que crean una atmósfera de consciencia y comfort – un descanso perfecto después de un día de visitar el parque de diversiones Huis Ten Bosch en el que se encuentra el hotel.</p>
                         <a href="#" class="btn text-light">VER MAS</a>
                     </div>
                 </div>
@@ -71,13 +93,14 @@
                 <div class="card me-2" style="width: 18rem;">
                     <img src="public/images/alojamientos/alojamiento4.jpg" class="card-img-top img-fluid" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Alojamiento #4</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <h5 class="card-title">Iniala Beach House</h5>
+                        <p class="card-text">El nivel de comfort moderno que ofrece el Iniala es de otro mundo. Además del personal altamente calificado listo para acudir ante cualquier llamado y siempre a tu entera disposición, te estarás consintiendo con lo mejor de la innovación. Entre las tres villas y el penthouse, escoge entre pisos de memory foam (espuma viscoelástica), camas suspendidas que recuerdan a los capullos de los gusanos de seda, y techos esculturales.</p>
                         <a href="#" class="btn text-light">VER MAS</a>
                     </div>
                 </div>
+                -->
             </div>
+
         </div>
     </article>
 </section>

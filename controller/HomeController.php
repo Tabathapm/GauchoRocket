@@ -12,7 +12,7 @@ class HomeController{
     public function execute(){
         $data = array();
         $data['vuelos'] = $this->homeModel->getVuelos();
-
+        $data['alojamiento'] = $this->homeModel->getAlojamiento();
 
         if (isset($_SESSION["logueado"])) {
             $data["logueado"] = $_SESSION["logueado"];
@@ -66,5 +66,17 @@ class HomeController{
 
     }
 
+    public function obtenerDestino(){
+
+       $destino = $_POST['destino'];
+       $data['destino']=$destino;
+       $habitacion = $_POST['habitacion'];
+       $data['habitacion'] = $habitacion;
+
+    }
+
+    public function obtenerAlojamiento(){
+        $data['alojamiento'] = $this->homeModel->getAlojamiento();
+}
     
 }
