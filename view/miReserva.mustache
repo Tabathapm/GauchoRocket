@@ -1,6 +1,6 @@
 {{> header}}
 
-{{#reservaRegistrada}}
+
 
 <form method="post" action='/GauchoRocket/reserva/crearPDF' class="mb-5">
     {{#usuario}}
@@ -16,13 +16,5 @@
 		DESCARGAR COMPROBANTE
 	</button>
 </form>
-
-{{/reservaRegistrada}}
-{{^reservaRegistrada}}
-<div class="alert alert-warning" role="alert">
-  {{mensaje}}
-</div>
-{{/reservaRegistrada}}
-
 
 {{> footer}}

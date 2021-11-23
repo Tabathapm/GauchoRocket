@@ -45,6 +45,7 @@ class ReservaController{
              $data['servicios'] = $this->reservaModel->servicios();
              $data['cabinas'] = $this->reservaModel->cabinas();
              $data['tipoVuelo'] = $this->reservaModel->getResultadoChequeo($_SESSION["id"]);
+             $data['empresaTarjetas'] = $this->reservaModel->getEmpresasTarjetas();
 
              if(isset($_POST['idViaje']) && isset($_POST['destino'])
                 && isset($_POST['horario']) && isset($_POST['fecha'])
@@ -120,14 +121,29 @@ class ReservaController{
         $servicio = $_POST['servicio'];
         $cabina = $_POST['cabina'];
 
-        $horaReserva = time();
+        $horaReserva = $_POST['horario'];
 
         $id_vuelo = $_POST['vuelo'];
 
+        $empresaTarjeta = $_POST['empresaTarjeta'];
+        $nroTarjeta = $_POST['nroTarjeta'];
+        $titular = $_POST['nombreTitular'];
+        $mes = $_POST['mesVencimiento'];
+        $ano = $_POST['anoVencimiento'];
+        $codSeguridad = $_POST['codSeguridad'];
+
+        $this->reservaModel->getRegistrarTarjeta($nroTarjeta, $titular , $mes , $ano, $empresaTarjeta, $codSeguridad);
+
+
         $servicioEncontrado= $this->reservaModel->getServicio($servicio);
         $cabinaEncontrada = $this->reservaModel->getCabina($cabina);
+        $tarjetaEncontrada = $this->reservaModel->getTarjeta($nroTarjeta);
 
-        if($this->reservaModel->registrarReserva($horaReserva,'123', $id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario)){
+        //$this->reservaModel->asignarTarjetaAUsuario($tarjetaEncontrada[0]['id_tarjeta'], $usuario);
+
+        /*if($this->reservaModel->asignarTarjetaAUsuario($tarjetaEncontrada[0]['id_tarjeta'], $usuario)){*/
+            $this->reservaModel->asignarTarjetaAUsuario($tarjetaEncontrada[0]['id_tarjeta'], $usuario);
+             $this->reservaModel->registrarReserva($horaReserva, $tarjetaEncontrada[0]['id_tarjeta'] , $id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario);
 
             $data['horaReserva'] = $horaReserva;
             $data['servicio'] = $servicioEncontrado[0]['id_tipo_servicio'];
@@ -135,10 +151,9 @@ class ReservaController{
             $data['vuelo'] = $id_vuelo;
             $data['reservaRegistrada']=true;
 
-        }else{
+        /*}else{
             $data['reservaRegistrada']=false;
-            $data['mensaje']="Hubo un error, intente mas tarde!";
-        }
+        }*/
 
         echo $this->render->renderizar("view/miReserva.mustache");
 
