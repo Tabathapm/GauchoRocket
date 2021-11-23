@@ -2,9 +2,20 @@ create database web2;
 use web2;
 
 -- TABLAS----------------------------------------------------------------------------------
-create table tarjeta_de_credito(id_tarjeta integer,
-							    nom_tarjeta varchar(40),
-                                primary key (id_tarjeta));
+create table empresaTarjeta(
+id integer AUTO_INCREMENT,
+nombre varchar(15),
+primary key (id));
+
+create table tarjeta_de_credito(id_tarjeta integer AUTO_INCREMENT,
+								nro_tarjeta integer,
+                                titular varchar(20),
+                                vencimientoMes integer,
+                                vencimientoAno integer,
+							    nom_tarjeta integer,
+                                cod_seguridad integer,
+                                primary key (id_tarjeta),
+								foreign key(nom_tarjeta) references empresaTarjeta(id));
                                 
 create table centro_medico(id_centro_medico integer AUTO_INCREMENT,
 					       nom_centro_medico varchar(40),
@@ -87,7 +98,7 @@ create table contiene_un(id_cliente integer,
                          primary key(id_cliente,id_equipo),
                          foreign key(id_cliente) references usuario(id_usuario),
                          foreign key(id_equipo) references equipo(id_equipo));
-                         
+
 create table cabina(id_cabina integer AUTO_INCREMENT,
 					tipo varchar(20),
 					primary key(id_cabina));
@@ -149,7 +160,7 @@ create table tipo_servicio_a_bordo(id_tipo_servicio integer AUTO_INCREMENT,
 									primary key(id_tipo_servicio));    
 		
 create table reserva(	id_reserva integer AUTO_INCREMENT,
-						hora_reserva time,
+						hora_reserva varchar(20),
                         id_tarjeta integer,
                         id_vuelo integer,
                         id_tipo_servicio integer,
@@ -182,6 +193,12 @@ create table contiene_una(id_reserva integer,
                             foreign key(id_destino) references destino(id_destino));
                             
  -- INSERT---------------------------------------------------------------------------------
+ INSERT INTO empresaTarjeta(nombre)
+ VALUES
+ ('Visa'),
+ ('Mastercard'),
+ ('Naranja');
+ 
 INSERT INTO equipo(id_equipo,tipo)
 values('AA1','Aguila'),
       ('AA5','Aguila'),
@@ -325,7 +342,7 @@ insert into nivel_vuelo(num_nivel)
 values(1),
       (2),
       (3);
- 
+      
 insert into cabina(tipo)
 values('General'),
 	  ('Familiar'),
@@ -404,12 +421,6 @@ values
 ('Standard'),  
 ('Gourmet'),
 ('Spa');
-
-insert into cabina(tipo)
-values
-('Familiar'),
-('General'),
-('Suite');
 
 insert into asiento(fila, descripcion, disponible)
 values
@@ -528,7 +539,7 @@ values(); */
   
 /*select * from chequeo_medico;*/
 
-select * from usuario;
+select * from reserva;
 
 /*select * from viaje;
 
@@ -541,8 +552,8 @@ select * from destino;
 select * from vuelo
 inner join viaje on vuelo.id_viaje = viaje.id_viaje; */
 
-select * from alojamiento;
-select * from usuario;
+select * from reserva;
+select * from tarjeta_de_credito;
 
 select distinct nombreAlojamiento
 from alojamiento;
