@@ -115,36 +115,38 @@ i__p__ /  |  ##############  | | ####### |__l___xp____| ooooo |      |~~~~|
     <article class="d-flex justify-content-center d-flex flex-column pb-5">
         <h3 class="m-auto text-dark mt-4 mb-3" id="viajes">Viajes</h3>
         <div class="d-flex justify-content-center d-flex flex-column mt-4 botones">
-            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" style="background: #C5CCD9">
+            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" action="/GauchoRocket/reserva" style="background: #C5CCD9">
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-street-view me-3" style="font-size: 30px"></i>
                     <select class="form-select" aria-label="Default select example" name="origen">
                         <option selected disabled>Origen</option>
-                        {{#vuelos}}
-                            <option value="{{id_vuelo}}">{{vuelo_origen}}</option>
-                        {{/vuelos}}
+                        {{#origen}}
+                            <option value="{{id_origen}}">{{descripcion}}</option>
+                        {{/origen}}
+
                     </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
-                    <i class="fas fa-map-signs me-3" style="font-size: 30px"></i>
+                    <i class="fas fa-map-marker-alt me-3" style="font-size: 30px"></i>
                     <select class="form-select" aria-label="Default select example" name="destino">
                         <option selected disabled>Destino</option>
-                        {{#vuelos}}
-                            <option value="{{id_vuelo}}">{{vuelo_destino}}</option>
-                        {{/vuelos}}
+                        {{#destino}}
+                            <option value="{{id_destino}}">{{descripcion}}</option>
+                        {{/destino}}
                     </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-map-marked-alt me-3" style="font-size: 30px"></i>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" name="tipoViaje">
                         <option selected>Tipo de Viaje</option>
-                        <option value="1">Suborbital</option>
-                        <option value="2">Orbital</option>
+                        {{#tipoViaje}}
+                        <option value="{{id_tipo_viaje}}">{{tipo}}</option>
+                        {{/tipoViaje}}
                     </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-calendar-alt me-3" style="font-size: 30px"></i>
-                    <input type="date" class="form-control text-center">
+                    <input type="date" class="form-control text-center" name="fecha">
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <button type="submit" class="btn buscar-a" style="background: #555973;color: #fff">BUSCAR</button>
@@ -152,63 +154,31 @@ i__p__ /  |  ##############  | | ####### |__l___xp____| ooooo |      |~~~~|
             </form>
 
             <div class="d-flex flex-row">
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/viajes/viaje1.jpg" class="card-img-top" alt="...">
+                {{#4Viajes}}
+                <form class="card me-2" style="width: 18rem;" action="/GauchoRocket/reserva/" method="post" >
+                    <img src="public/images/viajes/{{foto}}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Viaje #1</h5>
+                        <h5 class="card-title"># {{descripcion}} </h5>
                         <p class="card-text">
-                            <span class=""><strong>Fecha:</strong> 4/11/22</span>
+                            <span class=""><strong>Fecha:</strong> {{f_partida}}</span>
                             <br>
-                            <span class=""><strong>Horario:</strong> 10:00 AM</span>
+                            <span class=""><strong>Horario:</strong> {{horario}}</span>
                             <br>
-                            <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
-
-                        <a href="reserva/reservas" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-
+                            <input type="hidden" name="destino" value="{{id_destino}}">
+                            <span class="badge" style="background:#8A8EA6;font-size:18px">${{precio}}</span></p>
+                            <input type="hidden" name="idViaje" value="{{id_viaje}}">
+                            <input type="hidden" name="destino" value="{{descripcion}}">
+                            <input type="hidden" name="fecha" value="{{f_partida}}">
+                            <input type="hidden" name="horario" value="{{horario}}">
+                            <input type="hidden" name="precio" value="{{precio}}">
+                            <input type="hidden" name="foto" value="{{foto}}">
+                            <input type="hidden" name="duracion" value="{{duracion}}">
+                            <input type="hidden" name="vuelo" value="{{id_vuelo}}">
+                        <button type="submit" class="btn text-light d-flex justify-content-center" style="background: #555973;color: #fff">RESERVAR</button>
+                        
                     </div>
-                </div>
-
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/viajes/viaje2.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Viaje #2</h5>
-                        <p class="card-text">
-                            <span class=""><strong>Fecha:</strong> 4/11/22</span>
-                            <br>
-                            <span class=""><strong>Horario:</strong> 10:00 AM</span>
-                            <br>
-                            <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
-                        <a href="reserva/reservas" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-                    </div>
-                </div>
-
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/viajes/viaje3.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Viaje #3</h5>
-                        <p class="card-text">
-                            <span class=""><strong>Fecha:</strong> 4/11/22</span>
-                            <br>
-                            <span class=""><strong>Horario:</strong> 10:00 AM</span>
-                            <br>
-                            <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
-                        <a href="reserva/reservas" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-                    </div>
-                </div>
-
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/viajes/viaje4.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Viaje #4</h5>
-                        <p class="card-text">
-                            <span class=""><strong>Fecha:</strong> 4/11/22</span>
-                            <br>
-                            <span class=""><strong>Horario:</strong> 10:00 AM</span>
-                            <br>
-                            <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
-                        <a href="reserva/reservas" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-                    </div>
-                </div>
+                </form>
+                {{/4Viajes}}
             </div>
         </div>
     </article>

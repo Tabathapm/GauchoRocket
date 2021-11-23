@@ -115,9 +115,9 @@
                     <i class="fas fa-street-view me-3" style="font-size: 30px"></i>
                     <select class="form-select" aria-label="Default select example" name="origen">
                         <option selected disabled>Origen</option>
-                        {{#vuelos}}
-                            <option value="{{id_vuelo}}">{{vuelo_origen}}</option>
-                        {{/vuelos}}
+                        {{#origen}}
+                            <option value="{{id_origen}}">{{descripcion}}</option>
+                        {{/origen}}
 
                     </select>
                 </div>
@@ -125,17 +125,18 @@
                     <i class="fas fa-map-marker-alt me-3" style="font-size: 30px"></i>
                     <select class="form-select" aria-label="Default select example" name="destino">
                         <option selected disabled>Destino</option>
-                        {{#vuelos}}
-                            <option value="{{id_vuelo}}">{{vuelo_destino}}</option>
-                        {{/vuelos}}
+                        {{#destino}}
+                            <option value="{{id_destino}}">{{descripcion}}</option>
+                        {{/destino}}
                     </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-map-marked-alt me-3" style="font-size: 30px"></i>
                     <select class="form-select" aria-label="Default select example" name="tipoViaje">
                         <option selected>Tipo de Viaje</option>
-                        <option value="1">Suborbital</option>
-                        <option value="2">Orbital</option>
+                        {{#tipoViaje}}
+                        <option value="{{id_tipo_viaje}}">{{tipo}}</option>
+                        {{/tipoViaje}}
                     </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
@@ -148,81 +149,35 @@
             </form>
 
             <div class="d-flex flex-row">
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/viajes/viaje1.jpg" class="card-img-top" alt="...">
+                {{#4Viajes}}
+                <form class="card me-2" style="width: 18rem;" action="/GauchoRocket/reserva/" method="post" >
+                    <img src="public/images/viajes/{{foto}}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Viaje #1</h5>
+                        <h5 class="card-title"># {{descripcion}} </h5>
                         <p class="card-text">
-                            <span class=""><strong>Fecha:</strong> 4/11/22</span>
+                            <span class=""><strong>Fecha:</strong> {{f_partida}}</span>
                             <br>
-                            <span class=""><strong>Horario:</strong> 10:00 AM</span>
+                            <span class=""><strong>Horario:</strong> {{horario}}</span>
                             <br>
-                            <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
+                            <input type="hidden" name="destino" value="{{id_destino}}">
+                            <span class="badge" style="background:#8A8EA6;font-size:18px">${{precio}}</span></p>
+                            <input type="hidden" name="idViaje" value="{{id_viaje}}">
+                            <input type="hidden" name="destino" value="{{descripcion}}">
+                            <input type="hidden" name="fecha" value="{{f_partida}}">
+                            <input type="hidden" name="horario" value="{{horario}}">
+                            <input type="hidden" name="precio" value="{{precio}}">
+                            <input type="hidden" name="foto" value="{{foto}}">
+                            <input type="hidden" name="duracion" value="{{duracion}}">
+                            <input type="hidden" name="vuelo" value="{{id_vuelo}}">
                         {{#solicitoTurno}}
-                        <a href="/GauchoRocket/reserva/" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                         <button type="submit" class="btn text-light d-flex justify-content-center" style="background: #555973;color: #fff">RESERVAR</button>
                         {{/solicitoTurno}}
                         {{^solicitoTurno}}
                         <a href="#chequeo" class="btn text-light d-flex justify-content-center">RESERVAR</a>
                         {{/solicitoTurno}}
                     </div>
-                </div>
-
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/viajes/viaje2.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Viaje #2</h5>
-                        <p class="card-text">
-                            <span class=""><strong>Fecha:</strong> 4/11/22</span>
-                            <br>
-                            <span class=""><strong>Horario:</strong> 10:00 AM</span>
-                            <br>
-                            <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
-                        {{#solicitoTurno}}
-                        <a href="/GauchoRocket/reserva/" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-                        {{/solicitoTurno}}
-                        {{^solicitoTurno}}
-                        <a href="#chequeo" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-                        {{/solicitoTurno}}
-                    </div>
-                </div>
-
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/viajes/viaje3.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Viaje #3</h5>
-                        <p class="card-text">
-                            <span class=""><strong>Fecha:</strong> 4/11/22</span>
-                            <br>
-                            <span class=""><strong>Horario:</strong> 10:00 AM</span>
-                            <br>
-                            <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
-                        {{#solicitoTurno}}
-                        <a href="/GauchoRocket/reserva/" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-                        {{/solicitoTurno}}
-                        {{^solicitoTurno}}
-                        <a href="#chequeo" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-                        {{/solicitoTurno}}
-                    </div>
-                </div>
-
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/viajes/viaje4.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Viaje #4</h5>
-                        <p class="card-text">
-                            <span class=""><strong>Fecha:</strong> 4/11/22</span>
-                            <br>
-                            <span class=""><strong>Horario:</strong> 10:00 AM</span>
-                            <br>
-                            <span class="badge" style="background:#8A8EA6;font-size:18px">$20.000</span></p>
-                        {{#solicitoTurno}}
-                        <a href="/GauchoRocket/reserva/" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-                        {{/solicitoTurno}}
-                        {{^solicitoTurno}}
-                        <a href="#chequeo" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-                        {{/solicitoTurno}}
-                    </div>
-                </div>
+                </form>
+                {{/4Viajes}}
             </div>
         </div>
 

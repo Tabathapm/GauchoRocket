@@ -12,7 +12,10 @@ class GauchoRocketController{
 
     public function execute(){
         $data = array();
-        $data['vuelos'] = $this->gauchoModel->getVuelos();
+        $data['origen'] = $this->gauchoModel->getOrigen();
+        $data['destino'] = $this->gauchoModel->getDestino();
+        $data['tipoViaje'] = $this->gauchoModel->getTipoViaje();
+        $data['4Viajes'] = $this->gauchoModel->get4Viajes();
 
         echo $this->render->renderizar("view/gauchoRocket.mustache", $data);
 

@@ -11,7 +11,10 @@ class HomeController{
 
     public function execute(){
         $data = array();
-        $data['vuelos'] = $this->homeModel->getVuelos();
+        $data['origen'] = $this->homeModel->getOrigen();
+        $data['destino'] = $this->homeModel->getDestino();
+        $data['tipoViaje'] = $this->homeModel->getTipoViaje();
+        $data['4Viajes'] = $this->homeModel->get4Viajes();
         $data['alojamiento'] = $this->homeModel->getAlojamiento();
 
         if (isset($_SESSION["logueado"])) {

@@ -42,12 +42,33 @@ create table turno( id_turno integer AUTO_INCREMENT,
 							foreign key(turno) references turno(id_turno),
 							foreign key(id_centro_medico) references centro_medico(id_centro_medico));                          
                            
-
-create table viaje(id_viaje integer AUTO_INCREMENT,
+create table equipo(id_equipo varchar(40),
 					tipo varchar(20),
+					primary key(id_equipo));
+create table dia(
+id_dia integer AUTO_INCREMENT,
+descripcion varchar(10),
+primary key(id_dia));
+
+create table tipo_viaje(
+id_tipo_viaje integer AUTO_INCREMENT,
+tipo varchar(20),
+primary key(id_tipo_viaje));
+                    
+create table viaje(id_viaje integer AUTO_INCREMENT,
+					id_tipo_viaje integer,
 					f_partida date,
+                    horario varchar(20),
+                    precio double,
+                    dia integer,
+                    cant_vuelos integer,
 					duracion double,
-					primary key(id_viaje));       
+                    id_equipo varchar(40),
+					primary key(id_viaje),
+                    foreign key(dia) references dia(id_dia),
+					foreign key(id_tipo_viaje) references tipo_viaje(id_tipo_viaje),
+					foreign key(id_equipo) references equipo(id_equipo));
+                    
 
 create table pasaje(id_pasaje integer AUTO_INCREMENT,
 					tarifa double,
@@ -55,13 +76,7 @@ create table pasaje(id_pasaje integer AUTO_INCREMENT,
                     id_viaje integer,
                     primary key(id_pasaje),
                     foreign key(id_viaje) references viaje(id_viaje));     
-			
-create table equipo(id_equipo varchar(40),
-					tipo varchar(20),
-					primary key(id_equipo));       
-                    
-                   
-                    
+                
 create table nivel_vuelo(id_nivel_vuelo integer AUTO_INCREMENT,
 							num_nivel integer,
                             primary key(id_nivel_vuelo));      
@@ -85,8 +100,14 @@ create table tour(id_tour integer AUTO_INCREMENT,
                     primary key(id_tour),
                     foreign key(id_equipo) references equipo(id_equipo));     
                     
+create table origen(id_origen integer AUTO_INCREMENT,
+					descripcion varchar(40),
+                    foto varchar(20),
+                    primary key(id_origen));  
+                    
 create table destino(id_destino integer AUTO_INCREMENT,
 					descripcion varchar(40),
+                    foto varchar(20),
                     id_escala integer,
                     id_tour integer,
                     primary key(id_destino),
@@ -107,26 +128,26 @@ create table vuelo(id_vuelo integer AUTO_INCREMENT,
                     id_nivel_vuelo integer,
                     id_viaje integer,
                     id_asiento integer,
-                    vuelo_origen varchar(40),
-                    vuelo_destino varchar(40),
+                    vuelo_origen integer,
+                    vuelo_destino integer,
                     primary key(id_vuelo),
                     foreign key(id_cabina) references cabina(id_cabina),
                     foreign key(id_asiento) references asiento(id_asiento),
+                    foreign key(vuelo_origen) references origen(id_origen),
+                    foreign key(vuelo_destino) references destino(id_destino),
                     foreign key(id_nivel_vuelo) references nivel_vuelo(id_nivel_vuelo),
                     foreign key(id_viaje) references viaje(id_viaje));
                     
-
-create table vuela_hacia(id_vuelo integer ,
+/*create table vuela_hacia(id_vuelo integer ,
 						 id_destino integer,
                          primary key(id_vuelo,id_destino),
                          foreign key(id_vuelo) references vuelo(id_vuelo),
-                         foreign key(id_destino) references destino(id_destino));     
-                         
-                         
+                         foreign key(id_destino) references destino(id_destino)); */    
+                         						
 create table tipo_servicio_a_bordo(id_tipo_servicio integer AUTO_INCREMENT,
 									descripcion_tipo varchar(20),
 									primary key(id_tipo_servicio));    
-			
+		
 create table reserva(	id_reserva integer AUTO_INCREMENT,
 						hora_reserva time,
                         id_tarjeta integer,
@@ -161,10 +182,145 @@ create table contiene_una(id_reserva integer,
                             foreign key(id_destino) references destino(id_destino));
                             
  -- INSERT---------------------------------------------------------------------------------
+INSERT INTO equipo(id_equipo,tipo)
+values('AA1','Aguila'),
+      ('AA5','Aguila'),
+      ('AA9','Aguila'),
+      ('AA13','Aguila'),
+      ('AA17','Aguila'),
+      ('BA8','Aguilucho'),
+      ('BA9','Aguilucho'),
+      ('BA10','Aguilucho'),
+      ('BA11','Aguilucho'),
+      ('BA12','Aguilucho'),
+      ('O1','Calandria'),
+      ('O2','Calandria'),
+      ('O6','Calandria'),
+      ('O7','Calandria'),
+      ('BA13','Canario'),
+      ('BA14','Canario'),
+      ('BA15','Canario'),
+      ('BA16','Canario'),
+      ('BA17','Canario'),
+      ('BA4','Carancho'),
+      ('BA5','Carancho'),
+      ('BA6','Carancho'),
+      ('BA7','Carancho'),
+      ('O3','Colibri'),
+      ('O4','Colibri'),
+      ('O5','Colibri'),
+      ('O8','Colibri'),
+      ('O9','Colibri'),
+      ('AA2','Condor'),
+      ('AA6','Condor'),
+      ('AA10','Condor'),
+      ('AA14','Condor'),
+      ('AA18','Condor'),
+      ('AA4','Guanaco'),
+      ('AA8','Guanaco'),
+      ('AA12','Guanaco'),
+      ('AA16','Guanaco'),
+      ('AA3','Halcon'),
+      ('AA7','Halcon'),
+      ('AA11','Halcon'),
+      ('AA15','Halcon'),
+      ('AA19','Halcon'),
+      ('BA1','Zorzal'),
+      ('BA2','Zorzal'),
+      ('BA3','Zorzal');
+      
+ insert into tipo_viaje(tipo)
+ values
+ ('Suborbitales'),
+ ('Orbitales'),
+ ('Entre destinos');
  
-insert into viaje(tipo,f_partida,duracion)
-values('orbital','2021-11-09',30.00);
+ insert into dia(descripcion)
+ values
+ ('Lunes'),
+ ('Martes'),
+ ('Miercoles'),
+ ('Jueves'),
+ ('Viernes'),
+ ('Sabado'),
+ ('Domingo');
+ 
+ insert into viaje(id_tipo_viaje,f_partida,horario,precio,dia,cant_vuelos,duracion,id_equipo)
+values
+-- LUNES
+-- BA
+(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O1'), 
+(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O2'),
+(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O3'), 
+-- AK
+(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O4'),
+(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O5'),
 
+-- MARTES
+-- BA
+(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O6'), 
+(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O7'),
+(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O8'),
+
+-- AK
+(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O9'),
+(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O1'),
+
+-- MIERCOLES
+-- BA
+(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O1'), 
+(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O2'),
+(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O3'), 
+-- AK
+(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O4'),
+(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O5'),
+
+-- JUEVES
+-- BA
+(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O1'), 
+(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O2'),
+(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O3'), 
+-- AK
+(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O4'),
+(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O5'),
+
+-- VIERNES
+-- BA
+(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O1'), 
+(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O2'),
+(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O3'), 
+-- AK
+(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O4'),
+(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O5');
+
+insert into viaje(id_tipo_viaje,f_partida,horario,precio,dia,cant_vuelos,duracion,id_equipo)
+values
+-- SABADO
+-- BA
+(1,'2021/12/06','13:00 PM',2000.0,6,8,8,'O1'), 
+(1,'2021/12/06','13:00 PM',2000.0,6,8,8,'O2'),
+(1,'2021/12/06','13:00 PM',2000.0,6,8,8,'O3'), 
+(1,'2021/12/06','13:00 PM',2000.0,6,8,8,'O4'),
+-- AK
+(1,'2021/12/06','13:00 PM',2000.0,6,8,8,'O5'),
+(1,'2021/12/06','13:00 PM',2000.0,6,8,8,'O6'),
+(1,'2021/12/06','13:00 PM',2000.0,6,8,8,'O7'),
+(1,'2021/12/06','13:00 PM',2000.0,6,8,8,'O8'),
+
+-- DOMINGO
+-- BA
+(1,'2021/12/07','13:00 PM',2000.0,7,10,8,'O1'), 
+(1,'2021/12/07','13:00 PM',2000.0,7,10,8,'O2'),
+(1,'2021/12/07','13:00 PM',2000.0,7,10,8,'O3'),
+(1,'2021/12/07','13:00 PM',2000.0,7,10,8,'O4'),
+(1,'2021/12/07','13:00 PM',2000.0,7,10,8,'O5'),
+
+-- AK
+(1,'2021/12/07','13:00 PM',2000.0,7,10,8,'O6'),
+(1,'2021/12/07','13:00 PM',2000.0,7,10,8,'O7'),
+(1,'2021/12/07','13:00 PM',2000.0,7,10,8,'O8'),
+(1,'2021/12/07','13:00 PM',2000.0,7,10,8,'O9');
+ 
 insert into nivel_vuelo(num_nivel)
 values(1),
       (2),
@@ -175,14 +331,38 @@ values('General'),
 	  ('Familiar'),
       ('Suite');
       
+insert into tour(id_equipo)
+values('AA1');
+    
+insert into escala()
+values(),
+	  (),
+      ();       
+      
+insert into origen(descripcion,foto)
+values
+('Buenos Aires','BuenosAires.jpg'),
+('Ankara','Ankara.jpg');      
  
+ insert into destino(descripcion,foto,id_escala,id_tour)
+values
+('Estacion Espacial Internacional','eei.jpg',null,null),
+('OrbitelHotel','orbitel-hotel.jpg',null,null),
+('Luna','luna.jpg',1,1),
+('Marte','marte.jpg',2,null),
+('Ganimedes','ganimedes.jpg',null,null),
+('Europa','europa.jpg',3,1),
+('Io','io.jpg',null,null),
+('Titan','titan.jpg',null,null),
+('Encedalo','encedalo.jpg',null,null);
+
 insert into vuelo(duracion,capacidad_vuelo,id_cabina,id_nivel_vuelo,id_viaje,vuelo_origen,vuelo_destino)
-values(30.00,300,1,1,1,'Buenos Aires','Luna'),
-	  (30.00,300,2,2,1,'Buenos Aires','Marte'),
-      (30.00,300,3,3,1,'Ankara','Europa'),
-      (26.00,120,1,1,1,'Ankara','Titan'),
-      (26.00,120,2,2,1,'Buenos Aires','OrtibelHotel'),
-      (26.00,120,3,3,1,'Ankara','Ganimedes'); 
+values(30.00,300,1,1,1,1,3),
+	  (30.00,300,2,2,1,1,4),
+      (30.00,300,3,3,1,2,6),
+      (26.00,120,1,1,1,2,9),
+      (26.00,120,2,2,1,1,2),
+      (26.00,120,3,3,1,2,5); 
       
 INSERT INTO usuario (rol_usuario, clave, email, nombre_usuario, apellido_usuario, activo)
 VALUES 
@@ -218,14 +398,7 @@ VALUES
 INSERT INTO turno(cant_turno,id_centro_medico, usuario, fecha, horario, disponible)
 VALUES
 (300,1, 1, '2021/11/13','17:30',false);
-
-insert into viaje(tipo,f_partida,duracion)
-values('orbital','2021-11-09',30.00); 
-
-INSERT INTO viaje(tipo, f_partida, duracion)
-VALUES('Suborbital','2021-12-14',18.00),
-       ('Orbitales','2021-12-12',26.00);
-       
+   
 insert into tipo_servicio_a_bordo(descripcion_tipo)
 values
 ('Standard'),  
@@ -285,70 +458,6 @@ values
 ('D','D20', true),
 ('D','D21', true),
 ('D','D22', true);
-
-INSERT INTO equipo(id_equipo,tipo)
-values('AA1','Aguila'),
-      ('AA5','Aguila'),
-      ('AA9','Aguila'),
-      ('AA13','Aguila'),
-      ('AA17','Aguila'),
-      ('BA8','Aguilucho'),
-      ('BA9','Aguilucho'),
-      ('BA10','Aguilucho'),
-      ('BA11','Aguilucho'),
-      ('BA12','Aguilucho'),
-      ('O1','Calandria'),
-      ('O2','Calandria'),
-      ('O6','Calandria'),
-      ('O7','Calandria'),
-      ('BA13','Canario'),
-      ('BA14','Canario'),
-      ('BA15','Canario'),
-      ('BA16','Canario'),
-      ('BA17','Canario'),
-      ('BA4','Carancho'),
-      ('BA5','Carancho'),
-      ('BA6','Carancho'),
-      ('BA7','Carancho'),
-      ('O3','Colibri'),
-      ('O4','Colibri'),
-      ('O5','Colibri'),
-      ('O8','Colibri'),
-      ('O9','Colibri'),
-      ('AA2','Condor'),
-      ('AA6','Condor'),
-      ('AA10','Condor'),
-      ('AA14','Condor'),
-      ('AA18','Condor'),
-      ('AA4','Guanaco'),
-      ('AA8','Guanaco'),
-      ('AA12','Guanaco'),
-      ('AA16','Guanaco'),
-      ('AA3','Halcon'),
-      ('AA7','Halcon'),
-      ('AA11','Halcon'),
-      ('AA15','Halcon'),
-      ('AA19','Halcon'),
-      ('BA1','Zorzal'),
-      ('BA2','Zorzal'),
-      ('BA3','Zorzal');
-      
-insert into tour(id_equipo)
-values('AA1');
-    
-insert into escala()
-values(),
-	  (),
-      (); 
-
-insert into destino(descripcion,id_escala,id_tour)
-values('Luna',1,1),
-      ('Marte',2,null),
-      ('Marte',2,null),
-      ('Europa',3,1),
-      ('Titan',null,null),
-      ('OrbitelHotel',null,null),
-      ('Ganimedes',null,null);
 
 insert into alojamiento(cant_habitaciones,id_destino,nombreAlojamiento,precio,fotoAlojamiento)
 values(4,1,'Hotel Wanderlust', 50000.00,'alojamiento1.jpg'),

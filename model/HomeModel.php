@@ -8,11 +8,32 @@ class HomeModel{
         $this->database = $database;
     }
 
-    public function getVuelos(){
-        return $this->database->consulta("SELECT * from vuelo");
+    public function getDestino(){
+        return $this->database->consulta("SELECT * FROM destino");
     }
 
+    public function getOrigen(){
+        return $this->database->consulta("SELECT * FROM origen");
+    }
 
+    public function get4Viajes(){
+        return $this->database->consulta("SELECT
+                                          d.foto,
+                                          d.descripcion,
+                                          vi.id_viaje,
+                                          vi.f_partida,
+                                          vi.horario,
+                                          vi.precio,
+                                          vi.duracion,
+                                          vu.id_vuelo
+                                          FROM vuelo vu
+                                          INNER JOIN viaje vi
+                                          ON vi.id_viaje = vu.id_viaje
+                                          INNER JOIN destino d 
+                                          ON d.id_destino = vu.vuelo_destino
+                                          WHERE d.id_destino BETWEEN 0 AND 5
+                                          LIMIT 4");
+    }
 
     public function getFechaDeViaje(){
 
@@ -32,10 +53,15 @@ class HomeModel{
                                           WHERE t.usuario='$id'");
     }
 
+    public function getTipoViaje(){
+        return $this->database->consulta("SELECT * FROM tipo_viaje");
+    }
+
     public function getAlojamiento(){
         return $this->database->consulta("SELECT * FROM ALOJAMIENTO
                                                 LIMIT 4");
     }
+
 
 
 
