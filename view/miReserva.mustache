@@ -1,12 +1,28 @@
+{{> header}}
 
+{{#reservaRegistrada}}
 
-
-
-
-<form method="post" action='/GauchoRocket/reservas/crearPDF'>
+<form method="post" action='/GauchoRocket/reserva/crearPDF' class="mb-5">
     {{#usuario}}
     <input type='hidden' name='nombre' value='{{nombre_usuario}}'>
     <input type='hidden' name='apellido' value='{{apellido_usuario}}'>
+    <input type='hidden' name='hora' value='{{horaReserva}}'>
+    <input type='hidden' name='cabina' value='{{cabina}}'>
+    <input type='hidden' name='servicio' value='{{servicio}}'>
+    <input type='hidden' name='vuelo' value='{{vuelo}}'>
     {{/usuario}}
-    <button type="submit" class="btn btn-success">DESCARGAR COMPROBANTE</button>
+    <button type="submit" class="btn btn-success">
+	    <i class="fas fa-download"></i>
+		DESCARGAR COMPROBANTE
+	</button>
 </form>
+
+{{/reservaRegistrada}}
+{{^reservaRegistrada}}
+<div class="alert alert-warning" role="alert">
+  {{mensaje}}
+</div>
+{{/reservaRegistrada}}
+
+
+{{> footer}}

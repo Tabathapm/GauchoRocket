@@ -6,7 +6,28 @@
 
 <div class='mt-0 pb-5'>
     <div class="formularioReserva container">
-        <form action="/GauchoRocket/reservas/generarReserva" method="post">
+        <form action="/GauchoRocket/reserva/generarReserva" method="post">
+          <div class="d-flex flex-row">
+
+            <div class="me-5">
+              <h3>{{destino}}</h3>
+              <img src="../public/images/viajes/{{foto}}"  style="width: 20rem;">
+              
+            </div>
+
+            <div class="mt-5">
+              <span><i class="fas fa-calendar-alt" style="font-size: 20px" title="Fecha"></i> </span><span class="badge bg-secondary d-flex justify-content-between"> {{fecha}}</span>
+              <br>
+              <span><i class="fas fa-clock" style="font-size: 20px" title="Horario"></i>  </span><span class="badge bg-secondary d-flex justify-content-between"> {{horario}}</span>
+              <br>
+              <span><i class="fas fa-dollar-sign" style="font-size: 20px" title="Precio"></i>  </span><span class="badge bg-secondary d-flex justify-content-between"> ${{precio}}</span>
+              <br>
+              <span><i class="fas fa-stopwatch" style="font-size: 20px" title="Duracion"></i>  </span><span class="badge bg-secondary d-flex justify-content-between"> {{duracion}} horas</span>
+            </div>
+
+          </div>
+
+            
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
@@ -117,10 +138,10 @@
                </table>
            </div>
 
-
+            <input type="hidden" name="vuelo" value="{{vuelo}}">
 
             <div class="botones d-flex justify-content-evenly pb-3">
-                <button type="submit" class="btn btn-primary btn-lg">RESERVAR</button>
+                <button type="submit" class="btn btn-primary btn-lg">Reservar</button>
                 <a href="/GauchoRocket/home" class="btn btn-secondary btn-lg">Cancelar</a>
             </div>
 
