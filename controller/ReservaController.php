@@ -137,7 +137,7 @@ class ReservaController{
 
         }else{
             $data['reservaRegistrada']=false;
-            $data['mensaje']='Hubo un error, intente mas tarde!';
+            $data['mensaje']="Hubo un error, intente mas tarde!";
         }
 
         echo $this->render->renderizar("view/miReserva.mustache");
