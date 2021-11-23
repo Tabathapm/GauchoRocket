@@ -563,12 +563,18 @@ select * from alojamiento
 inner join destino on alojamiento.id_destino = destino.id_destino;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 drop database web2;
 =======
+=======
+>>>>>>> 7e091ce8fbf3c472f34cc63f6029199f42cb088c
 
 									  /*UPDATE usuario
                                       SET id_tarjeta=1
                                       WHERE 
                                       id_usuario=5;*/
 
+<<<<<<< HEAD
+>>>>>>> 7e091ce8fbf3c472f34cc63f6029199f42cb088c
+=======
 >>>>>>> 7e091ce8fbf3c472f34cc63f6029199f42cb088c
