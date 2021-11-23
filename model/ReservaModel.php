@@ -66,10 +66,9 @@ class ReservaModel
     }
 
     public function asignarTarjetaAUsuario($idTarjeta, $usuario){
-      return $this->database->ejecutar("UPDATE usuario
+      return $this->database->update("UPDATE usuario
                                       SET id_tarjeta='$idTarjeta'
-                                      WHERE id_tarjeta=null AND 
-                                      id_usuario='$usuario'");
+                                      WHERE id_usuario='$usuario'");
     }
 
 
