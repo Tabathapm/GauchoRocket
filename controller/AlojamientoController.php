@@ -5,7 +5,7 @@ class AlojamientoController{
     private $alojamientoModel;
 
 
-    public function __construct(\Render $render, \AlojamientoModel $alojamientoModel, ){
+    public function __construct(\Render $render, \AlojamientoModel $alojamientoModel){
         $this->render = $render;
         $this->alojamientoModel = $alojamientoModel;
 
