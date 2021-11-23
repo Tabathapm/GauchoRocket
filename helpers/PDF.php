@@ -2,6 +2,7 @@
 
 require_once 'third-party/dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
+use Dompdf\Options;
 
 
 class PDF{
@@ -10,7 +11,9 @@ class PDF{
 	
 	public function __construct(){
 
-		$this->pdf = new Dompdf();
+		$options = new Options();
+        $options->setIsRemoteEnabled(true);
+		$this->pdf = new Dompdf($options);
 	}
 
    
@@ -32,4 +35,5 @@ class PDF{
 	}
 	
 }
+
 
