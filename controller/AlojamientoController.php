@@ -63,21 +63,21 @@ class AlojamientoController{
 
     }
 
-//    public function obtenerAlojamiento(){
-//        $destino = $_POST['destino'];
-//        $nombreAlojamiento = $_POST['nombreAlojamiento'];
-//        $precio = $_POST['precio'];
-//        $cantHabitaciones = $_POST['cantHabitaciones'];
-//
-//        $data['destino'] = $destino;
-//        $data['nombreAlojamiento']= $nombreAlojamiento;
-//        $data['precio'] = $precio;
-//        $data['cantHabitaciones'] = $cantHabitaciones;
-//
-//        echo $this->render->renderizar("view/alojamiento.mustache", $data);
-//
-//
-//    }
+    public function obtenerAlojamiento(){
+        $destino = $_POST['destino'];
+        $nombreAlojamiento = $_POST['nombreAlojamiento'];
+        $precio = $_POST['precio'];
+        $cantHabitaciones = $_POST['cantHabitaciones'];
+
+        $data['destino'] = $destino;
+        $data['nombreAlojamiento']= $nombreAlojamiento;
+        $data['precio'] = $precio;
+        $data['cantHabitaciones'] = $cantHabitaciones;
+
+        echo $this->render->renderizar("view/alojamiento.mustache", $data);
+
+
+    }
 
 
 

@@ -550,3 +550,5 @@ from alojamiento;
 
 select * from alojamiento
 inner join destino on alojamiento.id_destino = destino.id_destino;
+
+drop database web2;

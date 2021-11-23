@@ -29,9 +29,9 @@
 <!--                    <input type="text" class="form-control bg bg-light rounded text-center" id="staticEmail2" placeholder="Destino" style="outline: 0">-->
                     <select class="form-select" aria-label="Default select example" name="destino">
                         <option selected disabled>Destino</option>
-                        {{#vuelos}}
-                            <option value="{{vuelo_destino}}">{{vuelo_destino}}</option>
-                        {{/vuelos}}
+                        {{#alojamiento}}
+                            <option value="{{nombreAlojamiento}}">{{nombreAlojamiento}}</option>
+                        {{/alojamiento}}
 
                     </select>
                 </div>
