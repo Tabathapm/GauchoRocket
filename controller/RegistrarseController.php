@@ -81,7 +81,7 @@ class RegistrarseController{
 
 
     public function verificacionPorEmail($nombre, $apelllido, $email, $hash){
-
+        $host = "http://".$_SERVER['HTTP_HOST'];
         $msj ="
         <div>
             <div>
@@ -96,7 +96,7 @@ class RegistrarseController{
                Gracias por registrarte, haz clic en el siguiente enlace o pégalo en la url de tu navegador.
                </p> <br>
                <h4>
-                    http://localhost/GauchoRocket/validacion?email=$email&hash=$hash
+                    $host/GauchoRocket/validacion?email=$email&hash=$hash
                 </h4>
             </div>
         </div> ";
