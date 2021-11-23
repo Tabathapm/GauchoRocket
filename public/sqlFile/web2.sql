@@ -552,7 +552,7 @@ select * from destino;
 select * from vuelo
 inner join viaje on vuelo.id_viaje = viaje.id_viaje; */
 
-select * from reserva;
+select * from usuario;
 select * from tarjeta_de_credito;
 
 select distinct nombreAlojamiento
@@ -561,3 +561,10 @@ from alojamiento;
 
 select * from alojamiento
 inner join destino on alojamiento.id_destino = destino.id_destino;
+
+
+									  /*UPDATE usuario
+                                      SET id_tarjeta=1
+                                      WHERE 
+                                      id_usuario=5;*/
+
