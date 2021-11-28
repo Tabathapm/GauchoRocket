@@ -75,6 +75,7 @@ create table viaje(id_viaje integer AUTO_INCREMENT,
                     cant_vuelos integer,
 					duracion double,
                     id_equipo varchar(40),
+                    disponible bool,
 					primary key(id_viaje),
                     foreign key(dia) references dia(id_dia),
 					foreign key(id_tipo_viaje) references tipo_viaje(id_tipo_viaje),
@@ -189,6 +190,7 @@ create table contiene_una(id_reserva integer,
                             nombreAlojamiento varchar(40),
                             precio double,
                             fotoAlojamiento varchar(20),
+                            disponible bool,
                             primary key(id_alojamiento),
                             foreign key(id_destino) references destino(id_destino));
                             
@@ -262,53 +264,53 @@ values('AA1','Aguila'),
  ('Sabado'),
  ('Domingo');
  
- insert into viaje(id_tipo_viaje,f_partida,horario,precio,dia,cant_vuelos,duracion,id_equipo)
+ insert into viaje(id_tipo_viaje,f_partida,horario,precio,dia,cant_vuelos,duracion,id_equipo, disponible)
 values
 -- LUNES
 -- BA
-(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O1'), 
-(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O2'),
-(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O3'), 
+(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O1', true), 
+(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O2', true),
+(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O3', true), 
 -- AK
-(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O4'),
-(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O5'),
+(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O4', true),
+(1,'2021/12/06','10:00 AM',2000.0,1,5,8,'O5', true),
 
 -- MARTES
 -- BA
-(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O6'), 
-(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O7'),
-(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O8'),
+(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O6', true), 
+(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O7', true),
+(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O8', true),
 
 -- AK
-(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O9'),
-(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O1'),
+(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O9', true),
+(1,'2021/12/07','10:00 AM',2000.0,2,5,8,'O1', true),
 
 -- MIERCOLES
 -- BA
-(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O1'), 
-(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O2'),
-(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O3'), 
+(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O1', true), 
+(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O2', true),
+(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O3', true), 
 -- AK
-(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O4'),
-(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O5'),
+(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O4', true),
+(1,'2021/12/08','10:00 AM',2000.0,3,5,8,'O5', true),
 
 -- JUEVES
 -- BA
-(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O1'), 
-(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O2'),
-(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O3'), 
+(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O1', true), 
+(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O2', true),
+(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O3', true), 
 -- AK
-(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O4'),
-(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O5'),
+(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O4', true),
+(1,'2021/12/09','10:00 AM',2000.0,4,5,8,'O5', true),
 
 -- VIERNES
 -- BA
-(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O1'), 
-(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O2'),
-(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O3'), 
+(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O1', true), 
+(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O2', true),
+(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O3', true), 
 -- AK
-(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O4'),
-(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O5');
+(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O4', true),
+(1,'2021/12/10','10:00 AM',2000.0,5,5,8,'O5', true);
 
 insert into viaje(id_tipo_viaje,f_partida,horario,precio,dia,cant_vuelos,duracion,id_equipo)
 values
@@ -470,15 +472,15 @@ values
 ('D','D21', true),
 ('D','D22', true);
 
-insert into alojamiento(cant_habitaciones,id_destino,nombreAlojamiento,precio,fotoAlojamiento)
-values(4,1,'Hotel Wanderlust', 50000.00,'alojamiento1.jpg'),
-	  (3,2,'Hotel Yas',35000.0,'alojamiento2.jpg'),
-      (2,2,'Hotel Yas',2000.0,'alojamiento3.jpg'),
-      (4,3,'Hotel Henn na',60000.0,'alojamiento4.jpg'),
-      (1,4,'Iniala Beach House',2000.0,'alojamiento1.jpg'),
-      (2,4,'Iniala Beach House',4000.0,'alojamiento1.jpg'),
-      (3,4,'Iniala Beach House',55000.0,'alojamiento1.jpg'),
-      (4,4,'Iniala Beach House',70000.0,'alojamiento1.jpg');
+insert into alojamiento(cant_habitaciones,id_destino,nombreAlojamiento,precio,fotoAlojamiento, disponible)
+values(4,1,'Hotel Wanderlust', 50000.00,'alojamiento1.jpg', true),
+	  (3,2,'Hotel Yas',35000.0,'alojamiento2.jpg', true),
+      (2,2,'Hotel Yas',2000.0,'alojamiento3.jpg', true),
+      (4,3,'Hotel Henn na',60000.0,'alojamiento4.jpg', true),
+      (1,4,'Iniala Beach House',2000.0,'alojamiento1.jpg', true),
+      (2,4,'Iniala Beach House',4000.0,'alojamiento1.jpg', true),
+      (3,4,'Iniala Beach House',55000.0,'alojamiento1.jpg', true),
+      (4,4,'Iniala Beach House',70000.0,'alojamiento1.jpg',true);
 
 -- CONSULTAS-------------------------------------------------------------------------
 
@@ -521,8 +523,6 @@ select * from vuelo; */
   inner join escala on destino.id_escala = escala.id_escala
   inner join alojamiento on destino.id_destino = alojamiento.id_destino;
   
-  
- 
 select * from alojamiento;
 
 select * from alojamiento
@@ -558,23 +558,33 @@ select * from tarjeta_de_credito;
 select distinct nombreAlojamiento
 from alojamiento;
 
-
 select * from alojamiento
-inner join destino on alojamiento.id_destino = destino.id_destino;
+inner join destino on alojamiento.id_destino = destino.id_destino
+WHERE cant_habitaciones = 4;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-drop database web2;
-=======
-=======
->>>>>>> 7e091ce8fbf3c472f34cc63f6029199f42cb088c
+/*UPDATE usuario
+SET id_tarjeta=1
+WHERE 
+id_usuario=5;*/
 
-									  /*UPDATE usuario
-                                      SET id_tarjeta=1
-                                      WHERE 
-                                      id_usuario=5;*/
+SELECT *
+FROM alojamiento
+INNER JOIN destino
+ON alojamiento.id_destino = destino.id_destino
+WHERE destino.id_destino = 4 AND cant_habitaciones = 4;
 
-<<<<<<< HEAD
->>>>>>> 7e091ce8fbf3c472f34cc63f6029199f42cb088c
-=======
->>>>>>> 7e091ce8fbf3c472f34cc63f6029199f42cb088c
+SELECT *, DATE_FORMAT(f_partida, '%d/%m/%Y') AS 'fechaDeViaje', origen.descripcion AS 'Origen', destino.descripcion AS 'Destino'
+FROM origen
+INNER JOIN vuelo
+ON origen.id_origen = vuelo.vuelo_origen
+INNER JOIN destino
+ON destino.id_destino = vuelo.vuelo_destino
+INNER  JOIN viaje
+ON vuelo.id_viaje = viaje.id_viaje
+INNER JOIN tipo_viaje
+ON viaje.id_tipo_viaje = tipo_viaje.id_tipo_viaje;
+
+UPDATE alojamiento 
+SET usuario = 6,
+disponible = false
+WHERE idAlojamiento = 5;
