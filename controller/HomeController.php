@@ -16,6 +16,9 @@ class HomeController{
         $data['tipoViaje'] = $this->homeModel->getTipoViaje();
         $data['4Viajes'] = $this->homeModel->get4Viajes();
         $data['alojamiento'] = $this->homeModel->getAlojamiento();
+        $data["nombreDeLosDestinos"] = $this->homeModel->getTodosLosDestinos();
+        $data["cantDeHabitaciones"] = $this->homeModel->getCantidadDeHabitaciones();
+        $data["fechasDeViaje"] = $this->homeModel->getFechaDeViaje();
 
         if (isset($_SESSION["logueado"])) {
             $data["logueado"] = $_SESSION["logueado"];
