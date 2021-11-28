@@ -71,6 +71,13 @@ class ReservaModel
                                       WHERE id_usuario='$usuario'");
     }
 
+    public function reservarAlojamiento($idAlojamiento, $idUsuario){
+        return $this->database->update("UPDATE alojamiento 
+                                            SET usuario = '$idUsuario',
+                                            disponible = false
+                                            WHERE idAlojamiento='$idAlojamiento';");
+    }
+
 
 
     
