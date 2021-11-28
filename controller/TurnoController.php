@@ -87,7 +87,7 @@ class TurnoController{
                 $data['estado'] = true;
 
                 $tipo = $this->resultadoCheckeo();
-
+                $_SESSION["tipo"] = $tipo;
                 $data['tipo']=$tipo;
 
                 $this->turnoModel->cargarCheckeo($tipo, $centroMedicoEncontrado[0]["id_centro_medico"], $idTurno);
@@ -150,11 +150,11 @@ class TurnoController{
 
                 $tipo="Tipo 1";
 
-            }else if($resultadoChequeoMedico>=30 && $resultadoChequeoMedico<60){
+          }else if($resultadoChequeoMedico>=30 && $resultadoChequeoMedico<60){
 
                 $tipo="Tipo 2";
 
-            }else{
+          }else{
 
                $tipo="Tipo 3";
             }
@@ -217,6 +217,10 @@ class TurnoController{
 
         if (isset($_SESSION["esAdmin"])) {
             $data["esAdmin"] = $_SESSION["esAdmin"];
+        }
+
+        if (isset($_SESSION["nombre"])) {
+            $data["nombre"] = $_SESSION["nombre"];
         }
 
         if (isset($_SESSION["esClient"])) {
