@@ -16,6 +16,7 @@ class GauchoRocketController{
         $data['destino'] = $this->gauchoModel->getDestino();
         $data['tipoViaje'] = $this->gauchoModel->getTipoViaje();
         $data['4Viajes'] = $this->gauchoModel->get4Viajes();
+        $data['alojamiento'] = $this->gauchoModel->getAlojamiento();
 
         echo $this->render->renderizar("view/gauchoRocket.mustache", $data);
 

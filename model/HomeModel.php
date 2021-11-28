@@ -17,7 +17,7 @@ class HomeModel{
     }
 
     public function get4Viajes(){
-        return $this->database->consulta("SELECT
+        return $this->database->consulta("SELECT distinct vu.vuelo_destino,
                                           d.foto,
                                           d.descripcion,
                                           vi.id_viaje,
@@ -27,12 +27,12 @@ class HomeModel{
                                           vi.duracion,
                                           vu.id_vuelo
                                           FROM vuelo vu
+                                          INNER JOIN destino d 
+                                          on d.id_destino=vu.vuelo_destino
                                           INNER JOIN viaje vi
                                           ON vi.id_viaje = vu.id_viaje
-                                          INNER JOIN destino d 
-                                          ON d.id_destino = vu.vuelo_destino
-                                          WHERE d.id_destino BETWEEN 0 AND 5
-                                          LIMIT 4");
+                                          group by vu.vuelo_destino
+                                          LIMIT 4;");
     }
 
     public function getFechaDeViaje(){

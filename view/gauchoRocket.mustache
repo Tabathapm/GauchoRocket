@@ -50,14 +50,27 @@ i__p__ /  |  ##############  | | ####### |__l___xp____| ooooo |      |~~~~|
     <article class="d-flex justify-content-center d-flex flex-column pb-5" >
         <h3 class="m-auto text-dark mt-4 mb-3 " id="alojamiento">Alojamiento</h3>
         <div class="d-flex justify-content-center d-flex flex-column mt-4 botones">
-            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" style="background: #C5CCD9">
+            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" action="/GauchoRocket/alojamiento" style="background: #C5CCD9" >
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-map-marker-alt me-3" style="font-size: 30px"></i>
-                    <input type="text" class="form-control bg bg-light rounded text-center" id="staticEmail2" placeholder="Destino" style="outline: 0">
+<!--                    <input type="text" class="form-control bg bg-light rounded text-center" id="staticEmail2" placeholder="Destino" style="outline: 0">-->
+                    <select class="form-select" aria-label="Default select example" name="destino">
+                        <option selected disabled>Destino</option>
+                        {{#vuelos}}
+                            <option value="{{vuelo_destino}}">{{vuelo_destino}}</option>
+                        {{/vuelos}}
+
+                    </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-bed me-3"  style="font-size: 30px"></i>
-                    <input type="text" class="form-control text-center"  placeholder="Cant habitaciones">
+<!--                    <input type="text" class="form-control text-center"  placeholder="Cant habitaciones">-->
+                    <select class="form-select" aria-label="Default select example" name="habitaciones">
+                        <option selected disabled>Cant Habitaciones</option>
+                        {{#alojamiento}}
+                            <option value="{{cant_habitaciones}}">{{cant_habitaciones}}</option>
+                        {{/alojamiento}}
+                    </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <button type="submit" class="btn buscar-a" style="background: #555973;color: #fff">BUSCAR</button>
@@ -65,46 +78,19 @@ i__p__ /  |  ##############  | | ####### |__l___xp____| ooooo |      |~~~~|
             </form>
 
             <div class="d-flex flex-row">
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/alojamientos/alojamiento1.jpg" class="card-img-top img-fluid" alt="...">
+                {{#alojamiento}}
+                <form class="card me-2" style="width: 18rem;" action="/GauchoRocket/alojamiento/">
+                    <img src="public/images/alojamientos/{{fotoAlojamiento}}" class="card-img-top img-fluid" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Alojamiento #1</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="#" class="btn text-light">VER MAS</a>
+                        <h5 class="card-title">{{nombreAlojamiento}}</h5>
+                        <p class="card-text">El mundo se detiene cuando dejas atrás Dickson Road en la Pequeña India y entras en este universo de innovación.</p>
                     </div>
-                </div>
-
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/alojamientos/alojamiento2.jpg" class="card-img-top img-fluid" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Alojamiento #2</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="#" class="btn text-light">VER MAS</a>
-                    </div>
-                </div>
-
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/alojamientos/alojamiento3.jpg" class="card-img-top img-fluid" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Alojamiento #3</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="#" class="btn text-light">VER MAS</a>
-                    </div>
-                </div>
-
-                <div class="card me-2" style="width: 18rem;">
-                    <img src="public/images/alojamientos/alojamiento4.jpg" class="card-img-top img-fluid" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Alojamiento #4</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="#" class="btn text-light">VER MAS</a>
-                    </div>
-                </div>
+                    <input name="precio" type="hidden" value="{{precio}}">
+                    <input name="nombreAlojamiento" type="hidden" value="{{nombreAlojamiento}}">
+                </form>
+                {{/alojamiento}}
             </div>
+
         </div>
     </article>
 
