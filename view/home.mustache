@@ -23,26 +23,24 @@
     <article class="d-flex justify-content-center d-flex flex-column pb-5" >
         <h3 class="m-auto text-dark mt-4 mb-3 " id="alojamiento">Alojamiento</h3>
         <div class="d-flex justify-content-center d-flex flex-column mt-4 botones">
-            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" action="/GauchoRocket/alojamiento" style="background: #C5CCD9" >
+            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" method="post" action="/GauchoRocket/alojamiento" style="background: #C5CCD9" >
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-map-marker-alt me-3" style="font-size: 30px"></i>
-<!--                    <input type="text" class="form-control bg bg-light rounded text-center" id="staticEmail2" placeholder="Destino" style="outline: 0">-->
                     <select class="form-select" aria-label="Default select example" name="destino">
                         <option selected disabled>Destino</option>
-                        {{#alojamiento}}
-                            <option value="{{nombreAlojamiento}}">{{nombreAlojamiento}}</option>
-                        {{/alojamiento}}
+                        {{#nombreDeLosDestinos}}
+                            <option value="{{id_destino}}">{{descripcion}}</option>
+                        {{/nombreDeLosDestinos}}
 
                     </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-bed me-3"  style="font-size: 30px"></i>
-<!--                    <input type="text" class="form-control text-center"  placeholder="Cant habitaciones">-->
                     <select class="form-select" aria-label="Default select example" name="habitaciones">
                         <option selected disabled>Cant Habitaciones</option>
-                        {{#alojamiento}}
+                        {{#cantDeHabitaciones}}
                             <option value="{{cant_habitaciones}}">{{cant_habitaciones}}</option>
-                        {{/alojamiento}}
+                        {{/cantDeHabitaciones}}
                     </select>
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
@@ -52,17 +50,21 @@
 
             <div class="d-flex flex-row">
                 {{#alojamiento}}
-                <form class="card me-2" style="width: 18rem;" action="/GauchoRocket/alojamiento/">
+                <form class="card me-2" style="width: 18rem;" method="post" action="/GauchoRocket/alojamiento/buscarPorAlojamiento">
                     <img src="public/images/alojamientos/{{fotoAlojamiento}}" class="card-img-top img-fluid" alt="...">
                     <div class="card-body">
+                        <input type="hidden" name="alojamiento" value="{{nombreAlojamiento}}">
                         <h5 class="card-title">{{nombreAlojamiento}}</h5>
-                        <p class="card-text">El mundo se detiene cuando dejas atrás Dickson Road en la Pequeña India y entras en este universo de innovación. Pasar una noche en el hotel Wanderlust es una experiencia única para los viajeros con hambre de aventura pues cada una de sus habitaciones te llevará a un mundo de fantasía sin salir de sus paredes. Pantone, Space y Whimsical son algunos de los nombres de las habitaciones que te sorprenderán.</p>
-                        <a href="/gauchoRocket/alojamiento" class="btn text-light">VER MAS</a>
+                        <p class="card-text">
+                            El mundo se detiene cuando dejas atrás Dickson Road en la Pequeña India y entras en este
+                            universo de innovación. Pasar una noche en el hotel Wanderlust es una experiencia única
+                            para los viajeros con hambre de aventura pues cada una de sus habitaciones te llevará a un
+                            mundo de fantasía sin salir de sus paredes. Pantone, Space y Whimsical son algunos de los
+                            nombres de las habitaciones que te sorprenderán.
+                        </p>
                     </div>
                     <input name="precio" type="hidden" value="{{precio}}">
                     <input name="nombreAlojamiento" type="hidden" value="{{nombreAlojamiento}}">
-
-
                 </form>
                 {{/alojamiento}}
             </div>
@@ -76,7 +78,7 @@
     <article class="d-flex justify-content-center d-flex flex-column pb-5">
         <h3 class="m-auto text-dark mt-4 mb-3" id="viajes">Viajes</h3>
         <div class="d-flex justify-content-center d-flex flex-column mt-4 botones">
-            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" action="/GauchoRocket/reserva" style="background: #C5CCD9">
+            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" method="post" action="/GauchoRocket/viaje" style="background: #C5CCD9">
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-street-view me-3" style="font-size: 30px"></i>
                     <select class="form-select" aria-label="Default select example" name="origen">
@@ -99,7 +101,7 @@
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-map-marked-alt me-3" style="font-size: 30px"></i>
                     <select class="form-select" aria-label="Default select example" name="tipoViaje">
-                        <option selected>Tipo de Viaje</option>
+                        <option selected disabled>Tipo de Viaje</option>
                         {{#tipoViaje}}
                         <option value="{{id_tipo_viaje}}">{{tipo}}</option>
                         {{/tipoViaje}}
@@ -107,7 +109,14 @@
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <i class="fas fa-calendar-alt me-3" style="font-size: 30px"></i>
-                    <input type="date" class="form-control text-center" name="fecha">
+<!--                    <input type="date" class="form-control text-center" name="fecha">-->
+                    <select class="form-select" aria-label="Default select example" name="fechaDeViaje">
+                        <option selected disabled>Fecha</option>
+                        {{#fechasDeViaje}}
+                            <option value="{{fechaDeViaje}}">{{fechaDeViaje}}</option>
+                        {{/fechasDeViaje}}
+                    </select>
+
                 </div>
                 <div class="col-auto d-flex flex-row align-items-center">
                     <button type="submit" class="btn buscar-a" style="background: #555973;color: #fff">BUSCAR</button>

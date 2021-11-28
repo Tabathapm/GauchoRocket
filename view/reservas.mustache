@@ -165,9 +165,18 @@
 
             <input type="hidden" name="vuelo" value="{{vuelo}}">
 
-            <div class="botones d-flex justify-content-evenly pb-3">
-                <button type="submit" class="btn btn-primary btn-lg">Reservar</button>
-                <a href="/GauchoRocket/home" class="btn btn-secondary btn-lg">Cancelar</a>
+<!--            <div class="botones d-flex justify-content-evenly pb-3">-->
+<!--                <a href="/GauchoRocket/home" class="btn btn-secondary btn-lg">Cancelar</a>-->
+<!--                <button type="submit" class="btn btn-primary btn-lg">Reservar</button>-->
+<!--            </div>-->
+            <div class="row d-flex justify-content-evenly pb-3 pt-5">
+                <div class="col-sm-6" >
+                    <a class="btn btn-danger w-100" tabindex="-1" role="button" href="/GauchoRocket/">Cancelar</a>
+                </div>
+
+                <div class="col-sm-6" >
+                    <button class="btn btn-primary w-100 " name="ingreso" href="index.php" role="button">Reservar</button>
+                </div>
             </div>
 
 

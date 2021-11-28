@@ -4,7 +4,7 @@
 <div class="mt-0 pb-5"></div>
 <div class="mt-0 pb-5"></div>
 
-<div class='mt-0 pb-5'>
+<div class='mt-0' style="padding: 16px 0 630px;">
 
               {{#tieneTurno}}
                           <form action="/GauchoRocket/turno/miTurno" method="post" class="card container w-75 pb-3">
@@ -27,7 +27,7 @@
                                     <input type="hidden" name="turno" value="{{id_turno}}">
                                   {{/turno}}
                                   <input type="hidden" name="cancelarTurno" value="cancelar">
-                                  <button type="submit" class="btn btn-secondary">Cancelar Turno</button>
+                                  <button type="submit" class="btn btn-secondary mt-4">Cancelar Turno</button>
                           </form>
                         {{/tieneTurno}}
                         {{^tieneTurno}}
