@@ -87,10 +87,12 @@ class TurnoController{
                 $data['estado'] = true;
 
                 $tipo = $this->resultadoCheckeo();
-                $_SESSION["tipo"] = $tipo;
+
                 $data['tipo']=$tipo;
 
-                $this->turnoModel->cargarCheckeo($tipo, $centroMedicoEncontrado[0]["id_centro_medico"], $idTurno);
+                $nivelEncontrado = $this->turnoModel->getNivelVuelo($tipo);
+
+                $this->turnoModel->cargarCheckeo($nivelEncontrado[0]["id_nivel_vuelo"], $centroMedicoEncontrado[0]["id_centro_medico"], $idTurno);
             }
 
         }else{
@@ -120,11 +122,15 @@ class TurnoController{
 
     public function sendMessageEmail($nombreUsuario, $apelllidoUsuario, $email, $centroMedico, $fecha, $hora){
 
+        $mailer =  $this->phpMailer->getMail();
+
+        $mailer->AddEmbeddedImage('public/images/icon-email.png', 'logo');
+
         $message ="
         <div>
-            <div>
+            <div style='display:flex; flex-direction:row;'>
                 <span>
-                    <img src='public/images/icon-email.png'>
+                    <img src='cid:logo' width=40>
                 </span>
                 <h1>Gaucho Rocket</h1>
             </div>
@@ -148,15 +154,15 @@ class TurnoController{
 
           if($resultadoChequeoMedico >= 10 && $resultadoChequeoMedico < 30){
 
-                $tipo="Tipo 1";
+                $tipo=1;
 
-          }else if($resultadoChequeoMedico>=30 && $resultadoChequeoMedico<60){
+            }else if($resultadoChequeoMedico>=30 && $resultadoChequeoMedico<60){
 
-                $tipo="Tipo 2";
+                $tipo=2;
 
-          }else{
+            }else{
 
-               $tipo="Tipo 3";
+               $tipo=3;
             }
 
         return $tipo;
@@ -181,7 +187,7 @@ class TurnoController{
                $centroMedico = $this->turnoModel->getCentroMedicoPorTurno($turnoEncontrado[0]['id_turno']);
 
                $data['turno'] = $turnoEncontrado;
-               $data['tipoVuelo'] = $tipoVueloEncontrado[0]['resultado'];
+               $data['tipoVuelo'] = $tipoVueloEncontrado[0]['resultadoNivelVuelo'];
                $data['centroMedico'] = $centroMedico;
                $data['usuario'] = $usuario;
 
@@ -217,10 +223,6 @@ class TurnoController{
 
         if (isset($_SESSION["esAdmin"])) {
             $data["esAdmin"] = $_SESSION["esAdmin"];
-        }
-
-        if (isset($_SESSION["nombre"])) {
-            $data["nombre"] = $_SESSION["nombre"];
         }
 
         if (isset($_SESSION["esClient"])) {

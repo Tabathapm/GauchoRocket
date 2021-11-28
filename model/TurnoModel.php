@@ -58,7 +58,7 @@ class TurnoModel
 
      public function tipoVueloUsuario($id){
 
-        return $this->database->consulta("SELECT cm.resultado FROM chequeo_medico cm 
+       return $this->database->consulta("SELECT cm.resultadoNivelVuelo FROM chequeo_medico cm 
                                           INNER JOIN turno t
                                           ON cm.turno = t.id_turno 
                                           INNER JOIN usuario u
@@ -82,8 +82,14 @@ class TurnoModel
     }
 
     public function cargarCheckeo($resultado, $centroMedico, $turno){
-        return $this->database->ejecutar("INSERT INTO chequeo_medico(resultado, id_centro_medico, turno)
+        return $this->database->ejecutar("INSERT INTO chequeo_medico(resultadoNivelVuelo, id_centro_medico, turno)
                                           VALUES('$resultado','$centroMedico','$turno')");
+    }
+
+    public function getNivelVuelo($nivel){
+        return $this->database->consulta("SELECT id_nivel_vuelo
+                                          FROM nivel_vuelo nv
+                                          WHERE nv.num_nivel='$nivel'");
     }
 
    
