@@ -156,11 +156,18 @@ class Configuracion{
         return new HomeModel($database);
     }
 
+    public static function getViajeModel(){
+        $database = self::getDatabase();
+        include_once ("model/ViajeModel.php");
+        return new ViajeModel($database);
+    }
+
     public static function getViajeController(){
         $render = self::getRender();
         $viajeModel = self::getViajeModel();
+        $phpMailer= self::getPHPMailer();
         include_once ("controller/ViajeController.php");
-        return new ViajeController($render,$viajeModel);
+        return new ViajeController($render,$viajeModel, $phpMailer);
     }
 
 
