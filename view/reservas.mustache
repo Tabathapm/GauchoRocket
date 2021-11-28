@@ -6,7 +6,7 @@
 
 <div class='mt-0 pb-5'>
     <div class="formularioReserva container">
-        <form action="/GauchoRocket/reserva/generarReserva" method="post">
+        <form action="/GauchoRocket/reserva/generarReserva" method="post" name="formulario" id="formulario">
           <div class="d-flex flex-row">
 
             <div class="me-5">
@@ -25,7 +25,7 @@
               <br>
               <span><i class="fas fa-stopwatch" style="font-size: 20px" title="Duracion"></i>  </span><span class="badge bg-secondary d-flex justify-content-between"> {{duracion}} horas</span>
             </div>
-
+            <input type="hidden" name="vuelo" value="{{vuelo}}">
             <div class="mt-5 ms-5" style="width:50rem">
               
               <div class="card">
@@ -87,7 +87,7 @@
                 <tbody>
                 <td>
                         {{#tipoVuelo}}
-                        <p>{{resultado}}</p>
+                        <p>Tipo {{resultadoNivelVuelo}}</p>
                         <input type="hidden" value="{{resultado}}" name="tipoVuelo">
                         {{/tipoVuelo}}
               
@@ -111,76 +111,87 @@
                    <thead>
 
                    <tr>
+                        
                        <th scope="col">A</th>
-                       <th scope="col"><input type="radio" id="a1" name="asiento"> A1
-                       <label for="a1"></label>
-                       </th>
-
-                       <th scope="col"><input type="radio" id="a2" name="asiento"> A2
-                       <label for="a2"></label></th>
-                       <th scope="col"><input type="radio" id="a3" name="asiento"> A3
-                       <label for="a3"></label></th>
+                       {{#filaA}}
+                       
+                         {{#asientoDisponible}}
+                         <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  value="{{idAsiento}}"><i class="fas fa-circle text-success" style="font-size:30px"></i> {{asientos}}
+                         <label for="{{idAsiento}}"></label>
+                         </th>
+                         {{/asientoDisponible}}
+                         {{^asientoDisponible}}
+                         <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  disabled><i class="fas fa-circle text-danger" style="font-size:30px"></i> {{asientos}}
+                         <label for="{{idAsiento}}"></label>
+                         </th>
+                         {{/asientoDisponible}}
+                       
+                       {{/filaA}}
                    </tr>
                    </thead>
                    <tbody>
                    <tr>
                        <th scope="row">B</th>
-                       <th scope="col"><input type="radio" id="b1" name="asiento"> B1
-                           <label for="b1"></label>
-                       </th>
-                       <th scope="col"><input type="radio" id="b2" name="asiento"> B2
-                           <label for="b2"></label>
-                       </th>
-                       <th scope="col"><input type="radio" id="b3" name="asiento"> B3
-                           <label for="b3"></label>
-                       </th>
+                       {{#filaB}}
+                        
+                         {{#asientoDisponible}}
+                         <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  value="{{idAsiento}}"><i class="fas fa-circle text-success" style="font-size:30px"></i> {{asientos}}
+                             <label for="{{idAsiento}}"></label>
+                         </th>
+                         {{/asientoDisponible}}
+                         {{^asientoDisponible}}
+                          <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  disabled><i class="fas fa-circle text-danger" style="font-size:30px"></i> {{asientos}}
+                             <label for="{{idAsiento}}"></label>
+                         </th>
+                         {{/asientoDisponible}}
+                       
+                       {{/filaB}}
+                      
                    </tr>
                    <tr>
                        <th scope="row">C</th>
-                       <th scope="col"><input type="radio" id="c1" name="asiento"> C1
-                           <label for="c1"></label>
-                       </th>
-                       <th scope="col"><input type="radio" id="c1" name="asiento"> C2
-                           <label for="c2"></label>
-                       </th>
-                       <th scope="col"><input type="radio" id="a1" name="asiento"> C3
-                           <label for="c3"></label>
-                       </th>
+                        {{#filaC}}
+                          
+                          {{#asientoDisponible}}
+                         <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  value="{{idAsiento}}"><i class="fas fa-circle text-success" style="font-size:30px"></i> {{asientos}}
+                             <label for="{{idAsiento}}"></label>
+                         </th>
+                         {{/asientoDisponible}}
+                         {{^asientoDisponible}}
+                          <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  disabled><i class="fas fa-circle text-danger" style="font-size:30px"></i> {{asientos}}
+                             <label for="{{idAsiento}}"></label>
+                         </th>
+                         {{/asientoDisponible}}
+                     
+                        {{/filaC}}
                    </tr>
                    <tr>
                        <th scope="row">D</th>
-                       <th scope="col"><input type="radio" id="d1" name="asiento"> D1
-                           <label for="d1"></label>
-                       </th>
-                       <th scope="col"><input type="radio" id="d2" name="asiento"> D2
-                           <label for="d2"></label>
-                       </th>
-                       <th scope="col"><input type="radio" id="d3" name="asiento"> D3
-                           <label for="d3"></label>
-                       </th>
+                        {{#filaD}}
+                          
+                           {{#asientoDisponible}}
+                           <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  value="{{idAsiento}}"><i class="fas fa-circle text-success" style="font-size:30px"></i> {{asientos}}
+                               <label for="{{idAsiento}}"></label>
+                           </th>
+                           {{/asientoDisponible}}
+                            {{^asientoDisponible}}
+                              <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  disabled><i class="fas fa-circle text-danger" style="font-size:30px"></i> {{asientos}}
+                               <label for="{{idAsiento}}"></label>
+                           </th>
+                          {{/asientoDisponible}}
+                        
+                        {{/filaD}}
                    </tr>
                    </tbody>
                </table>
            </div>
 
-            <input type="hidden" name="vuelo" value="{{vuelo}}">
-
-<!--            <div class="botones d-flex justify-content-evenly pb-3">-->
-<!--                <a href="/GauchoRocket/home" class="btn btn-secondary btn-lg">Cancelar</a>-->
-<!--                <button type="submit" class="btn btn-primary btn-lg">Reservar</button>-->
-<!--            </div>-->
-            <div class="row d-flex justify-content-evenly pb-3 pt-5">
-                <div class="col-sm-6" >
-                    <a class="btn btn-danger w-100" tabindex="-1" role="button" href="/GauchoRocket/">Cancelar</a>
-                </div>
-
-                <div class="col-sm-6" >
-                    <button class="btn btn-primary w-100 " name="ingreso" href="index.php" role="button">Reservar</button>
-                </div>
+            <div class="botones d-flex justify-content-evenly pb-3">
+                <button type="submit" class="btn btn-primary btn-lg">Reservar</button>
+                <a href="/GauchoRocket/home" class="btn btn-secondary btn-lg">Cancelar</a>
             </div>
 
-
-        </form>
+          </form>
 
     </div>
 </div>

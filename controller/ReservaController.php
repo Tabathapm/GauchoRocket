@@ -54,6 +54,10 @@ class ReservaController{
 
                 $viaje=$_POST['idViaje'];
                 $data['viaje'] = $this->reservaModel->getViaje($viaje);
+                $data['filaA']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'A');
+                $data['filaB']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'B');
+                $data['filaC']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'C');
+                $data['filaD']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'D');
                 $data['destino'] = $_POST['destino'];
                 $data['horario'] = $_POST['horario'];
                 $data['fecha'] = $_POST['fecha'];
@@ -79,21 +83,21 @@ class ReservaController{
 
         $nombre= $_SESSION["nombre"];
         $apellido= $_SESSION["apellido"];
-        /*$horarioReserva= $_POST['hora'];
+        $horarioReserva= $_POST['hora'];
         $cabina=$_POST['cabina'];
         $servicio=$_POST['servicio'];
-        $vuelo=$_POST['vuelo'];*/
+        $vuelo=$_POST['vuelo'];
+        $comprobanteReserva = $_POST['comprobante'];
        
         $host = "http://".$_SERVER['HTTP_HOST'];
       
         $message ="
          <div>
             <img src='$host/GauchoRocket/public/images/marca-pdf.png' style='width:60rem;'/>
-            <div>
-                <p>
-                  Reserva realizada por:".$nombre." ".$apellido.",
-                </p>
-            </div>
+            <strong>COD COMPROBANTE DE RESERVA: </strong><span>".$comprobanteReserva."</span>  
+            Reserva realizada por:".$nombre." ".$apellido."
+            Con servicio: ".$servicio.", cabina: ".$cabina."  
+            <br>
          </div>";
 
          $data['pdf']=$this->pdf->createPDF($message,'reserva');
@@ -125,6 +129,8 @@ class ReservaController{
 
         $id_vuelo = $_POST['vuelo'];
 
+        $asiento = $_POST['asiento'];
+
         $empresaTarjeta = $_POST['empresaTarjeta'];
         $nroTarjeta = $_POST['nroTarjeta'];
         $titular = $_POST['nombreTitular'];
@@ -133,7 +139,7 @@ class ReservaController{
         $codSeguridad = $_POST['codSeguridad'];
 
         $this->reservaModel->getRegistrarTarjeta($nroTarjeta, $titular , $mes , $ano, $empresaTarjeta, $codSeguridad);
-
+        $this->reservaModel->asientoReservado($asiento);
 
         $servicioEncontrado= $this->reservaModel->getServicio($servicio);
         $cabinaEncontrada = $this->reservaModel->getCabina($cabina);
@@ -149,11 +155,14 @@ class ReservaController{
             $data['servicio'] = $servicioEncontrado[0]['id_tipo_servicio'];
             $data['cabina'] = $cabinaEncontrada[0]['id_cabina'];
             $data['vuelo'] = $id_vuelo;
-            $data['reservaRegistrada']=true;
+            $data['comprobante']=$comprobanteReserva;
+           // $data['reservaRegistrada']=true;
 
         /*}else{
             $data['reservaRegistrada']=false;
         }*/
+
+        
 
         echo $this->render->renderizar("view/miReserva.mustache");
 

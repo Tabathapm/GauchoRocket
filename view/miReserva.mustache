@@ -1,8 +1,11 @@
 {{> header}}
 
 
+<div  class="pt-5 pb-5 mb-5"></div>
+<div  class="pt-5 pb-5 mb-5"></div>
 
-<form method="post" action='/GauchoRocket/reserva/crearPDF' class="mb-5">
+
+<form method="post" action='/GauchoRocket/reserva/crearPDF' class="pt-5 pb-5 mb-5">
     {{#usuario}}
     <input type='hidden' name='nombre' value='{{nombre_usuario}}'>
     <input type='hidden' name='apellido' value='{{apellido_usuario}}'>
@@ -10,11 +13,12 @@
     <input type='hidden' name='cabina' value='{{cabina}}'>
     <input type='hidden' name='servicio' value='{{servicio}}'>
     <input type='hidden' name='vuelo' value='{{vuelo}}'>
+     <input type='hidden' name='comprobante' value='{{comprobante}}'>
     {{/usuario}}
     <button type="submit" class="btn btn-success">
-	    <i class="fas fa-download"></i>
-		DESCARGAR COMPROBANTE
-	</button>
+        <i class="fas fa-download"></i>
+        DESCARGAR COMPROBANTE
+    </button>
 </form>
 
 {{> footer}}
