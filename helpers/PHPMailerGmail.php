@@ -25,7 +25,6 @@ class PHPMailerGmail{
    
 	public function send($emailUser, $subject, $message){
 
-		//self::setting();
 
 		$this->mail->SetFrom($this->email, 'Gaucho Rocket');
 		$this->mail->AddAddress($emailUser);
@@ -80,5 +79,9 @@ class PHPMailerGmail{
 		$mail->Username = $email;
 		$mail->Password = $pass;
 
+	}
+
+	public function getMail(){
+		return $this->mail;
 	}
 }
