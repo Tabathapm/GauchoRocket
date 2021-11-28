@@ -36,14 +36,15 @@ class HomeModel{
     }
 
     public function getFechaDeViaje(){
-
+        return $this->database->consulta("SELECT DATE_FORMAT(f_partida, '%d/%m/%Y') AS 'fechaDeViaje'
+                                              FROM viaje
+                                              GROUP BY f_partida;");
     }
 
     public function getViajes(){
         return $this->database->consulta("select * from vuelo
                                                 inner join viaje on vuelo.id_viaje = viaje.id_viaje;");
     }
-
 
     public function usuarioConTurno($id){
 
@@ -58,8 +59,21 @@ class HomeModel{
     }
 
     public function getAlojamiento(){
-        return $this->database->consulta("SELECT * FROM ALOJAMIENTO
-                                                LIMIT 4");
+        return $this->database->consulta("SELECT *
+                                              FROM alojamiento
+                                              GROUP BY nombreAlojamiento;");
+    }
+
+    public function getTodosLosDestinos(){
+        return $this->database->consulta("SELECT descripcion, id_destino
+                                              FROM destino
+                                              GROUP BY descripcion");
+    }
+
+    public function getCantidadDeHabitaciones(){
+        return $this->database->consulta("SELECT DISTINCT cant_habitaciones
+                                              FROM alojamiento
+                                              ORDER BY cant_habitaciones ASC ;");
     }
 
 
