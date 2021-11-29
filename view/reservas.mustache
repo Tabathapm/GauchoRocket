@@ -111,10 +111,10 @@
                    <thead>
 
                    <tr>
-                        
+
                        <th scope="col">A</th>
                        {{#filaA}}
-                       
+
                          {{#asientoDisponible}}
                          <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  value="{{idAsiento}}"><i class="fas fa-circle text-success" style="font-size:30px"></i> {{asientos}}
                          <label for="{{idAsiento}}"></label>
@@ -125,7 +125,7 @@
                          <label for="{{idAsiento}}"></label>
                          </th>
                          {{/asientoDisponible}}
-                       
+
                        {{/filaA}}
                    </tr>
                    </thead>
@@ -133,7 +133,7 @@
                    <tr>
                        <th scope="row">B</th>
                        {{#filaB}}
-                        
+
                          {{#asientoDisponible}}
                          <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  value="{{idAsiento}}"><i class="fas fa-circle text-success" style="font-size:30px"></i> {{asientos}}
                              <label for="{{idAsiento}}"></label>
@@ -144,14 +144,14 @@
                              <label for="{{idAsiento}}"></label>
                          </th>
                          {{/asientoDisponible}}
-                       
+
                        {{/filaB}}
-                      
+
                    </tr>
                    <tr>
                        <th scope="row">C</th>
                         {{#filaC}}
-                          
+
                           {{#asientoDisponible}}
                          <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  value="{{idAsiento}}"><i class="fas fa-circle text-success" style="font-size:30px"></i> {{asientos}}
                              <label for="{{idAsiento}}"></label>
@@ -162,13 +162,13 @@
                              <label for="{{idAsiento}}"></label>
                          </th>
                          {{/asientoDisponible}}
-                     
+
                         {{/filaC}}
                    </tr>
                    <tr>
                        <th scope="row">D</th>
                         {{#filaD}}
-                          
+
                            {{#asientoDisponible}}
                            <th scope="col"><input type="radio" id="{{idAsiento}}" name="asiento" class="me-2"  value="{{idAsiento}}"><i class="fas fa-circle text-success" style="font-size:30px"></i> {{asientos}}
                                <label for="{{idAsiento}}"></label>
@@ -179,7 +179,7 @@
                                <label for="{{idAsiento}}"></label>
                            </th>
                           {{/asientoDisponible}}
-                        
+
                         {{/filaD}}
                    </tr>
                    </tbody>
@@ -187,8 +187,8 @@
            </div>
 
             <div class="botones d-flex justify-content-evenly pb-3">
-                <button type="submit" class="btn btn-primary btn-lg">Reservar</button>
                 <a href="/GauchoRocket/home" class="btn btn-secondary btn-lg">Cancelar</a>
+                <button type="submit" class="btn btn-primary btn-lg">Reservar</button>
             </div>
 
           </form>
