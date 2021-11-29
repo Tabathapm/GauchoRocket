@@ -170,5 +170,19 @@ class Configuracion{
         return new ViajeController($render,$viajeModel, $phpMailer);
     }
 
+    public static function getReportesModel(){
+        $database = self::getDatabase();
+        include_once ("model/ReportesModel.php");
+        return new ReportesModel($database);
+    }
+
+    public static function getReportesController(){
+        $render = self::getRender();
+        $reportesModel = self::getReportesModel();
+        $pdf = self::getPDF();
+        include_once ("controller/ReportesController.php");
+        return new ReportesController($render, $reportesModel, $pdf);
+    }
+
 
 }
