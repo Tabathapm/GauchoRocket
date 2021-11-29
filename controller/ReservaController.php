@@ -5,11 +5,15 @@ class ReservaController{
     private $render;
     private $reservaModel;
     private $pdf;
+    private $qr;
+    private $phpMailer;
 
-    public function __construct(\Render $render, \ReservaModel $reservaModel, \PDF $pdf){
+    public function __construct(\Render $render, \ReservaModel $reservaModel, \PDF $pdf, \QR $qr, \PHPMailerGmail $phpMailer){
         $this->render = $render;
         $this->reservaModel = $reservaModel;
         $this->pdf=$pdf;
+        $this->qr=$qr;
+        $this->phpMailer = $phpMailer;
     }
 
     public function execute(){
@@ -79,44 +83,11 @@ class ReservaController{
     }
 
 
-    public function crearPDF(){
-
-        $nombre= $_SESSION["nombre"];
-        $apellido= $_SESSION["apellido"];
-        $horarioReserva= $_POST['hora'];
-        $cabina=$_POST['cabina'];
-        $servicio=$_POST['servicio'];
-        $vuelo=$_POST['vuelo'];
-        $comprobanteReserva = $_POST['comprobante'];
-       
-        $host = "http://".$_SERVER['HTTP_HOST'];
-      
-        $message ="
-         <div>
-            <img src='$host/GauchoRocket/public/images/marca-pdf.png' style='width:60rem;'/>
-            <strong>COD COMPROBANTE DE RESERVA: </strong><span>".$comprobanteReserva."</span>  
-            Reserva realizada por:".$nombre." ".$apellido."
-            Con servicio: ".$servicio.", cabina: ".$cabina."  
-            <br>
-         </div>";
-
-         $data['pdf']=$this->pdf->createPDF($message,'reserva');
-
-        if(isset($_SESSION['logueado'])){
-            echo $this->render->renderizar("view/pdf.mustache");
-        }
-        else{
-            header("Location: /GauchoRocket/login");
-            exit();
-        }
-        
-         echo $this->render->renderizar("view/pdf.mustache", $data);
-     }
-
-
     public function generarReserva(){
 
         $comprobanteReserva= substr(md5(uniqid(rand(),true)),0,8);
+        $_SESSION['comprobante'] = $comprobanteReserva;
+        $data['comprobante']=$comprobanteReserva;
 
         $usuario = $_SESSION["id"];
         $nombre = $_SESSION["nombre"];
@@ -124,11 +95,8 @@ class ReservaController{
 
         $servicio = $_POST['servicio'];
         $cabina = $_POST['cabina'];
-
         $horaReserva = $_POST['horario'];
-
         $id_vuelo = $_POST['vuelo'];
-
         $asiento = $_POST['asiento'];
 
         $empresaTarjeta = $_POST['empresaTarjeta'];
@@ -138,44 +106,149 @@ class ReservaController{
         $ano = $_POST['anoVencimiento'];
         $codSeguridad = $_POST['codSeguridad'];
 
-        $this->reservaModel->getRegistrarTarjeta($nroTarjeta, $titular , $mes , $ano, $empresaTarjeta, $codSeguridad);
-        $this->reservaModel->asientoReservado($asiento);
-
         $servicioEncontrado= $this->reservaModel->getServicio($servicio);
         $cabinaEncontrada = $this->reservaModel->getCabina($cabina);
         $tarjetaEncontrada = $this->reservaModel->getTarjeta($nroTarjeta);
 
-        //$this->reservaModel->asignarTarjetaAUsuario($tarjetaEncontrada[0]['id_tarjeta'], $usuario);
+        $_SESSION["servicio"]= $servicioEncontrado[0]['descripcion_tipo'];
+        $_SESSION["cabina"]=$cabinaEncontrada[0]['tipo'];
+        $_SESSION["horario"]=$horaReserva;
+        $_SESSION["asiento"]=$asiento;
+        $_SESSION["vuelo"]=$id_vuelo;
 
-        /*if($this->reservaModel->asignarTarjetaAUsuario($tarjetaEncontrada[0]['id_tarjeta'], $usuario)){*/
-            $this->reservaModel->asignarTarjetaAUsuario($tarjetaEncontrada[0]['id_tarjeta'], $usuario);
-             $this->reservaModel->registrarReserva($horaReserva, $tarjetaEncontrada[0]['id_tarjeta'] , $id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario);
+        $data['horaReserva'] = $horaReserva;
+        $data['servicio'] = $servicioEncontrado[0]['descripcion_tipo'];
+        $data['cabina'] = $cabinaEncontrada[0]['tipo'];
+        $data['vuelo'] = $id_vuelo;
+        $data['asiento']=$asiento;
 
-            $data['horaReserva'] = $horaReserva;
-            $data['servicio'] = $servicioEncontrado[0]['id_tipo_servicio'];
-            $data['cabina'] = $cabinaEncontrada[0]['id_cabina'];
-            $data['vuelo'] = $id_vuelo;
-            $data['comprobante']=$comprobanteReserva;
-           // $data['reservaRegistrada']=true;
+        $this->reservaModel->getRegistrarTarjeta($nroTarjeta, $titular , $mes , $ano, $empresaTarjeta, $codSeguridad);
+        $this->reservaModel->asientoReservado($asiento);
 
-        /*}else{
-            $data['reservaRegistrada']=false;
-        }*/
-
-        
+        $this->reservaModel->asignarTarjetaAUsuario($tarjetaEncontrada[0]['id_tarjeta'], $usuario);
+        $this->reservaModel->registrarReserva($horaReserva, $tarjetaEncontrada[0]['id_tarjeta'] , $id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario);
 
         echo $this->render->renderizar("view/miReserva.mustache");
 
     }
 
 
+    public function sendMessageEmail($horaReserva, $cabina, $servicio, $vuelo, $comprobanteReserva){
+
+        $nombre=$_SESSION['nombre'];
+        $apellido=$_SESSION['apellido'];
+        $email=$_SESSION['email'];
+
+
+        $mailer =  $this->phpMailer->getMail();
+
+        $mailer->AddEmbeddedImage('public/images/icon-email.png', 'logo');
+
+        $message ="
+        <div>
+            <div style='display:flex; flex-direction:row;'>
+                <span>
+                    <img src='cid:logo' width=40>
+                </span>
+                <h1>Gaucho Rocket</h1>
+            </div>
+            <div>
+               <p>
+               <strong>COD COMPROBANTE DE RESERVA: </strong><span>".$comprobanteReserva."</span>
+                <br>  
+                Reserva realizada por: ".$nombre." ".$apellido."
+                <br>
+                Con servicio: <strong>".$servicio."</strong>, Cabina: <strong>".$cabina."</strong>  
+                <br>
+                Para el vuelo con origen en: <strong>".$vuelo[0]['origen']."</strong>, destino a: <strong>".$vuelo[0]['destino']."</strong>, para el dia: <strong>".$vuelo[0]['fecha']."</strong> en el horario: <strong>".$vuelo[0]['hora']."</strong>, con asiento reservado en Fila: <strong>".$vuelo[0]['fila']."</strong>, asiento: <strong>".$vuelo[0]['asiento']."</strong>
+               </p>
+            </div>
+        </div> ";
+
+        return $this->phpMailer->send($email, "Reserva", $message);
+
+    }
+
+
+    public function crearPDF(){
+
+        $nombre= $_SESSION["nombre"];
+        $apellido= $_SESSION["apellido"];
+        $horarioReserva= $_SESSION["horario"];
+        $cabina=$_SESSION["cabina"];
+        $servicio=$_SESSION["servicio"];
+        $vuelo=$_SESSION["vuelo"];
+        $comprobanteReserva = $_SESSION['comprobante'];
+
+        $vueloEncontrado= $this->reservaModel->getReservaVuelo($vuelo);
+
+        $this->sendMessageEmail($horarioReserva, $cabina, $servicio, $vueloEncontrado, $comprobanteReserva);
+
+        $host = "http://".$_SERVER['HTTP_HOST'];
+
+        $message ="
+         <div>
+            <img src='$host/GauchoRocket/public/images/marca-pdf.png' style='width:60rem;'/>
+            <strong>COD COMPROBANTE DE RESERVA: </strong><span>".$comprobanteReserva."</span>
+            <br>  
+            Reserva realizada por: ".$nombre." ".$apellido."
+            <br>
+            Con servicio: <strong>".$servicio."</strong>, Cabina: <strong>".$cabina."</strong>  
+            <br>
+            Para el vuelo con origen en: <strong>".$vueloEncontrado[0]['origen']."</strong>, destino a: <strong>".$vueloEncontrado[0]['destino']."</strong>, para el dia: <strong>".$vueloEncontrado[0]['fecha']."</strong> en el horario: <strong>".$vueloEncontrado[0]['hora']."</strong>, con asiento reservado en Fila: <strong>".$vueloEncontrado[0]['fila']."</strong>, asiento: <strong>".$vueloEncontrado[0]['asiento']."</strong><br>
+         </div>";
+
+         
+         $data['pdf']=$this->pdf->createPDF($message,'reserva');
+
+
+        if(isset($_SESSION['logueado'])){
+            echo $this->render->renderizar("view/pdf.mustache");
+        }
+        else{
+            header("Location: /GauchoRocket/login");
+            exit();
+        }
+
+         echo $this->render->renderizar("view/pdf.mustache", $data);
+         
+     }
+
+
+     public function crearQr(){
+
+        $nombre=$_SESSION['nombre'];
+        $apellido=$_SESSION['apellido'];
+        $cabina=$_SESSION["cabina"];
+        $servicio=$_SESSION["servicio"];
+        $vuelo=$_SESSION["vuelo"];
+        $comprobanteReserva = $_SESSION['comprobante'];
+        $vueloEncontrado= $this->reservaModel->getReservaVuelo($vuelo);
+
+        $host = "http://".$_SERVER['HTTP_HOST'];
+
+        $message ="
+         <div>
+            <img src='$host/GauchoRocket/public/images/marca-pdf.png' style='width:60rem;'/>
+            <strong>COD COMPROBANTE DE RESERVA: </strong><span>".$comprobanteReserva."</span>
+            <br>  
+            Reserva realizada por: ".$nombre." ".$apellido."
+            <br>
+            Con servicio: <strong>".$servicio."</strong>, Cabina: <strong>".$cabina."</strong>  
+            <br>
+            Para el vuelo con origen en: <strong>".$vueloEncontrado[0]['origen']."</strong>, destino a: <strong>".$vueloEncontrado[0]['destino']."</strong>, para el dia: <strong>".$vueloEncontrado[0]['fecha']."</strong> en el horario: <strong>".$vueloEncontrado[0]['hora']."</strong>, con asiento reservado en Fila: <strong>".$vueloEncontrado[0]['fila']."</strong>, asiento: <strong>".$vueloEncontrado[0]['asiento']."</strong>
+         </div>";
+
+         $data['qr']= $this->qr->createQR($message);
+
+         echo $this->render->renderizar("view/qr.mustache");
+     }
+
+
+
+
+
 
 
 }
-
-
-
-
-
-
 

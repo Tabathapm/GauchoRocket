@@ -104,7 +104,27 @@ class ReservaModel
 
     }
 
+    public function getReservaVuelo($idVuelo){
 
+       return $this->database->consulta("SELECT d.descripcion as destino,
+                                        o.descripcion as origen,
+                                        vi.f_partida as fecha,
+                                        vi.horario as hora,
+                                        vi.precio as precio,
+                                        a.fila as fila,
+                                        a.descripcion as asiento
+                                        from destino d
+                                        inner join vuelo vu
+                                        on vu.vuelo_destino=d.id_destino
+                                        inner join origen o
+                                        on o.id_origen= vu.vuelo_origen
+                                        inner join viaje vi
+                                        on vi.id_viaje = vu.id_viaje
+                                        inner join asiento a 
+                                        on vu.id_asiento = a.id_asiento
+                                        where vu.id_vuelo='$idVuelo'");
+
+    }
 
     
 

@@ -1,24 +1,32 @@
 {{> header}}
 
+<div  class="pt-5 pb-5"></div>
 
-<div  class="pt-5 pb-5 mb-5"></div>
-<div  class="pt-5 pb-5 mb-5"></div>
+<div class="alert alert-success text-center container" role="alert">
+    <h4>
+    <i class='fas fa-check-circle me-2 text-center'></i>
+    Reserva registrada con éxito!
+</h4>
+</div>
 
+<div class="d-flex flex-row justify-content-center">
 
-<form method="post" action='/GauchoRocket/reserva/crearPDF' class="pt-5 pb-5 mb-5">
-    {{#usuario}}
-    <input type='hidden' name='nombre' value='{{nombre_usuario}}'>
-    <input type='hidden' name='apellido' value='{{apellido_usuario}}'>
-    <input type='hidden' name='hora' value='{{horaReserva}}'>
-    <input type='hidden' name='cabina' value='{{cabina}}'>
-    <input type='hidden' name='servicio' value='{{servicio}}'>
-    <input type='hidden' name='vuelo' value='{{vuelo}}'>
-     <input type='hidden' name='comprobante' value='{{comprobante}}'>
-    {{/usuario}}
-    <button type="submit" class="btn btn-success">
-        <i class="fas fa-download"></i>
-        DESCARGAR COMPROBANTE
-    </button>
-</form>
+     <div class="pt-5 pb-5 me-4 mb-5">
+        <a href="/GauchoRocket/reserva/crearPDF" class="btn" target="_blank" style="background: #555973;color: #fff">
+            <i class="fas fa-download"></i>
+            DESCARGAR COMPROBANTE EN PDF
+        </a>
+    </div>
+
+    <div class="pt-5 pb-5 mb-5">
+        <a href="/GauchoRocket/reserva/crearQR" class="btn" target="_blank" style="background: #555973;color: #fff">
+            <i class="fas fa-download"></i>
+            DESCARGAR COMPROBANTE EN QR
+              
+        </a>
+    </div>
+    
+</div>
+
 
 {{> footer}}
