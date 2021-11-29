@@ -1,0 +1,42 @@
+{{> header}}
+{{> navbar}}
+
+<script type="text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+
+
+<section class = "container-fluid w-100 d-flex justify-content-center align-items-center" style="padding-top: 75px; padding-bottom: 339px">
+    <article class = "d-flex justify-content-center d-flex flex-column">
+        <h1 class = 'mt-5 text-center'>REPORTES</h1>
+        <div id = "grafico" style="width: 700px; height: 500px;"></div>
+    </article>
+</section>
+
+
+<script>
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['cabina', 'cantidad'],
+            {{#grafico}}
+                ['{{tipoDeCabina}}',     parseInt('{{cantVendido}}')],
+            {{/grafico}}
+        ]);
+
+        var options = {
+            title: 'Cabina más vendida'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('grafico'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+
+
+
+{{>footer}}
