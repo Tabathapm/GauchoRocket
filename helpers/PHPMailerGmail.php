@@ -33,8 +33,7 @@ class PHPMailerGmail{
 
 		$this->mail->Subject = $subject;
 		$this->mail->Body = $message;
-		$this->mail->AltBody = 'This is a plain-text message body';
-
+		
 		self::disableVerification($this->mail);
 		$enviado = self::result($this->mail);
 
