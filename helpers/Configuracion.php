@@ -103,10 +103,10 @@ class Configuracion{
         $render = self::getRender();
         $reservaModel = self::getReservaModel();
         $qr = self::getQR();
+        $phpMailer = self::getPHPMailer();
         include_once("controller/ReservaController.php");
-        return new ReservaController($render,$reservaModel, $pdf,$qr);
+        return new ReservaController($render,$reservaModel, $pdf,$qr, $phpMailer);
     }
-
 
     public static function getPHPMailer(){
         include_once("helpers/PHPMailerGmail.php");
