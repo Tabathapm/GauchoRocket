@@ -197,4 +197,17 @@ class Configuracion{
         return new CargarController($render, $cargasModel);
     }
 
+    public static function getBorrarModel(){
+        $database = self::getDatabase();
+        include_once("model/BorrarModel.php");
+        return new BorrarModel($database);
+    }
+
+    public static function getBorrarViajesController(){
+        $render = self::getRender();
+        $borrarModel = self::getBorrarModel();
+        include_once ("controller/BorrarViajesController.php");
+        return new BorrarViajesController($render, $borrarModel);
+    }
+
 }
