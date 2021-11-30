@@ -186,13 +186,11 @@ create table tipo_servicio_a_bordo(id_tipo_servicio integer AUTO_INCREMENT,
 		
 create table reserva(	id_reserva integer AUTO_INCREMENT,
 						hora_reserva varchar(20),
-                        id_tarjeta integer,
                         id_vuelo integer,
                         id_tipo_servicio integer,
                         id_cabina integer,
                         id_usuario integer,
                         primary key(id_reserva),
-                        foreign key(id_tarjeta) references tarjeta_de_credito(id_tarjeta),
                         foreign key(id_vuelo) references vuelo(id_vuelo),
                         foreign key(id_cabina) references cabina(id_cabina),
                         foreign key(id_usuario) references usuario(id_usuario),
@@ -762,4 +760,12 @@ ON viaje.id_tipo_viaje = tipo_viaje.id_tipo_viaje;
 SET usuario = 6,
 disponible = false
 WHERE idAlojamiento = 5;*/
+
+select * from alojamiento;
+
+
+
+select * from reserva 
+inner join alojamiento on reserva.id_reserva = alojamiento.id_alojamiento
+where reserva.id_usuario = 2;
 

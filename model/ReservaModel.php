@@ -10,10 +10,10 @@ class ReservaModel
 
 
 
-    public function registrarReserva($hora_reserva, $id_tarjeta, $id_vuelo,$id_tipo_servicio, $id_cabina, $id_usuario){
-        return $this->database->ejecutar("INSERT INTO reserva(      hora_reserva,id_tarjeta,id_vuelo,id_tipo_servicio,id_cabina, id_usuario)
+    public function registrarReserva($hora_reserva,  $id_vuelo,$id_tipo_servicio, $id_cabina, $id_usuario){
+        return $this->database->ejecutar("INSERT INTO reserva(      hora_reserva,id_vuelo,id_tipo_servicio,id_cabina, id_usuario)
                                            VALUES
-                                          ('$hora_reserva','$id_tarjeta','$id_vuelo','$id_tipo_servicio','$id_cabina','$id_usuario')");
+                                          ('$hora_reserva','$id_vuelo','$id_tipo_servicio','$id_cabina','$id_usuario')");
     }
 
     public function servicios(){
@@ -39,6 +39,11 @@ class ReservaModel
                                           INNER JOIN vuelo vu
                                           ON vi.id_viaje = vu.id_viaje
                                           WHERE vi.id_viaje ='$id'");
+    }
+
+    public function getAlojamiento($id_alojamiento){
+        return $this->database->consulta("SELECT * FROM alojamiento");
+
     }
 
     public function getResultadoChequeo($id_usuario){
@@ -124,6 +129,12 @@ class ReservaModel
                                         on vu.id_asiento = a.id_asiento
                                         where vu.id_vuelo='$idVuelo'");
 
+    }
+
+    public function getReservas($id_usuario){
+        $this->database->consulta("select * from reserva 
+                                        inner join alojamiento on reserva.id_reserva = alojamiento.id_alojamiento
+                                            where reserva.id_usuario = '$id_usuario'");
     }
 
     
