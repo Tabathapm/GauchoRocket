@@ -21,7 +21,7 @@ class ReportesModel{
                                               ON viaje.id_tipo_viaje = tipo_viaje.id_tipo_viaje
                                               INNER JOIN cabina
                                               ON vuelo.id_cabina = cabina.id_cabina
-                                              WHERE viaje.disponible = true 
+                                              WHERE viaje.disponible = false 
                                               GROUP BY cabina.id_cabina;");
     }
 
