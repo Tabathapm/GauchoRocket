@@ -23,7 +23,7 @@
                         <a class="nav-link" href="/GauchoRocket/turno/miTurno">Turno</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/GauchoRocket/reserva/reservaCompleta">Reserva</a>
+                        <a class="nav-link" href="#">Reserva</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contacto</a>
@@ -31,11 +31,20 @@
                 {{/esClient}}
 
                 {{#esAdmin}}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/GauchoRocket/home">Home</a>
+                    </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#facturacion">Facturación</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/GauchoRocket/reportes">Reportes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/GauchoRocket/cargar/">Alojamientos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/GauchoRocket/cargar/viajes">Cargar Viajes</a>
                     </li>
                 {{/esAdmin}}
             </ul>
@@ -57,5 +66,3 @@
         {{/nombre}}
     </div>
 </nav>
-
-
