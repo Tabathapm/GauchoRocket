@@ -10,6 +10,7 @@ class CargarController{
     }
 
     public function execute(){
+        $data = array();
 
         if (isset($_SESSION["logueado"])) {
             $data["logueado"] = $_SESSION["logueado"];
@@ -34,19 +35,90 @@ class CargarController{
         if (isset($data["logueado"]) && isset($data["esAdmin"])){
             $alojamientos = $this->cargarModel->getTodosLosAlojamientos();
             $data["alojamientoElegido"] = $alojamientos;
-            $data['alojamiento'] = $this->homeModel->getAlojamiento();
+            $data['alojamiento'] = $this->cargarModel->getAlojamiento();
+            $data["nombreDeLosDestinos"] = $this->cargarModel->getTodosLosDestinos();
 
-//            var_dump($data["alojamientoElegido"]);
             echo $this->render->renderizar("view/cargar.mustache", $data);
         }
     }
 
     public function borrar(){
-        $id_alojamiento = $_POST["idAlojamiento"];
-        $this->cargarModel->getBorrarAlojamiento($id_alojamiento);
+        $data = array();
 
-        $data["mensaje"] = "Borrado exitosamente";
+        if (isset($_SESSION["logueado"])) {
+            $data["logueado"] = $_SESSION["logueado"];
+        }
 
-        echo $this->render->renderizar("view/cargar.mustache", $data);
+        if (isset($_SESSION["nombre"])) {
+            $data["nombre"] = $_SESSION["nombre"];
+        }
+
+        if (isset($_SESSION["id"])) {
+            $data["id"] = $_SESSION["id"];
+        }
+
+        if (isset($_SESSION["esClient"])) {
+            $data["esClient"] = $_SESSION["esClient"];
+        }
+
+        if (isset($_SESSION["esAdmin"])) {
+            $data["esAdmin"] = $_SESSION["esAdmin"];
+        }
+
+        if (isset($data["logueado"]) && isset($data["esAdmin"])) {
+            $id_alojamiento = $_POST["idAlojamiento"];
+            $this->cargarModel->getBorrarAlojamiento($id_alojamiento);
+
+            $data["mensaje"] = "Borrado exitosamente";
+
+            echo $this->render->renderizar("view/cargar.mustache", $data);
+        }
     }
+
+    public function cargarAlojamiento(){
+
+        $data = array();
+
+        if (isset($_SESSION["logueado"])) {
+            $data["logueado"] = $_SESSION["logueado"];
+        }
+
+        if (isset($_SESSION["nombre"])) {
+            $data["nombre"] = $_SESSION["nombre"];
+        }
+
+        if (isset($_SESSION["id"])) {
+            $data["id"] = $_SESSION["id"];
+        }
+
+        if (isset($_SESSION["esClient"])) {
+            $data["esClient"] = $_SESSION["esClient"];
+        }
+
+        if (isset($_SESSION["esAdmin"])) {
+            $data["esAdmin"] = $_SESSION["esAdmin"];
+        }
+
+        if (isset($data["logueado"]) && isset($data["esAdmin"])) {
+            $alojamientos = $this->cargarModel->getTodosLosAlojamientos();
+            $data["alojamientoElegido"] = $alojamientos;
+            $data['alojamiento'] = $this->cargarModel->getAlojamiento();
+            $data["nombreDeLosDestinos"] = $this->cargarModel->getTodosLosDestinos();
+
+            if (isset($_POST["cant_habitaciones"]) && isset($_POST["destino"]) && isset($_POST["nom_alojamiento"]) && isset($_POST["precio"])) {
+                $habitaciones = $_POST["cant_habitaciones"];
+                $destino = $_POST["destino"];
+                $alojamiento = $_POST["nom_alojamiento"];
+                $precio = $_POST["precio"];
+
+                $this->cargarModel->getCargarAlojamientos($habitaciones, $destino, $alojamiento, $precio);
+                $data["mensajeCargar"] = "Se cargó exitosamente";
+
+            }
+
+            echo $this->render->renderizar("view/cargar.mustache", $data);
+        }
+    }
+
+
 }
