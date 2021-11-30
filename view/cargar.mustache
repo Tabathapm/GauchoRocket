@@ -63,12 +63,20 @@
 
 <section class = "container-fluid w-100 d-flex justify-content-center align-items-center" style="padding-top: 75px; padding-bottom: 339px">
     <article class = "d-flex justify-content-center d-flex flex-column">
+        {{#mensajeCargar}}
+            <div class="alert alert-success text-center container mt-4" role="alert">
+                <h4 class="d-flex justify-content-center">
+                    <p class=" w3-center mt-2">{{mensajeCargar}}</p>
+                </h4>
+            </div>
+        {{/mensajeCargar}}
 
+        {{^mensajeCargar}}
         <div class="container mt-5">
             <div class="row justify-content-center align-items-center">
                 <div class="col-auto bg-light p-5" style="width: 617px;">
 
-                    <form action="/GauchoRocket/cargar" method="POST">
+                    <form action="/GauchoRocket/cargar/cargarAlojamiento" method="POST">
 
                         <h2 class = 'text-center pb-4'>CARGAR ALOJAMIENTOS</h2>
 
@@ -77,28 +85,22 @@
                             <div class="w-50 p-2">
                                 <label class="form-label">Cantidad de Habitaciones</label>
                                 <select name="cant_habitaciones" class="form-select">
-                                    <option>Fuego</option>
-                                    <option>Agua</option>
-                                    <option>Bicho</option>
-                                    <option>Electrico</option>
-                                    <option>Planta</option>
-                                    <option>Veneno</option>
-                                    <option>Volador</option>
-
+                                    <option selected disabled>-- SELECCIONE --</option>
+                                    <option value="1"> 1</option>
+                                    <option value="2"> 2</option>
+                                    <option value="3"> 3</option>
+                                    <option value="4"> 4</option>
                                 </select>
                             </div>
 
                             <div class="w-50 p-2">
                                 <label class="form-label">Destino</label>
                                 <select name="destino" class="form-select">
-                                    <option></option>
-                                    <option>Fuego</option>
-                                    <option>Agua</option>
-                                    <option>Bicho</option>
-                                    <option>Electrico</option>
-                                    <option>Planta</option>
-                                    <option>Veneno</option>
-                                    <option>Volador</option>
+                                    <option selected disabled>-- SELECCIONE --</option>
+                                    {{#nombreDeLosDestinos}}
+                                        <option value="{{id_destino}}">{{descripcion}}</option>
+                                    {{/nombreDeLosDestinos}}
+
                                 </select>
                             </div>
 
@@ -110,13 +112,11 @@
                             <div class="w-50 p-2">
                                 <label class="form-label">Alojamiento</label>
                                 <select name="nom_alojamiento" class="form-select">
-                                    <option>Fuego</option>
-                                    <option>Agua</option>
-                                    <option>Bicho</option>
-                                    <option>Electrico</option>
-                                    <option>Planta</option>
-                                    <option>Veneno</option>
-                                    <option>Volador</option>
+                                    <option selected disabled>-- SELECCIONE --</option>
+                                    <option value="Hotel Wanderlust"> Hotel Wanderlust</option>
+                                    <option value="Hotel Yas"> Hotel Yas</option>
+                                    <option value="Hotel Henn na"> Hotel Henn na</option>
+                                    <option value="Iniala Beach House"> Iniala Beach House</option>
 
                                 </select>
                             </div>
@@ -144,6 +144,8 @@
                 </div>
             </div>
         </div>
+        {{/mensajeCargar}}
+
 
     </article>
 </section>
