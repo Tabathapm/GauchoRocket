@@ -183,6 +183,16 @@ create table vuelo(id_vuelo integer AUTO_INCREMENT,
 create table tipo_servicio_a_bordo(id_tipo_servicio integer AUTO_INCREMENT,
 									descripcion_tipo varchar(20),
 									primary key(id_tipo_servicio));    
+                                    
+                                     create table alojamiento(id_alojamiento integer AUTO_INCREMENT,
+							cant_habitaciones integer,
+                            id_destino integer,
+                            nombreAlojamiento varchar(40),
+                            precio double,
+                            fotoAlojamiento varchar(20),
+                            disponible bool,
+                            primary key(id_alojamiento),
+                            foreign key(id_destino) references destino(id_destino));
 		
 create table reserva(	id_reserva integer AUTO_INCREMENT,
 						hora_reserva varchar(20),
@@ -190,11 +200,15 @@ create table reserva(	id_reserva integer AUTO_INCREMENT,
                         id_tipo_servicio integer,
                         id_cabina integer,
                         id_usuario integer,
+                        id_alojamiento integer,
+                        id_viaje integer,
                         primary key(id_reserva),
                         foreign key(id_vuelo) references vuelo(id_vuelo),
                         foreign key(id_cabina) references cabina(id_cabina),
                         foreign key(id_usuario) references usuario(id_usuario),
-                        foreign key(id_tipo_servicio) references tipo_servicio_a_bordo(id_tipo_servicio));  
+                        foreign key(id_tipo_servicio) references tipo_servicio_a_bordo(id_tipo_servicio),
+                        foreign key(id_alojamiento) references alojamiento(id_alojamiento),
+                        foreign key(id_viaje) references viaje(id_viaje));  
                         
 create table lista_de_espera(id_lista_espera integer,
 							horario time,
@@ -206,15 +220,6 @@ create table contiene_una(id_reserva integer,
                             foreign key(id_reserva) references reserva(id_reserva),
                             foreign key(id_lista_espera) references lista_de_espera(id_lista_espera)); 
  
- create table alojamiento(id_alojamiento integer AUTO_INCREMENT,
-							cant_habitaciones integer,
-                            id_destino integer,
-                            nombreAlojamiento varchar(40),
-                            precio double,
-                            fotoAlojamiento varchar(20),
-                            disponible bool,
-                            primary key(id_alojamiento),
-                            foreign key(id_destino) references destino(id_destino));
                             
  -- INSERT---------------------------------------------------------------------------------
  INSERT INTO empresaTarjeta(nombre)
@@ -763,9 +768,22 @@ WHERE idAlojamiento = 5;*/
 
 select * from alojamiento;
 
+select * from reserva;
 
 
 select * from reserva 
 inner join alojamiento on reserva.id_reserva = alojamiento.id_alojamiento
 where reserva.id_usuario = 2;
 
+select * from reserva;
+
+select origen.descripcion as origen , destino.descripcion as destino, tipo_viaje.tipo as tipoViaje, viaje.f_partida as fecha, viaje.horario as horario, viaje.precio as precio from reserva 
+                                        inner join alojamiento on reserva.id_alojamiento = alojamiento.id_alojamiento
+                                        inner join viaje on reserva.id_viaje = viaje.id_viaje
+                                        inner join vuelo on reserva.id_vuelo = vuelo.id_vuelo
+                                        inner join origen on vuelo.vuelo_origen = origen.id_origen
+                                        inner join destino on vuelo.vuelo_destino = destino.id_destino
+                                        inner join tipo_viaje on viaje.id_tipo_viaje = tipo_viaje.id_tipo_viaje;
+               
+               
+               

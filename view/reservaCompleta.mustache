@@ -32,7 +32,7 @@
 
                             <tbody>
 
-                            {{#viajeElegido}}
+                            {{#viajes}}
                                 <!--                                <form action="/GauchoRocket/reserva/reservarAlojamiento" method="post">-->
                                 <form action="#" method="post">
                                     <tr>
@@ -43,15 +43,10 @@
                                         <td>{{fechaDeViaje}}</td>
                                         <td>{{horario}}</td>
                                         <td>${{precio}}</td>
-                                        {{#disponible}}
-                                            <td> <button type="submit" class="btn btn-secondary">Reservar viaje</button></td>
-                                        {{/disponible}}
-                                        {{^disponible}}
-                                            <td> <button type="submit" class="btn btn-secondary" disabled>Reservar viaje</button></td>
-                                        {{/disponible}}
+<!--                                        -->
                                     </tr>
                                 </form>
-                            {{/viajeElegido}}
+                            {{/viajes}}
                             </tbody>
                         </table>
                     </div>
@@ -132,6 +127,11 @@
         </div>
     </article>
 </section>
+
+
+
+
+
 
 
 {{>footer}}

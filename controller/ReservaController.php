@@ -84,59 +84,100 @@ class ReservaController{
 
 
     public function generarReserva(){
-
-        $comprobanteReserva= substr(md5(uniqid(rand(),true)),0,8);
-        $_SESSION['comprobante'] = $comprobanteReserva;
-        $data['comprobante']=$comprobanteReserva;
-
-        $usuario = $_SESSION["id"];
-        $nombre = $_SESSION["nombre"];
-        $apellido = $_SESSION["apellido"];
-
-        $servicio = isset($_POST["servicio"])?$_POST["servicio"] : "";
-        $cabina = isset($_POST["cabina"])?$_POST["cabina"] : "";
-        $horaReserva = isset($_POST["horario"])?$_POST["horario"] : "";
-        $id_vuelo = isset($_POST["vuelo"])?$_POST["vuelo"] : "";
-        $asiento = isset($_POST["asiento"])?$_POST["asiento"] : "";
+        $data = array();
 
 
-        #if($this->reservaModel->getServicio($servicio) && $this->reservaModel->getCabina($cabina)){
+        if (isset($_SESSION["logueado"])) {
+            $data["logueado"] = $_SESSION["logueado"];
+        }
 
-        $servicioEncontrado= $this->reservaModel->getServicio($servicio);
-        $cabinaEncontrada = $this->reservaModel->getCabina($cabina);
+        if (isset($_SESSION["id"])) {
+            $data["id"] = $_SESSION["id"];
+        }
 
-        $_SESSION["servicio"]= $servicioEncontrado[0]['descripcion_tipo'];
-        $_SESSION["cabina"]=$cabinaEncontrada[0]['tipo'];
+        if (isset($_SESSION["nombre"])) {
+            $data["nombre"] = $_SESSION["nombre"];
+        }
 
-        $this->reservaModel->asientoReservado($asiento);
+        if (isset($_SESSION["apellido"])) {
+            $data["apellido"] = $_SESSION["apellido"];
+        }
 
-        /*if($resultadoReservaAsiento){*/
+        if (isset($_SESSION["esAdmin"])) {
+            $data["esAdmin"] = $_SESSION["esAdmin"];
+        }
 
-        $_SESSION["horario"]=$horaReserva;
-        $_SESSION["asiento"]=$asiento;
-        $_SESSION["vuelo"]=$id_vuelo;
+        if (isset($_SESSION["esClient"])) {
+            $data["esClient"] = $_SESSION["esClient"];
+        }
 
-        $data['horaReserva'] = $horaReserva;
-        $data['servicio'] = $servicioEncontrado[0]['descripcion_tipo'];
-        $data['cabina'] = $cabinaEncontrada[0]['tipo'];
-        $data['vuelo'] = $id_vuelo;
-        $data['asiento']=$asiento;
+        if (isset($data["logueado"])) {
 
-        $this->reservaModel->registrarReserva($horaReserva, $id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario);
+            $comprobanteReserva = substr(md5(uniqid(rand(), true)), 0, 8);
+            $_SESSION['comprobante'] = $comprobanteReserva;
+            $data['comprobante'] = $comprobanteReserva;
 
-        // $data['reservaRegistrada'] = true;
-
-        /*}else{
-            $data['reservaRegistrada'] = false;
-        }*/
-
-        #}
+            $idViaje = isset($_POST["idViaje"]) ? $_POST["idViaje"] : "";
 
 
-        echo $this->render->renderizar("view/miReserva.mustache");
+            $usuario = $_SESSION["id"];
+            $nombre = $_SESSION["nombre"];
+            $apellido = $_SESSION["apellido"];
+
+            $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
+            $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
+            $horaReserva = isset($_POST["horario"]) ? $_POST["horario"] : "";
+            $id_vuelo = isset($_POST["vuelo"]) ? $_POST["vuelo"] : "";
+            $asiento = isset($_POST["asiento"]) ? $_POST["asiento"] : "";
+
+
+            #if($this->reservaModel->getServicio($servicio) && $this->reservaModel->getCabina($cabina)){
+
+            $servicioEncontrado = $this->reservaModel->getServicio($servicio);
+            $cabinaEncontrada = $this->reservaModel->getCabina($cabina);
+            $viajeEncontrado = $this->reservaModel->viajes($idViaje);
+
+
+            $_SESSION["servicio"] = $servicioEncontrado[0]['descripcion_tipo'];
+            $_SESSION["cabina"] = $cabinaEncontrada[0]['tipo'];
+            $_SESSION["viaje"] = $idViaje;
+
+
+            $this->reservaModel->asientoReservado($asiento);
+
+            /*if($resultadoReservaAsiento){*/
+
+            $_SESSION["horario"] = $horaReserva;
+            $_SESSION["asiento"] = $asiento;
+            $_SESSION["vuelo"] = $id_vuelo;
+
+            $data['horaReserva'] = $horaReserva;
+            $data['servicio'] = $servicioEncontrado[0]['descripcion_tipo'];
+            $data['cabina'] = $cabinaEncontrada[0]['tipo'];
+            $data['vuelo'] = $id_vuelo;
+            $data['asiento'] = $asiento;
+
+            $this->reservaModel->registrarReserva($horaReserva, $id_vuelo, $servicioEncontrado[0]['id_tipo_servicio'], $cabinaEncontrada[0]['id_cabina'], $usuario,$_SESSION['viaje']);
+
+
+
+
+
+
+
+
+            // $data['reservaRegistrada'] = true;
+
+            /*}else{
+                $data['reservaRegistrada'] = false;
+            }*/
+
+            #}
+
+        }
+        echo $this->render->renderizar("view/miReserva.mustache", $data);
 
     }
-
 
     public function sendMessageEmail($horaReserva, $cabina, $servicio, $vuelo, $comprobanteReserva){
 
@@ -245,6 +286,19 @@ class ReservaController{
 
         echo $this->render->renderizar("view/qr.mustache");
     }
+
+
+
+    public function reservaCompleta(){
+        $id_usuario = $_SESSION['id'];
+        $reservaCompleta = $this->reservaModel->getReservas($id_usuario);
+        $viajes = $_SESSION['viaje'];
+        $data['viajes'] = $reservaCompleta;
+        echo $this->render->renderizar("view/reservaCompleta.mustache",$data);
+    }
+
+
+
 
 
 }

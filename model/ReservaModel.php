@@ -10,10 +10,10 @@ class ReservaModel
 
 
 
-    public function registrarReserva($hora_reserva,  $id_vuelo,$id_tipo_servicio, $id_cabina, $id_usuario){
-        return $this->database->ejecutar("INSERT INTO reserva(      hora_reserva,id_vuelo,id_tipo_servicio,id_cabina, id_usuario)
+    public function registrarReserva($hora_reserva,  $id_vuelo,$id_tipo_servicio, $id_cabina, $id_usuario,$idViaje){
+        return $this->database->ejecutar("INSERT INTO reserva(      hora_reserva,id_vuelo,id_tipo_servicio,id_cabina, id_usuario,id_viaje)
                                            VALUES
-                                          ('$hora_reserva','$id_vuelo','$id_tipo_servicio','$id_cabina','$id_usuario')");
+                                          ('$hora_reserva','$id_vuelo','$id_tipo_servicio','$id_cabina','$id_usuario','$idViaje')");
     }
 
     public function servicios(){
@@ -27,6 +27,12 @@ class ReservaModel
     public function getServicio($id){
         return $this->database->consulta("SELECT * FROM tipo_servicio_a_bordo
                                           WHERE id_tipo_servicio='$id'");
+    }
+
+
+    public function viajes(){
+        return $this->database->consulta("SELECT * FROM VIAJE");
+
     }
 
     public function getCabina($id){
@@ -132,8 +138,13 @@ class ReservaModel
     }
 
     public function getReservas($id_usuario){
-        $this->database->consulta("select * from reserva 
-                                        inner join alojamiento on reserva.id_reserva = alojamiento.id_alojamiento
+        $this->database->consulta("    select origen.descripcion as origen , destino.descripcion as destino, tipo_viaje.tipo as tipoViaje, viaje.f_partida as fecha, viaje.horario as horario, viaje.precio as precio from reserva 
+                                            inner join alojamiento on reserva.id_alojamiento = alojamiento.id_alojamiento
+                                            inner join viaje on reserva.id_viaje = viaje.id_viaje
+                                            inner join vuelo on reserva.id_vuelo = vuelo.id_vuelo
+                                            inner join origen on vuelo.vuelo_origen = origen.id_origen
+                                            inner join destino on vuelo.vuelo_destino = destino.id_destino
+                                            inner join tipo_viaje on viaje.id_tipo_viaje = tipo_viaje.id_tipo_viaje
                                             where reserva.id_usuario = '$id_usuario'");
     }
 
