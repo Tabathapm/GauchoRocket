@@ -184,5 +184,17 @@ class Configuracion{
         return new ReportesController($render, $reportesModel, $pdf);
     }
 
+    public static function getCargarModel(){
+        $database = self::getDatabase();
+        include_once ("model/CargarModel.php");
+        return new CargarModel($database);
+    }
+
+    public static function getCargarController(){
+        $render = self::getRender();
+        $cargasModel = self::getCargarModel();
+        include_once ("controller/CargarController.php");
+        return new CargarController($render, $cargasModel);
+    }
 
 }
