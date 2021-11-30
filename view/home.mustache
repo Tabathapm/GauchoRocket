@@ -1,170 +1,182 @@
 {{> header}}
 {{> navbar}}
 
-<section class="container-fluid w-100 d-flex justify-content-center align-items-center home" id="chequeo">
-    <article class="d-flex justify-content-center d-flex flex-column">
-        <h1 class="m-auto text-light mb-3" style="">Mundo Turismo Espacial</h1>
-        <h5 class="m-auto text-light mb-3">Viaja con nosotros y vivi una gran experiencia</h5>
-        <div class="d-flex justify-content-center d-flex flex-row mt-4 bchequeoones">
-            {{#solicitoTurno}}
-            <a href="#alojamiento" class="btn registrate" style="background: #555973;color: #fff">COMENZAR BUSQUEDA DESTINO</a>
-            {{/solicitoTurno}}
-            {{^solicitoTurno}}
-            <a href="/GauchoRocket/centroMedico" id="chequeo" class="btn registrate" style="background: #555973;color: #fff">
-              REALIZAR CHEQUEO MEDICO                 
-            </a> 
-           {{/solicitoTurno}}
+{{#esClient}}
+    <section class="container-fluid w-100 d-flex justify-content-center align-items-center home" id="chequeo">
+        <article class="d-flex justify-content-center d-flex flex-column">
+            <h1 class="m-auto text-light mb-3" style="">Mundo Turismo Espacial</h1>
+            <h5 class="m-auto text-light mb-3">Viaja con nosotros y vivi una gran experiencia</h5>
+            <div class="d-flex justify-content-center d-flex flex-row mt-4 bchequeoones">
+                {{#solicitoTurno}}
+                    <a href="#alojamiento" class="btn registrate" style="background: #555973;color: #fff">COMENZAR BUSQUEDA DESTINO</a>
+                {{/solicitoTurno}}
+                {{^solicitoTurno}}
+                    <a href="/GauchoRocket/centroMedico" id="chequeo" class="btn registrate" style="background: #555973;color: #fff">
+                        REALIZAR CHEQUEO MEDICO
+                    </a>
+                {{/solicitoTurno}}
 
-        </div>
-    </article>
-</section>
-
-<section class="container-fluid w-100 d-flex justify-content-center align-items-center alojamiento" >
-    <article class="d-flex justify-content-center d-flex flex-column pb-5" >
-        <h3 class="m-auto text-dark mt-4 mb-3 " id="alojamiento">Alojamiento</h3>
-        <div class="d-flex justify-content-center d-flex flex-column mt-4 botones">
-            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" method="post" action="/GauchoRocket/alojamiento" style="background: #C5CCD9" >
-                <div class="col-auto d-flex flex-row align-items-center">
-                    <i class="fas fa-map-marker-alt me-3" style="font-size: 30px"></i>
-                    <select class="form-select" aria-label="Default select example" name="destino">
-                        <option selected disabled>Destino</option>
-                        {{#nombreDeLosDestinos}}
-                            <option value="{{id_destino}}">{{descripcion}}</option>
-                        {{/nombreDeLosDestinos}}
-
-                    </select>
-                </div>
-                <div class="col-auto d-flex flex-row align-items-center">
-                    <i class="fas fa-bed me-3"  style="font-size: 30px"></i>
-                    <select class="form-select" aria-label="Default select example" name="habitaciones">
-                        <option selected disabled>Cant Habitaciones</option>
-                        {{#cantDeHabitaciones}}
-                            <option value="{{cant_habitaciones}}">{{cant_habitaciones}}</option>
-                        {{/cantDeHabitaciones}}
-                    </select>
-                </div>
-                <div class="col-auto d-flex flex-row align-items-center">
-                    <button type="submit" class="btn buscar-a" style="background: #555973;color: #fff">BUSCAR</button>
-                </div>
-            </form>
-
-            <div class="d-flex flex-row">
-                {{#alojamiento}}
-                <form class="card me-2" style="width: 18rem;" method="post" action="/GauchoRocket/alojamiento/buscarPorAlojamiento">
-                    <img src="public/images/alojamientos/{{fotoAlojamiento}}" class="card-img-top img-fluid" alt="...">
-                    <div class="card-body">
-                        <input type="hidden" name="alojamiento" value="{{nombreAlojamiento}}">
-                        <h5 class="card-title">{{nombreAlojamiento}}</h5>
-                        <p class="card-text">
-                            El mundo se detiene cuando dejas atrás Dickson Road en la Pequeña India y entras en este
-                            universo de innovación. 
-                        </p>
-                    </div>
-                    <input name="precio" type="hidden" value="{{precio}}">
-                    <input name="nombreAlojamiento" type="hidden" value="{{nombreAlojamiento}}">
-                </form>
-                {{/alojamiento}}
             </div>
+        </article>
+    </section>
 
-        </div>
-    </article>
-</section>
+    <section class="container-fluid w-100 d-flex justify-content-center align-items-center alojamiento" >
+        <article class="d-flex justify-content-center d-flex flex-column pb-5" >
+            <h3 class="m-auto text-dark mt-4 mb-3 " id="alojamiento">Alojamiento</h3>
+            <div class="d-flex justify-content-center d-flex flex-column mt-4 botones">
+                <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" method="post" action="/GauchoRocket/alojamiento" style="background: #C5CCD9" >
+                    <div class="col-auto d-flex flex-row align-items-center">
+                        <i class="fas fa-map-marker-alt me-3" style="font-size: 30px"></i>
+                        <select class="form-select" aria-label="Default select example" name="destino">
+                            <option selected disabled>Destino</option>
+                            {{#nombreDeLosDestinos}}
+                                <option value="{{id_destino}}">{{descripcion}}</option>
+                            {{/nombreDeLosDestinos}}
 
-<section class="container-fluid w-100 d-flex justify-content-center align-items-center viaje">
-
-    <article class="d-flex justify-content-center d-flex flex-column pb-5">
-        <h3 class="m-auto text-dark mt-4 mb-3" id="viajes">Viajes</h3>
-        <div class="d-flex justify-content-center d-flex flex-column mt-4 botones">
-            <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" method="post" action="/GauchoRocket/viaje" style="background: #C5CCD9">
-                <div class="col-auto d-flex flex-row align-items-center">
-                    <i class="fas fa-street-view me-3" style="font-size: 30px"></i>
-                    <select class="form-select" aria-label="Default select example" name="origen">
-                        <option selected disabled>Origen</option>
-                        {{#origen}}
-                            <option value="{{id_origen}}">{{descripcion}}</option>
-                        {{/origen}}
-
-                    </select>
-                </div>
-                <div class="col-auto d-flex flex-row align-items-center">
-                    <i class="fas fa-map-marker-alt me-3" style="font-size: 30px"></i>
-                    <select class="form-select" aria-label="Default select example" name="destino">
-                        <option selected disabled>Destino</option>
-                        {{#destino}}
-                            <option value="{{id_destino}}">{{descripcion}}</option>
-                        {{/destino}}
-                    </select>
-                </div>
-                <div class="col-auto d-flex flex-row align-items-center">
-                    <i class="fas fa-map-marked-alt me-3" style="font-size: 30px"></i>
-                    <select class="form-select" aria-label="Default select example" name="tipoViaje">
-                        <option selected disabled>Tipo de Viaje</option>
-                        {{#tipoViaje}}
-                        <option value="{{id_tipo_viaje}}">{{tipo}}</option>
-                        {{/tipoViaje}}
-                    </select>
-                </div>
-                <div class="col-auto d-flex flex-row align-items-center">
-                    <i class="fas fa-calendar-alt me-3" style="font-size: 30px"></i>
-<!--                    <input type="date" class="form-control text-center" name="fecha">-->
-                    <select class="form-select" aria-label="Default select example" name="fechaDeViaje">
-                        <option selected disabled>Fecha</option>
-                        {{#fechasDeViaje}}
-                            <option value="{{fechaDeViaje}}">{{fechaDeViaje}}</option>
-                        {{/fechasDeViaje}}
-                    </select>
-
-                </div>
-                <div class="col-auto d-flex flex-row align-items-center">
-                    <button type="submit" class="btn buscar-a" style="background: #555973;color: #fff">BUSCAR</button>
-                </div>
-            </form>
-
-            <div class="d-flex flex-row">
-                {{#4Viajes}}
-                <form class="card me-2" style="width: 18rem;" action="/GauchoRocket/reserva/" method="post" >
-                    <img src="public/images/viajes/{{foto}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title"># {{descripcion}} </h5>
-                        <p class="card-text">
-                            <span class=""><strong>Fecha:</strong> {{f_partida}}</span>
-                            <br>
-                            <span class=""><strong>Horario:</strong> {{horario}}</span>
-                            <br>
-                            <input type="hidden" name="destino" value="{{id_destino}}">
-                            <span class="badge" style="background:#8A8EA6;font-size:18px">${{precio}}</span></p>
-                            <input type="hidden" name="idViaje" value="{{id_viaje}}">
-                            <input type="hidden" name="destino" value="{{descripcion}}">
-                            <input type="hidden" name="fecha" value="{{f_partida}}">
-                            <input type="hidden" name="horario" value="{{horario}}">
-                            <input type="hidden" name="precio" value="{{precio}}">
-                            <input type="hidden" name="foto" value="{{foto}}">
-                            <input type="hidden" name="duracion" value="{{duracion}}">
-                            <input type="hidden" name="vuelo" value="{{id_vuelo}}">
-                        {{#solicitoTurno}}
-                         <button type="submit" class="btn text-light d-flex justify-content-center" style="background: #555973;color: #fff">RESERVAR</button>
-                        {{/solicitoTurno}}
-                        {{^solicitoTurno}}
-                        <a href="#chequeo" class="btn text-light d-flex justify-content-center">RESERVAR</a>
-                        {{/solicitoTurno}}
+                        </select>
+                    </div>
+                    <div class="col-auto d-flex flex-row align-items-center">
+                        <i class="fas fa-bed me-3"  style="font-size: 30px"></i>
+                        <select class="form-select" aria-label="Default select example" name="habitaciones">
+                            <option selected disabled>Cant Habitaciones</option>
+                            {{#cantDeHabitaciones}}
+                                <option value="{{cant_habitaciones}}">{{cant_habitaciones}}</option>
+                            {{/cantDeHabitaciones}}
+                        </select>
+                    </div>
+                    <div class="col-auto d-flex flex-row align-items-center">
+                        <button type="submit" class="btn buscar-a" style="background: #555973;color: #fff">BUSCAR</button>
                     </div>
                 </form>
-                {{/4Viajes}}
-            </div>
-        </div>
 
-        {{#primeroElChequeo}}
-            <div class="alert alert-success text-center container mt-4" role="alert">
-                <h4 class="d-flex justify-content-center">
-                    <!--                    <i class="fas fa-check-circle me-3"></i>-->
-                    <p class=" w3-center mt-2">{{primeroElChequeo}}</p>
-                </h4>
-                <h4 class="d-flex justify-content-center">
-                    <p>Siga el siguiente link para llevar a cabo su <a href="/GauchoRocket/centroMedico" class="alert-link">Chequeo Medico</a>. </p>
-                </h4>
+                <div class="d-flex flex-row">
+                    {{#alojamiento}}
+                        <form class="card me-2" style="width: 18rem;" method="post" action="/GauchoRocket/alojamiento/buscarPorAlojamiento">
+                            <img src="public/images/alojamientos/{{fotoAlojamiento}}" class="card-img-top img-fluid" alt="...">
+                            <div class="card-body">
+                                <input type="hidden" name="alojamiento" value="{{nombreAlojamiento}}">
+                                <h5 class="card-title">{{nombreAlojamiento}}</h5>
+                                <p class="card-text">
+                                    El mundo se detiene cuando dejas atrás Dickson Road en la Pequeña India y entras en este
+                                    universo de innovación.
+                                </p>
+                            </div>
+                            <input name="precio" type="hidden" value="{{precio}}">
+                            <input name="nombreAlojamiento" type="hidden" value="{{nombreAlojamiento}}">
+                        </form>
+                    {{/alojamiento}}
+                </div>
+
             </div>
-        {{/primeroElChequeo}}
-    </article>
-</section>
+        </article>
+    </section>
+
+    <section class="container-fluid w-100 d-flex justify-content-center align-items-center viaje">
+
+        <article class="d-flex justify-content-center d-flex flex-column pb-5">
+            <h3 class="m-auto text-dark mt-4 mb-3" id="viajes">Viajes</h3>
+            <div class="d-flex justify-content-center d-flex flex-column mt-4 botones">
+                <form class="row g-3 p-3 rounded-3 mb-4 d-flex justify-content-center" method="post" action="/GauchoRocket/viaje" style="background: #C5CCD9">
+                    <div class="col-auto d-flex flex-row align-items-center">
+                        <i class="fas fa-street-view me-3" style="font-size: 30px"></i>
+                        <select class="form-select" aria-label="Default select example" name="origen">
+                            <option selected disabled>Origen</option>
+                            {{#origen}}
+                                <option value="{{id_origen}}">{{descripcion}}</option>
+                            {{/origen}}
+
+                        </select>
+                    </div>
+                    <div class="col-auto d-flex flex-row align-items-center">
+                        <i class="fas fa-map-marker-alt me-3" style="font-size: 30px"></i>
+                        <select class="form-select" aria-label="Default select example" name="destino">
+                            <option selected disabled>Destino</option>
+                            {{#destino}}
+                                <option value="{{id_destino}}">{{descripcion}}</option>
+                            {{/destino}}
+                        </select>
+                    </div>
+                    <div class="col-auto d-flex flex-row align-items-center">
+                        <i class="fas fa-map-marked-alt me-3" style="font-size: 30px"></i>
+                        <select class="form-select" aria-label="Default select example" name="tipoViaje">
+                            <option selected disabled>Tipo de Viaje</option>
+                            {{#tipoViaje}}
+                                <option value="{{id_tipo_viaje}}">{{tipo}}</option>
+                            {{/tipoViaje}}
+                        </select>
+                    </div>
+                    <div class="col-auto d-flex flex-row align-items-center">
+                        <i class="fas fa-calendar-alt me-3" style="font-size: 30px"></i>
+                        <!--                    <input type="date" class="form-control text-center" name="fecha">-->
+                        <select class="form-select" aria-label="Default select example" name="fechaDeViaje">
+                            <option selected disabled>Fecha</option>
+                            {{#fechasDeViaje}}
+                                <option value="{{fechaDeViaje}}">{{fechaDeViaje}}</option>
+                            {{/fechasDeViaje}}
+                        </select>
+
+                    </div>
+                    <div class="col-auto d-flex flex-row align-items-center">
+                        <button type="submit" class="btn buscar-a" style="background: #555973;color: #fff">BUSCAR</button>
+                    </div>
+                </form>
+
+                <div class="d-flex flex-row">
+                    {{#4Viajes}}
+                        <form class="card me-2" style="width: 18rem;" action="/GauchoRocket/reserva/" method="post" >
+                            <img src="public/images/viajes/{{foto}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"># {{descripcion}} </h5>
+                                <p class="card-text">
+                                    <span class=""><strong>Fecha:</strong> {{f_partida}}</span>
+                                    <br>
+                                    <span class=""><strong>Horario:</strong> {{horario}}</span>
+                                    <br>
+                                    <input type="hidden" name="destino" value="{{id_destino}}">
+                                    <span class="badge" style="background:#8A8EA6;font-size:18px">${{precio}}</span></p>
+                                <input type="hidden" name="idViaje" value="{{id_viaje}}">
+                                <input type="hidden" name="destino" value="{{descripcion}}">
+                                <input type="hidden" name="fecha" value="{{f_partida}}">
+                                <input type="hidden" name="horario" value="{{horario}}">
+                                <input type="hidden" name="precio" value="{{precio}}">
+                                <input type="hidden" name="foto" value="{{foto}}">
+                                <input type="hidden" name="duracion" value="{{duracion}}">
+                                <input type="hidden" name="vuelo" value="{{id_vuelo}}">
+                                {{#solicitoTurno}}
+                                    <button type="submit" class="btn text-light d-flex justify-content-center" style="background: #555973;color: #fff">RESERVAR</button>
+                                {{/solicitoTurno}}
+                                {{^solicitoTurno}}
+                                    <a href="#chequeo" class="btn text-light d-flex justify-content-center">RESERVAR</a>
+                                {{/solicitoTurno}}
+                            </div>
+                        </form>
+                    {{/4Viajes}}
+                </div>
+            </div>
+
+            {{#primeroElChequeo}}
+                <div class="alert alert-success text-center container mt-4" role="alert">
+                    <h4 class="d-flex justify-content-center">
+                        <!--                    <i class="fas fa-check-circle me-3"></i>-->
+                        <p class=" w3-center mt-2">{{primeroElChequeo}}</p>
+                    </h4>
+                    <h4 class="d-flex justify-content-center">
+                        <p>Siga el siguiente link para llevar a cabo su <a href="/GauchoRocket/centroMedico" class="alert-link">Chequeo Medico</a>. </p>
+                    </h4>
+                </div>
+            {{/primeroElChequeo}}
+        </article>
+    </section>
+{{/esClient}}
+{{^esClient}}
+    <section class="container-fluid w-100 d-flex justify-content-center align-items-center home" id="chequeo">
+        <article class="d-flex justify-content-center d-flex flex-column">
+            <h1 class="m-auto text-light mb-3" style="">Mundo Turismo Espacial</h1>
+            <h5 class="m-auto text-light mb-3">Viaja con nosotros y vivi una gran experiencia</h5>
+            <div class="d-flex justify-content-center d-flex flex-row mt-4 bchequeoones">
+            </div>
+        </article>
+    </section>
+{{/esClient}}
 
 {{> footer}}
