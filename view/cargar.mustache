@@ -4,15 +4,23 @@
 <section class="container-fluid w-100 d-flex justify-content-center align-items-center" style="padding-top: 75px; ">
     <article class="d-flex justify-content-center d-flex flex-column">
         <h1 class='mt-5 text-center'>ALOJAMIENTOS</h1>
-        {{#mensaje}}
+        {{#mensajeB}}
             <div class="alert alert-success text-center container mt-4" role="alert">
                 <h4 class="d-flex justify-content-center">
                     <i class="far fa-frown me-3"></i>
-                    <p class=" w3-center mt-2">{{mensaje}}</p>
+                    <p class=" w3-center mt-2">{{mensajeB}}</p>
                 </h4>
             </div>
-        {{/mensaje}}
-        {{^mensaje}}
+        {{/mensajeB}}
+
+        {{#mensajeCargar}}
+            <div class="alert alert-success text-center container mt-4" role="alert">
+                <h4 class="d-flex justify-content-center">
+                    <p class=" w3-center mt-2">{{mensajeCargar}}</p>
+                </h4>
+            </div>
+        {{/mensajeCargar}}
+
             <div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
                 <div class="row justify-content-center align-items-center" >
                     <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow-lg">
@@ -54,7 +62,6 @@
                 </div>
             </div>
 
-        {{/mensaje}}
 
     </article>
 </section>
@@ -63,15 +70,7 @@
 
 <section class = "container-fluid w-100 d-flex justify-content-center align-items-center" style="padding-top: 75px; padding-bottom: 339px">
     <article class = "d-flex justify-content-center d-flex flex-column">
-        {{#mensajeCargar}}
-            <div class="alert alert-success text-center container mt-4" role="alert">
-                <h4 class="d-flex justify-content-center">
-                    <p class=" w3-center mt-2">{{mensajeCargar}}</p>
-                </h4>
-            </div>
-        {{/mensajeCargar}}
 
-        {{^mensajeCargar}}
         <div class="container mt-5">
             <div class="row justify-content-center align-items-center">
                 <div class="col-auto bg-light p-5" style="width: 617px;">
@@ -144,8 +143,6 @@
                 </div>
             </div>
         </div>
-        {{/mensajeCargar}}
-
 
     </article>
 </section>

@@ -32,6 +32,16 @@ class CargarController{
             $data["esAdmin"] = $_SESSION["esAdmin"];
         }
 
+        if (isset($_SESSION["mensajeCargar"])){
+            $data["mensajeCargar"] = $_SESSION["mensajeCargar"];
+            unset($_SESSION["mensajeCargar"]);
+        }
+
+        if (isset($_SESSION["mensajeB"])){
+            $data["mensajeB"] = $_SESSION["mensajeB"];
+            unset($_SESSION["mensajeB"]);
+        }
+
         if (isset($data["logueado"]) && isset($data["esAdmin"])){
             $alojamientos = $this->cargarModel->getTodosLosAlojamientos();
             $data["alojamientoElegido"] = $alojamientos;
@@ -69,9 +79,10 @@ class CargarController{
             $id_alojamiento = $_POST["idAlojamiento"];
             $this->cargarModel->getBorrarAlojamiento($id_alojamiento);
 
-            $data["mensaje"] = "Borrado exitosamente";
+            $_SESSION["mensajeB"] = "Borrado exitosamente";
 
-            echo $this->render->renderizar("view/cargar.mustache", $data);
+            header("location: /GauchoRocket/cargar");
+            exit();
         }
     }
 
@@ -112,11 +123,12 @@ class CargarController{
                 $precio = $_POST["precio"];
 
                 $this->cargarModel->getCargarAlojamientos($habitaciones, $destino, $alojamiento, $precio);
-                $data["mensajeCargar"] = "Se cargó exitosamente";
+                $_SESSION["mensajeCargar"] = "Se cargó exitosamente";
 
             }
 
-            echo $this->render->renderizar("view/cargar.mustache", $data);
+            header("location: /GauchoRocket/cargar");
+            exit();
         }
     }
 
