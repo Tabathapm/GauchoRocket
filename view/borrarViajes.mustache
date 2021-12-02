@@ -5,15 +5,15 @@
 <section class="container-fluid w-100 d-flex justify-content-center align-items-center" style="padding-top: 75px; padding-bottom: 339px">
     <article class="d-flex justify-content-center d-flex flex-column">
         <h1 class='mt-5 text-center'>VIAJES</h1>
-        {{#mensaje}}
+        {{#mensajeVueloBorrado}}
             <div class="alert alert-success text-center container mt-4" role="alert">
                 <h4 class="d-flex justify-content-center">
-                    <i class="far fa-frown me-3"></i>
-                    <p class=" w3-center mt-2">{{mensaje}}</p>
+                    <i class="far fa-thumbs-up me-3"></i>
+                    <p class=" w3-center mt-2">{{mensajeVueloBorrado}}</p>
                 </h4>
             </div>
-        {{/mensaje}}
-        {{^mensaje}}
+        {{/mensajeVueloBorrado}}
+
             <div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
                 <div class="row justify-content-center align-items-center" >
                     <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow-lg">
@@ -57,12 +57,7 @@
                     </div>
                 </div>
             </div>
-        {{/mensaje}}
-        <div class="row justify-content-center" style="padding-bottom: 138px;">
-            <div class="col-sm-6" >
-                <a class="btn btn-danger w-100" tabindex="-1" role="button" href="/GauchoRocket/home">Volver</a>
-            </div>
-        </div>
+
     </article>
 </section>
 

@@ -21,7 +21,7 @@ class BorrarModel{
     }
 
     public function getBorrarViaje($idVuelo){
-        return $this->database->ejecutar("DELETE FROM viaje
+        return $this->database->ejecutar("DELETE FROM vuelo
                                               WHERE id_vuelo = '$idVuelo';");
     }
 }

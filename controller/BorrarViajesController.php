@@ -32,12 +32,17 @@ class BorrarViajesController{
             $data["esAdmin"] = $_SESSION["esAdmin"];
         }
 
+        if (isset($_SESSION["mensajeVueloBorrado"])){
+            $data["mensajeVueloBorrado"] = $_SESSION["mensajeVueloBorrado"];
+            unset($_SESSION["mensajeVueloBorrado"]);
+        }
+
         if (isset($data["logueado"]) && isset($data["esAdmin"])){
             $viaje = $this->borrarModel->getTodosLosViajes();
             $data["viajeElegido"] = $viaje;
-//            $data['alojamiento'] = $this->cargarModel->getAlojamiento();
-//            $data["nombreDeLosDestinos"] = $this->cargarModel->getTodosLosDestinos();
 
+//            var_dump($data["viajeElegido"]);
+//            exit();
             echo $this->render->renderizar("view/borrarViajes.mustache", $data);
         }
     }
@@ -69,9 +74,10 @@ class BorrarViajesController{
             $id_vuelo = $_POST["idVuelo"];
             $this->borrarModel->getBorrarViaje($id_vuelo);
 
-            $data["mensaje"] = "Borrado exitosamente";
+            $_SESSION["mensajeVueloBorrado"] = "Borrado exitosamente";
 
-            echo $this->render->renderizar("view/borrarViajes.mustache", $data);
+            header("Location: /GauchoRocket/borrarViajes");
+            exit();
         }
     }
 }
