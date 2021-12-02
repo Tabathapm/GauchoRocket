@@ -148,6 +148,14 @@ class ReservaModel
                                             where reserva.id_usuario = '$id_usuario'");
     }
 
+    public function getAsiento($idAsiento){
+
+       $this->database->consulta("SELECT a.fila, a.descripcion 
+                                  FROM asiento a
+                                  WHERE a.id_asiento='$idAsiento'"); 
+
+    }
+
     
 
 }
