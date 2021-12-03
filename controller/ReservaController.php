@@ -272,10 +272,52 @@ class ReservaController{
 
 
     public function reservaCompleta(){
-        $id_usuario = $_SESSION['id'];
-        $reservaCompleta = $this->reservaModel->getReservas($id_usuario);
-        $viajes = $_SESSION['viaje'];
-        $data['viajes'] = $reservaCompleta;
+
+         $data = array();
+
+        if (isset($_SESSION["logueado"])) {
+            $data["logueado"] = $_SESSION["logueado"];
+        }
+
+        if (isset($_SESSION["id"])) {
+            $data["id"] = $_SESSION["id"];
+        }
+
+        if (isset($_SESSION["nombre"])) {
+            $data["nombre"] = $_SESSION["nombre"];
+        }
+
+        if (isset($_SESSION["apellido"])) {
+            $data["apellido"] = $_SESSION["apellido"];
+        }
+
+        if (isset($_SESSION["esAdmin"])) {
+            $data["esAdmin"] = $_SESSION["esAdmin"];
+        }
+
+        if (isset($_SESSION["esClient"])) {
+            $data["esClient"] = $_SESSION["esClient"];
+        }
+
+        if (isset($data["logueado"])) {
+
+            $id_usuario = $_SESSION['id'];
+
+
+            if($this->reservaModel->getUsuarioConReserva($id_usuario)){
+
+                $reservaViajes= $this->reservaModel->getReservasViajes($id_usuario);
+                $reservaAlojamientos= $this->reservaModel->getReservasAlojamientos($id_usuario);
+                $data['viajes'] = $reservaViajes;
+                $data['alojamientos'] = $reservaAlojamientos;
+                $data['usuarioConReserva']=true;
+
+            }else{
+
+                $data['usuarioConReserva']=false;
+            } 
+
+        }       
         echo $this->render->renderizar("view/reservaCompleta.mustache",$data);
     }
 
