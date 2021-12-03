@@ -46,12 +46,12 @@ class ReservaController{
 
         if (isset($data["logueado"])) {
 
-            $data['servicios'] = $this->reservaModel->servicios();
-            $data['cabinas'] = $this->reservaModel->cabinas();
-            $data['tipoVuelo'] = $this->reservaModel->getResultadoChequeo($_SESSION["id"]);
-            $data['empresaTarjetas'] = $this->reservaModel->getEmpresasTarjetas();
+             $data['servicios'] = $this->reservaModel->servicios();
+             $data['cabinas'] = $this->reservaModel->cabinas();
+             $data['tipoVuelo'] = $this->reservaModel->getResultadoChequeo($_SESSION["id"]);
+             $data['empresaTarjetas'] = $this->reservaModel->getEmpresasTarjetas();
 
-            if(isset($_POST['idViaje']) && isset($_POST['destino'])
+             if(isset($_POST['idViaje']) && isset($_POST['destino'])
                 && isset($_POST['horario']) && isset($_POST['fecha'])
                 && isset($_POST['precio']) && isset($_POST['foto'])
                 && isset($_POST['duracion']) && isset($_POST['vuelo']) ){
@@ -69,8 +69,9 @@ class ReservaController{
                 $data['foto'] = $_POST['foto'];
                 $data['duracion'] = $_POST['duracion'];
                 $data['vuelo'] = $_POST['vuelo'];
-            }
-
+                $data['viaje'] = $_POST['idViaje'];
+             }
+            
             echo $this->render->renderizar("view/reservas.mustache", $data);
 
         }else{
@@ -84,8 +85,8 @@ class ReservaController{
 
 
     public function generarReserva(){
-        $data = array();
 
+        $data = array();
 
         if (isset($_SESSION["logueado"])) {
             $data["logueado"] = $_SESSION["logueado"];
@@ -113,44 +114,49 @@ class ReservaController{
 
         if (isset($data["logueado"])) {
 
-            $comprobanteReserva= substr(md5(uniqid(rand(),true)),0,8);
-            $_SESSION['comprobante'] = $comprobanteReserva;
-            $data['comprobante']=$comprobanteReserva;
+        $comprobanteReserva= substr(md5(uniqid(rand(),true)),0,8);
+        $_SESSION['comprobante'] = $comprobanteReserva;
+        $data['comprobante']=$comprobanteReserva;
 
-            $usuario = $_SESSION["id"];
-            $nombre = $_SESSION["nombre"];
-            $apellido = $_SESSION["apellido"];
+        $usuario = $_SESSION["id"];
+        $nombre = $_SESSION["nombre"];
+        $apellido = $_SESSION["apellido"];
 
-            $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
-            $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
-            $horaReserva = isset($_POST["horario"]) ? $_POST["horario"] : "";
-            $id_vuelo = isset($_POST["vuelo"]) ? $_POST["vuelo"] : "";
-            $asiento = isset($_POST["asiento"]) ? $_POST["asiento"] : "";
-            $viaje = isset($_POST['viaje']) ? $_POST["viaje"]:"";
+        $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
+        $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
+        $horaReserva = isset($_POST["horario"]) ? $_POST["horario"] : "";
+        $id_vuelo = isset($_POST["vuelo"]) ? $_POST["vuelo"] : "";
+        $asiento = isset($_POST["asiento"]) ? $_POST["asiento"] : "";
+        $viaje = isset($_POST['viaje']) ? $_POST["viaje"]:"";
 
-            $servicioEncontrado= $this->reservaModel->getServicio($servicio);
-            $cabinaEncontrada = $this->reservaModel->getCabina($cabina);
+        $servicioEncontrado= $this->reservaModel->getServicio($servicio);
+        $cabinaEncontrada = $this->reservaModel->getCabina($cabina);
+        $asientoEncontrado = $this->reservaModel->getAsiento(24);
 
-            $_SESSION["servicio"] = $servicioEncontrado[0]['descripcion_tipo'];
-            $_SESSION["cabina"] = $cabinaEncontrada[0]['tipo'];
-            $_SESSION["viaje"] = $viaje;
-            $_SESSION["horario"]=$horaReserva;
-            $_SESSION["asiento"]=$asiento;
-            $_SESSION["vuelo"]=$id_vuelo;
+        /*echo $asiento;
+        echo $asientoEncontrado[0]['fila'];*/
 
-            $data['horaReserva'] = $horaReserva;
-            $data['servicio'] = $servicioEncontrado[0]['descripcion_tipo'];
-            $data['cabina'] = $cabinaEncontrada[0]['tipo'];
-            $data['vuelo'] = $id_vuelo;
-            $data['asiento']=$asiento;
+        $_SESSION["servicio"] = $servicioEncontrado[0]['descripcion_tipo'];
+        $_SESSION["cabina"] = $cabinaEncontrada[0]['tipo'];
+        $_SESSION["viaje"] = $viaje;
+        $_SESSION["horario"]=$horaReserva;
+        $_SESSION["asientoFila"]=$asientoEncontrado[0]['fila'];
+        $_SESSION["asientoDesc"]=$asientoEncontrado[0]['descripcion'];
+        $_SESSION["vuelo"]=$id_vuelo;
 
-            $this->reservaModel->asientoReservado($asiento);
-            $this->reservaModel->registrarReserva($horaReserva,$id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario, $viaje);
+        $data['horaReserva'] = $horaReserva;
+        $data['servicio'] = $servicioEncontrado[0]['descripcion_tipo'];
+        $data['cabina'] = $cabinaEncontrada[0]['tipo'];
+        $data['vuelo'] = $id_vuelo;
 
-        }
-        echo $this->render->renderizar("view/miReserva.mustache", $data);
+        $this->reservaModel->asientoReservado($asiento);
+        $this->reservaModel->registrarReserva($horaReserva,$id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario, $viaje);
+    }
+
+        echo $this->render->renderizar("view/miReserva.mustache");
 
     }
+
 
     public function sendMessageEmail($horaReserva, $cabina, $servicio, $vuelo, $comprobanteReserva){
 
@@ -198,7 +204,9 @@ class ReservaController{
         $servicio=$_SESSION["servicio"];
         $vuelo=$_SESSION["vuelo"];
         $comprobanteReserva = $_SESSION['comprobante'];
-        $asiento = $_SESSION['asiento'];
+        $fila = $_SESSION['asientoFila'];
+        $asiento = $_SESSION['asientoDesc'];
+
 
         $vueloEncontrado= $this->reservaModel->getReservaVuelo($vuelo);
         $asientoEncontrado = $this->reservaModel->getAsiento($asiento);
@@ -216,12 +224,11 @@ class ReservaController{
             <br>
             Con servicio: <strong>".$servicio."</strong>, Cabina: <strong>".$cabina."</strong>  
             <br>
-            Para el vuelo con origen en: <strong>".$vueloEncontrado[0]['origen']."</strong>, destino a: <strong>".$vueloEncontrado[0]['destino']."</strong>, para el dia: <strong>".$vueloEncontrado[0]['fecha']."</strong> en el horario: <strong>".$vueloEncontrado[0]['hora']."</strong>, con asiento reservado en Fila: <strong>".$asientoEncontrado[0]['fila']."</strong>, asiento: <strong>".$asientoEncontrado[0]['descripcion']."</strong><br>
+            Para el vuelo con origen en: <strong>".$vueloEncontrado[0]['origen']."</strong>, destino a: <strong>".$vueloEncontrado[0]['destino']."</strong>, para el dia: <strong>".$vueloEncontrado[0]['fecha']."</strong> en el horario: <strong>".$vueloEncontrado[0]['hora']."</strong>, con asiento reservado en Fila: <strong>".$fila."</strong>, asiento: <strong>".$asiento."</strong><br>
          </div>";
 
 
         $data['pdf']=$this->pdf->createPDF($message,'reserva');
-
 
 
         if(isset($_SESSION['logueado'])){
@@ -232,12 +239,12 @@ class ReservaController{
             exit();
         }
 
-        echo $this->render->renderizar("view/pdf.mustache");
+        echo $this->render->renderizar("view/pdf.mustache", $data);
 
     }
 
 
-    public function crearQr(){
+      public function crearQr(){
 
         $nombre=$_SESSION['nombre'];
         $apellido=$_SESSION['apellido'];
@@ -262,7 +269,6 @@ class ReservaController{
 
         echo $this->render->renderizar("view/qr.mustache");
     }
-
 
 
     public function reservaCompleta(){

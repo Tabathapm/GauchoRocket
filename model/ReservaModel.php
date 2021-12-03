@@ -148,11 +148,12 @@ class ReservaModel
                                             where reserva.id_usuario = '$id_usuario'");
     }
 
-    public function getAsiento($idAsiento){
+    public function getAsiento($idVuelo){
 
-       $this->database->consulta("SELECT a.fila, a.descripcion 
-                                  FROM asiento a
-                                  WHERE a.id_asiento='$idAsiento'"); 
+       $this->database->ejecutar("SELECT a.fila, a.descripcion 
+                                  FROM asiento a inner join vuelo vu
+                                  on vu.id_asiento = a.id_asiento
+                                  WHERE vu.id_asiento='$idVuelo'"); 
 
     }
 
