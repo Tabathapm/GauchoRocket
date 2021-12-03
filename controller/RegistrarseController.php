@@ -81,12 +81,17 @@ class RegistrarseController{
 
 
     public function verificacionPorEmail($nombre, $apelllido, $email, $hash){
+
         $host = "http://".$_SERVER['HTTP_HOST'];
+
+        $mailer =  $this->phpMailer->getMail();
+        $mailer->AddEmbeddedImage('public/images/icon-email.png', 'logo');
+        
         $msj ="
         <div>
-            <div>
+            <div style='display:flex; flex-direction:row;'>
                 <span>
-                    <img src='public/images/icon-email.png'>
+                    <img src='cid:logo' width=40>
                 </span>
                 <h1>Gaucho Rocket</h1>
             </div>
