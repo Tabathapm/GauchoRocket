@@ -160,7 +160,8 @@ class ReservaController{
         $nombre=$_SESSION['nombre'];
         $apellido=$_SESSION['apellido'];
         $email=$_SESSION['email'];
-
+        $fila=$_SESSION["asientoFila"];
+        $asiento=$_SESSION["asientoDesc"];
 
         $mailer =  $this->phpMailer->getMail();
 
@@ -182,7 +183,7 @@ class ReservaController{
                 <br>
                 Con servicio: <strong>".$servicio."</strong>, Cabina: <strong>".$cabina."</strong>  
                 <br>
-                Para el vuelo con origen en: <strong>".$vuelo[0]['origen']."</strong>, destino a: <strong>".$vuelo[0]['destino']."</strong>, para el dia: <strong>".$vuelo[0]['fecha']."</strong> en el horario: <strong>".$vuelo[0]['hora']."</strong>, con asiento reservado en Fila: <strong>".$vuelo[0]['fila']."</strong>, asiento: <strong>".$vuelo[0]['asiento']."</strong>
+                Para el vuelo con origen en: <strong>".$vuelo[0]['origen']."</strong>, destino a: <strong>".$vuelo[0]['destino']."</strong>, para el dia: <strong>".$vuelo[0]['fecha']."</strong> en el horario: <strong>".$vuelo[0]['hora']."</strong>, con asiento reservado en Fila: <strong>".$fila."</strong>, asiento: <strong>".$asiento."</strong>
                </p>
             </div>
         </div> ";
@@ -248,6 +249,8 @@ class ReservaController{
         $cabina=$_SESSION["cabina"];
         $servicio=$_SESSION["servicio"];
         $vuelo=$_SESSION["vuelo"];
+        $fila=$_SESSION["asientoFila"];
+        $asiento=$_SESSION["asientoDesc"];
         $comprobanteReserva = $_SESSION['comprobante'];
         $vueloEncontrado= $this->reservaModel->getReservaVuelo($vuelo);
 
@@ -260,7 +263,7 @@ class ReservaController{
             <br>
             Con servicio:".$servicio.", Cabina: ".$cabina."  
             <br>
-            Para el vuelo con origen en: ".$vueloEncontrado[0]['origen'].", destino a: ".$vueloEncontrado[0]['destino'].", para el dia: ".$vueloEncontrado[0]['fecha']." en el horario: ".$vueloEncontrado[0]['hora'].", con asiento reservado en Fila: ".$vueloEncontrado[0]['fila'].", asiento: ".$vueloEncontrado[0]['asiento'];
+            Para el vuelo con origen en: ".$vueloEncontrado[0]['origen'].", destino a: ".$vueloEncontrado[0]['destino'].", para el dia: ".$vueloEncontrado[0]['fecha']." en el horario: ".$vueloEncontrado[0]['hora'].", con asiento reservado en Fila: ".$fila.", asiento: ".$asiento;
 
         $data['qr']= $this->qr->createQR($message);
 
