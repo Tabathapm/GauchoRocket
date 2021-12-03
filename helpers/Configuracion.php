@@ -184,30 +184,30 @@ class Configuracion{
         return new ReportesController($render, $reportesModel, $pdf);
     }
 
-    public static function getCargarModel(){
+    public static function getCargarAlojamientosModel(){
         $database = self::getDatabase();
-        include_once ("model/CargarModel.php");
-        return new CargarModel($database);
+        include_once("model/CargarAlojamientosModel.php");
+        return new CargarAlojamientosModel($database);
     }
 
-    public static function getCargarController(){
+    public static function getCargarAlojamientosController(){
         $render = self::getRender();
-        $cargasModel = self::getCargarModel();
-        include_once ("controller/CargarController.php");
-        return new CargarController($render, $cargasModel);
+        $cargasModel = self::getCargarAlojamientosModel();
+        include_once("controller/CargarAlojamientosController.php");
+        return new CargarAlojamientosController($render, $cargasModel);
     }
 
-    public static function getBorrarModel(){
+    public static function getCargarViajesModel(){
         $database = self::getDatabase();
-        include_once("model/BorrarModel.php");
-        return new BorrarModel($database);
+        include_once("model/CargarViajesModel.php");
+        return new CargarViajesModel($database);
     }
 
-    public static function getBorrarViajesController(){
+    public static function getCargarViajesController(){
         $render = self::getRender();
-        $borrarModel = self::getBorrarModel();
-        include_once ("controller/BorrarViajesController.php");
-        return new BorrarViajesController($render, $borrarModel);
+        $cargasModel = self::getCargarViajesModel();
+        include_once("controller/CargarViajesController.php");
+        return new CargarViajesController($render, $cargasModel);
     }
 
 }

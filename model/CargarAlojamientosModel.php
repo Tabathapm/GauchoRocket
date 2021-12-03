@@ -1,6 +1,6 @@
 <?php
 
-class CargarModel{
+class CargarAlojamientosModel{
     private $database;
 
     public function __construct(\Database $database){

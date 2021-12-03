@@ -1,10 +1,10 @@
 <?php
 
-class CargarController{
+class CargarAlojamientosController{
     private $render;
     private $cargarModel;
 
-    public function __construct(\Render $render, \CargarModel $cargarModel){
+    public function __construct(\Render $render, \CargarAlojamientosModel $cargarModel){
         $this->render = $render;
         $this->cargarModel = $cargarModel;
     }
@@ -48,7 +48,7 @@ class CargarController{
             $data['alojamiento'] = $this->cargarModel->getAlojamiento();
             $data["nombreDeLosDestinos"] = $this->cargarModel->getTodosLosDestinos();
 
-            echo $this->render->renderizar("view/cargar.mustache", $data);
+            echo $this->render->renderizar("view/cargarAlojamientos.mustache", $data);
         }
     }
 
@@ -81,7 +81,7 @@ class CargarController{
 
             $_SESSION["mensajeB"] = "Borrado exitosamente";
 
-            header("location: /GauchoRocket/cargar");
+            header("location: /GauchoRocket/cargarAlojamientos");
             exit();
         }
     }
@@ -127,7 +127,7 @@ class CargarController{
 
             }
 
-            header("location: /GauchoRocket/cargar");
+            header("location: /GauchoRocket/cargarAlojamientos");
             exit();
         }
     }

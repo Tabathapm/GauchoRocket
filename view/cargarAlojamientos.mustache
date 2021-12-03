@@ -40,7 +40,7 @@
                             <tbody>
 
                             {{#alojamientoElegido}}
-                                <form action="/GauchoRocket/cargar/borrar" method="post">
+                                <form action="/GauchoRocket/cargarAlojamientos/borrar" method="post">
                                     <tr>
                                         <input type='hidden' value='{{id_alojamiento}}' name="idAlojamiento">
                                         <td >{{descripcion}}</td>
@@ -76,7 +76,7 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-auto bg-light p-5" style="width: 617px;">
 
-                    <form action="/GauchoRocket/cargar/cargarAlojamiento" method="POST">
+                    <form action="/GauchoRocket/cargarAlojamientos/cargarAlojamiento" method="POST">
 
                         <h2 class = 'text-center pb-4'>CARGAR ALOJAMIENTOS</h2>
 
@@ -133,7 +133,8 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-6" >
-                                <a class="btn btn-danger w-100" href="index.php" role="button">Cancelar</a>
+<!--                                <a class="btn btn-danger w-100" type="" role="button">Cancelar</a>-->
+                                <input type="reset" name="cancelar" class="btn btn-danger w-100" value="Cancelar">
                             </div>
 
                             <div class="col-sm-6" >

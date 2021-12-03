@@ -71,6 +71,9 @@ class AlojamientoController{
             }
 
             echo $this->render->renderizar("view/alojamiento.mustache", $data);
+        }else{
+            header("Location: /GauchoRocket/");
+            exit();
         }
     }
 

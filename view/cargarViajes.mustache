@@ -1,0 +1,193 @@
+{{>header}}
+{{> navbar}}
+
+
+<section class="container-fluid w-100 d-flex justify-content-center align-items-center" style="padding-top: 75px;">
+    <article class="d-flex justify-content-center d-flex flex-column">
+        <h1 class='mt-5 text-center'>VIAJES</h1>
+        {{#mensajeVueloBorrado}}
+            <div class="alert alert-success text-center container mt-4" role="alert">
+                <h4 class="d-flex justify-content-center">
+                    <i class="far fa-thumbs-up me-3"></i>
+                    <p class=" w3-center mt-2">{{mensajeVueloBorrado}}</p>
+                </h4>
+            </div>
+        {{/mensajeVueloBorrado}}
+
+        {{#mensajeCargarViaje}}
+            <div class="alert alert-success text-center container mt-4" role="alert">
+                <h4 class="d-flex justify-content-center">
+                    <i class="far fa-thumbs-up me-3"></i>
+                    <p class=" w3-center mt-2">{{mensajeCargarViaje}}</p>
+                </h4>
+            </div>
+        {{/mensajeCargarViaje}}
+
+            <div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
+                <div class="row justify-content-center align-items-center" >
+                    <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow-lg">
+
+                        <table class="table text-center" style="width: 877px">
+                            <thead>
+                            <tr>
+                                <th scope="col">ORIGEN</th>
+                                <th scope="col">DESTINO</th>
+                                <th scope="col">TIPO DE VIAJE</th>
+                                <th scope="col">FECHA</th>
+                                <th scope="col">HORARIO</th>
+                                <th scope="col">PRECIO</th>
+                                <th scope="col">DISPONIBLE</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+                            {{#viajeElegido}}
+                                <!--                                <form action="/GauchoRocket/reserva/reservarAlojamiento" method="post">-->
+                                <form action="/GauchoRocket/cargarViajes/borrar" method="post">
+                                    <tr>
+                                        <input type='hidden' value='{{id_vuelo}}' name="idVuelo">
+                                        <td>{{origen}}</td>
+                                        <td>{{destino}}</td>
+                                        <td>{{tipo}}</td>
+                                        <td>{{fechaDeViaje}}</td>
+                                        <td>{{horario}}</td>
+                                        <td>${{precio}}</td>
+                                        <td>
+                                            <button type="submit" class="btn btn-danger" >
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </form>
+                            {{/viajeElegido}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+    </article>
+</section>
+
+
+
+
+
+
+
+<section class = "container-fluid w-100 d-flex justify-content-center align-items-center" style="padding-bottom: 339px">
+    <article class = "d-flex justify-content-center d-flex flex-column">
+
+        <div class="container mt-5">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-auto bg-light p-5" style="width: 617px;">
+
+                    <form action="/GauchoRocket/cargarViajes/cargarViaje" method="POST">
+
+                        <h2 class = 'text-center pb-4'>CARGAR VIAJES</h2>
+
+                        <div class="input-group justify-content-between">
+
+                            <div class="w-50 p-2">
+                                <label class="form-label">Tipo de viaje</label>
+                                <select name="tipoDeViaje" class="form-select">
+                                    <option selected disabled>-- SELECCIONE --</option>
+                                    {{#tiposDeViajes}}
+                                        <option value="{{id_tipo_viaje}}"> {{tipo}}</option>
+                                    {{/tiposDeViajes}}
+                                </select>
+                            </div>
+
+                            <div class="w-50 p-2">
+                                <label class="form-label">Fecha de partida</label>
+                                <input class="form-control" type="text" name="fecha_partida" placeholder="aaaa/mm/dd">
+                            </div>
+
+                        </div>
+
+                        <!--    ----------------------------------------------------------------------------------  -->
+
+                        <div class="input-group justify-content-between">
+
+                            <div class="w-50 p-2">
+                                <label class="form-label">Horario</label>
+                                <input class="form-control" type="text" name="horario" placeholder="00:00 PM">
+                            </div>
+
+                            <div class="w-50 p-2">
+                                <label class="form-label">Precio</label>
+                                <input class="form-control" type="text" name="precio" placeholder="$000">
+                            </div>
+
+                        </div>
+                        <!--    ----------------------------------------------------------------------------------  -->
+
+                        <div class="input-group justify-content-between">
+
+                            <div class="w-50 p-2">
+                                <label class="form-label">Equipo</label>
+                                <select name="equipo" class="form-select">
+                                    <option selected disabled>-- SELECCIONE --</option>
+                                    {{#equipos}}
+                                        <option value="{{id_equipo}}"> {{nombre_equipo}}</option>
+                                    {{/equipos}}
+                                </select>
+                            </div>
+                            <!--    ------------------------    TABLA VUELO    ---------------------------------  -->
+                            <div class="w-50 p-2">
+                                <label class="form-label">Origen</label>
+                                <select name="origen" class="form-select">
+                                    <option selected disabled>-- SELECCIONE --</option>
+                                    {{#origen}}
+                                        <option value="{{id_origen}}">{{descripcion}}</option>
+                                    {{/origen}}
+
+                                </select>
+                            </div>
+
+                            <div class="w-100 p-2">
+                                <label class="form-label">Destino</label>
+                                <select name="destino" class="form-select">
+                                    <option selected disabled>-- SELECCIONE --</option>
+                                    {{#destinos}}
+                                        <option value="{{id_destino}}">{{descripcion}}</option>
+                                    {{/destinos}}
+
+                                </select>
+                            </div>
+
+                        </div>
+                        <!--    ----------------------------------------------------------------------------------  -->
+
+
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-6" >
+                                <input type="reset" name="cancelar" class="btn btn-danger w-100" value="Cancelar">
+                            </div>
+
+                            <div class="col-sm-6" >
+                                <input type="submit" name="subir" class="btn btn-primary w-100" value="Subir">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </article>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+{{>footer}}

@@ -32,16 +32,6 @@ class HomeController{
             $data["id"] = $_SESSION["id"];
         }
 
-
-        if($this->homeModel->usuarioConTurno($_SESSION["id"])){
-
-            $data['solicitoTurno']=true;
-
-        }else{
-
-             $data['solicitoTurno']=false;
-        }
-
         if (isset($_SESSION["esAdmin"])) {
             $data["esAdmin"] = $_SESSION["esAdmin"];
         }
@@ -52,10 +42,19 @@ class HomeController{
 
         if (isset($data["logueado"])) {
             $data["primeroElChequeo"] = "PARA PODER RESERVAR, PRIMERO DEBE REALIZARSE EL CHEQUEO MEDICO.";
+            if($this->homeModel->usuarioConTurno($_SESSION["id"])){
 
+                $data['solicitoTurno']=true;
+
+            }else{
+
+                $data['solicitoTurno']=false;
+            }
             echo $this->render->renderizar("view/home.mustache", $data);
         } else {
-            echo $this->render->renderizar("view/gauchoRocket.mustache");
+//            echo $this->render->renderizar("view/gauchoRocket.mustache");
+            header("Location: /GauchoRocket/");
+            exit();
         }
     }
 
