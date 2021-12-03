@@ -131,10 +131,7 @@ class ReservaController{
 
         $servicioEncontrado= $this->reservaModel->getServicio($servicio);
         $cabinaEncontrada = $this->reservaModel->getCabina($cabina);
-        $asientoEncontrado = $this->reservaModel->getAsiento(24);
-
-        /*echo $asiento;
-        echo $asientoEncontrado[0]['fila'];*/
+        $asientoEncontrado = $this->reservaModel->getAsiento($asiento);
 
         $_SESSION["servicio"] = $servicioEncontrado[0]['descripcion_tipo'];
         $_SESSION["cabina"] = $cabinaEncontrada[0]['tipo'];
