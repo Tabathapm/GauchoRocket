@@ -48,6 +48,22 @@ class Configuracion{
         return new ReservaModel($database);
     }
 
+    public static function getPagoReservaModel(){
+        $database = self::getDatabase();
+        include_once ("model/PagoReservaModel.php");
+        return new PagoReservaModel($database);
+    }
+
+    public static function getPagoReservaController(){
+        $pdf = self::getPDF();
+        $render = self::getRender();
+        $reservaModel = self::getReservaModel();
+        $qr = self::getQR();
+        $phpMailer = self::getPHPMailer();
+        include_once("controller/PagoReservaController.php");
+        return new PagoReservaController($render,$reservaModel, $pdf,$qr, $phpMailer);
+    }
+
 
     public static function getLoginController(){
         $render = self::getRender();

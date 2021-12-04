@@ -1,0 +1,26 @@
+{{>header}}
+<form class="card" action="/GauchoRocket/reserva/asignarTarjetaAUsuario" method="post">
+    <div class="card-header">
+        <h5><i class="far fa-credit-card ms-2"></i> Realice su pago con tarjeta</h5>
+    </div>
+    <div class="card-body">
+        <select class="form-select mb-3" aria-label="Default select example" name="empresaTarjeta">
+            {{#empresaTarjetas}}
+                <option value="{{id}}">{{nombre}}</option>
+            {{/empresaTarjetas}}
+        </select>
+        <input class="form-control mb-2" type="text" name="nroTarjeta" placeholder="Numero">
+        <input class="form-control mb-2" type="text" name="nombreTitular" placeholder="Nombre Titular">
+        <div class="d-flex flex-row">
+            <input class="form-control" type="number" name="mesVencimiento" placeholder="Mes vencimiento" style="width:10rem">
+            <input class="form-control ms-2" type="number" name="anoVencimiento" placeholder="Año vencimiento" style="width:10rem">
+            <input class="form-control ms-2" type="text" name="codSeguridad" placeholder="Cod seguridad" style="width:10rem">
+        </div>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">PAGAR</button>
+    <a class="btn btn-primary" href="/GauchoRocket/home" role="button">CANCELAR</a>
+</form>
+
+{{>footer}}
