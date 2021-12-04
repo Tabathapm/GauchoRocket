@@ -7,9 +7,6 @@ class ReservaModel
         $this->database=$database;
     }
 
-
-
-
     public function registrarReserva($hora_reserva,  $id_vuelo,$id_tipo_servicio, $id_cabina, $id_usuario,$idViaje){
         return $this->database->ejecutar("INSERT INTO reserva(      hora_reserva,id_vuelo,id_tipo_servicio,id_cabina, id_usuario,id_viaje)
                                            VALUES
@@ -48,7 +45,9 @@ class ReservaModel
     }
 
     public function getAlojamiento($id_alojamiento){
-        return $this->database->consulta("SELECT * FROM alojamiento");
+        return $this->database->consulta("SELECT * 
+                                              FROM alojamiento
+                                              WHERE id_alojamiento = '$id_alojamiento';");
 
     }
 
@@ -82,13 +81,22 @@ class ReservaModel
                                       WHERE id_usuario='$usuario'");
     }
 
-    public function reservarAlojamiento($idAlojamiento, $idUsuario){
-        return $this->database->update("UPDATE alojamiento 
-                                            SET usuario = '$idUsuario',
-                                            disponible = false
-                                            WHERE idAlojamiento='$idAlojamiento';");
+    public function asignarUsuarioReserva($idUsuario){
+        return $this->database->ejecutar("INSERT INTO reserva(id_usuario)
+                                              VALUES ('$idUsuario');");
     }
 
+    public function reservarAlojamiento($idAlojamiento, $idUsuario){
+        return $this->database->update("UPDATE reserva
+                                            SET id_alojamiento = '$idAlojamiento'
+                                            WHERE id_usuario = '$idUsuario' AND id_reserva = (SELECT MAX(id_reserva) FROM reserva);");
+    }
+
+    public function alojamientoNoDisponible($idAlojamiento){
+        return $this->database->update("UPDATE alojamiento
+                                            SET disponible = FALSE
+                                            WHERE id_alojamiento = '$idAlojamiento';");
+    }
 
     public function getAsientosPorFila($viaje, $fila){
       return $this->database->consulta("SELECT
@@ -151,26 +159,20 @@ class ReservaModel
                                           group by vi.id_viaje");
     }
 
-
     public function getReservasAlojamientos($id_usuario){
-        return $this->database->consulta("SELECT d.descripcion as destino, a.cant_habitaciones as cantHabitaciones,
-                                          a.nombreAlojamiento as nombreAlojamiento, vi.precio as precio
-                                          FROM reserva r 
-                                          inner join alojamiento a 
-                                          on a.id_alojamiento
-                                          inner join viaje vi on r.id_viaje = vi.id_viaje                 
-                                          inner join vuelo vu on r.id_vuelo = vu.id_vuelo
-                                          inner join destino d on vu.vuelo_destino = d.id_destino
-                                          where r.id_usuario = 5
-                                          group by a.id_alojamiento");
+        return $this->database->consulta("SELECT *
+                                              FROM alojamiento
+                                              INNER JOIN reserva
+                                              ON alojamiento.id_alojamiento = reserva.id_alojamiento
+                                              INNER JOIN destino
+                                              ON alojamiento.id_destino  = destino.id_destino
+                                              WHERE reserva.id_usuario = '$id_usuario';");
     }
-
   
     public function getAsiento($idAsiento){
       return $this->database->consulta("SELECT fila, descripcion FROM asiento
                                         WHERE id_asiento='$idAsiento'");
     }
-
 
      public function getUsuarioConReserva($usuario){
       return $this->database->consulta("SELECT distinct u.id_usuario 
@@ -180,7 +182,12 @@ class ReservaModel
                                         WHERE u.id_usuario='$usuario'");
     }
 
-
-    
+    public function datosAlojamiento($idAlojamiento){
+        return $this->database->consulta("SELECT *
+                                              FROM alojamiento
+                                              INNER JOIN destino
+                                              ON alojamiento.id_destino = destino.id_destino
+                                              WHERE id_alojamiento = '$idAlojamiento';");
+    }
 
 }

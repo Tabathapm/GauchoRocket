@@ -150,7 +150,7 @@ class ReservaController{
         $this->reservaModel->registrarReserva($horaReserva,$id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario, $viaje);
     }
 
-        echo $this->render->renderizar("view/miReserva.mustache");
+        echo $this->render->renderizar("view/miReserva.mustache", $data);
 
     }
 
@@ -321,9 +321,201 @@ class ReservaController{
         echo $this->render->renderizar("view/reservaCompleta.mustache",$data);
     }
 
+    public function reservarAlojamiento(){
+        $data = array();
+
+        if (isset($_SESSION["logueado"])) {
+            $data["logueado"] = $_SESSION["logueado"];
+        }
+
+        if (isset($_SESSION["id"])) {
+            $data["id"] = $_SESSION["id"];
+        }
+
+        if (isset($_SESSION["nombre"])) {
+            $data["nombre"] = $_SESSION["nombre"];
+        }
+
+        if (isset($_SESSION["apellido"])) {
+            $data["apellido"] = $_SESSION["apellido"];
+        }
+
+        if (isset($_SESSION["esAdmin"])) {
+            $data["esAdmin"] = $_SESSION["esAdmin"];
+        }
+
+        if (isset($_SESSION["esClient"])) {
+            $data["esClient"] = $_SESSION["esClient"];
+        }
+
+        if (isset($data["logueado"])) {
+            if (isset($_POST["idAlojamiento"])){
+
+                $id_alojamiento = $_POST["idAlojamiento"];
+                $comprobanteReservaAlojamiento = substr(md5(uniqid(rand(),true)),0,8);
+                $_SESSION['comprobanteAlojamiento'] = $comprobanteReservaAlojamiento;
+                $data['comprobanteAlojamiento'] = $comprobanteReservaAlojamiento;
+                $id_usuario = $_SESSION["id"];
+
+                $this->reservaModel->asignarUsuarioReserva($id_usuario);
+                $this->reservaModel->reservarAlojamiento($id_alojamiento, $id_usuario);
+                $this->reservaModel->alojamientoNoDisponible($id_alojamiento);
+
+                $alojamiento = $this->reservaModel->datosAlojamiento($id_alojamiento);
+                $habitaciones = $alojamiento[0]["cant_habitaciones"];
+                $destino = $alojamiento[0]["descripcion"];
+                $precio = $alojamiento[0]["precio"];
+                $nombreAlojamiento = $alojamiento[0]["nombreAlojamiento"];
+
+                $_SESSION["reservaHabitaciones"] = $habitaciones;
+                $_SESSION["reservaDestino"] = $destino;
+                $_SESSION["reservaPrecio"] = $precio;
+                $_SESSION["reservaNomAlojamiento"] = $nombreAlojamiento;
+
+                $this->enviarEmail($habitaciones, $destino, $precio, $nombreAlojamiento, $comprobanteReservaAlojamiento);
+
+                $data["mensaje"] = "Reserva registrada con éxito!";
+
+            }
+        }
+
+        echo $this->render->renderizar("view/reservaAlojamiento.mustache", $data);
+    }
+
+    public function enviarEmail($habitaciones, $destino, $precio, $nombreAlojamiento, $comprobanteReservaAlojamiento){
+
+        $nombre = $_SESSION['nombre'];
+        $apellido = $_SESSION['apellido'];
+        $email = $_SESSION['email'];
+
+        $mailer =  $this->phpMailer->getMail();
+
+        $mailer->AddEmbeddedImage('public/images/icon-email.png', 'logo');
+
+        $message ="
+        <div>
+            <div style='display:flex; flex-direction:row;'>
+                <span>
+                    <img src='cid:logo' width=40>
+                </span>
+                <h1>Gaucho Rocket</h1>
+            </div>
+            <div>
+               <p>
+               <strong>COD COMPROBANTE DE RESERVA: </strong><span>".$comprobanteReservaAlojamiento."</span>
+                <br>  
+                Reserva realizada por: ".$nombre." ".$apellido."
+                <br>
+                Alojamiento: <strong>".$nombreAlojamiento."</strong>
+                <br>
+                Cantidad de habitaciones: <strong>".$habitaciones."</strong>  
+                <br>
+                Con destino a: <strong>".$destino."</strong>
+                <br>
+                Precio: <strong>".$precio."</strong>
+               </p>
+            </div>
+        </div> ";
+
+        return $this->phpMailer->send($email, "RESERVA DE ALOJAMIENTO", $message);
+
+    }
+
+    public function crearPDFAlojamiento(){
+        if(isset($_SESSION['logueado'])){
+
+            $nombre= $_SESSION["nombre"];
+            $apellido= $_SESSION["apellido"];
+            $habitaciones = $_SESSION["reservaHabitaciones"];
+            $destino = $_SESSION["reservaDestino"];
+            $precio = $_SESSION["reservaPrecio"];
+            $nombreAlojamiento = $_SESSION["reservaNomAlojamiento"];
+            $comprobanteReservaAlojamiento = $_SESSION['comprobanteAlojamiento'];
+
+            $host = "http://".$_SERVER['HTTP_HOST'];
+
+            $message ="
+            <div>
+                <div style='display:flex; flex-direction:row;'>
+                    <span>
+                        <img src='$host/GauchoRocket/public/images/marca-pdf.png' style='width:60rem;'/>
+                    </span>
+                </div>
+                <div>
+                    <h2 style='text-align: center'>Reserva de alojamiento</h2>
+                   <p>
+                   <strong>COD COMPROBANTE DE RESERVA: </strong><span>".$comprobanteReservaAlojamiento."</span>
+                    <br>
+                    Reserva realizada por: ".$nombre." ".$apellido."
+                    <br>
+                    Alojamiento: <strong>".$nombreAlojamiento."</strong>
+                    <br>
+                    Cantidad de habitaciones: <strong>".$habitaciones."</strong>
+                    <br>
+                    Con destino a: <strong>".$destino."</strong>
+                    <br>
+                    Precio: <strong>".$precio."</strong>
+                   </p>
+                </div>
+            </div> ";
 
 
+            $data['pdfAlojamiento']=$this->pdf->createPDF($message,'reservaAlojamiento');
 
+            echo $this->render->renderizar("view/pdfAlojamiento.mustache", $data);
+        }
+        else{
+            header("Location: /GauchoRocket/login");
+            exit();
+        }
+
+    }
+
+
+    public function crearQrAlojamiento(){
+
+        $nombre = $_SESSION['nombre'];
+        $apellido = $_SESSION['apellido'];
+        $habitaciones = $_SESSION["reservaHabitaciones"];
+        $destino = $_SESSION["reservaDestino"];
+        $precio = $_SESSION["reservaPrecio"];
+        $nombreAlojamiento = $_SESSION["reservaNomAlojamiento"];
+        $comprobanteReservaAlojamiento = $_SESSION['comprobanteAlojamiento'];
+
+
+        $host = "http://".$_SERVER['HTTP_HOST'];
+
+        $message ="
+        <div>
+            <div style='display:flex; flex-direction:row;'>
+                <span>
+                    <img src='cid:logo' width=40>
+                </span>
+                <h1>Gaucho Rocket</h1>
+            </div>
+            <div>
+               <p>
+               <strong>COD COMPROBANTE DE RESERVA: </strong><span>".$comprobanteReservaAlojamiento."</span>
+                <br>
+                Reserva realizada por: ".$nombre." ".$apellido."
+                <br>
+                Alojamiento: <strong>".$nombreAlojamiento."</strong>
+                <br>
+                Cantidad de habitaciones: <strong>".$habitaciones."</strong>
+                <br>
+                Con destino a: <strong>".$destino."</strong>
+                <br>
+                Precio: <strong>".$precio."</strong>
+               </p>
+            </div>
+        </div>
+        ";
+
+        $data['qr']= $this->qr->createQR($message);
+
+        echo $this->render->renderizar("view/qr.mustache");
+
+    }
 
 }
 
