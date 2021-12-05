@@ -8,9 +8,9 @@ class ReservaModel
     }
 
     public function registrarReserva($hora_reserva,  $id_vuelo,$id_tipo_servicio, $id_cabina, $id_usuario,$idViaje){
-        return $this->database->ejecutar("INSERT INTO reserva(      hora_reserva,id_vuelo,id_tipo_servicio,id_cabina, id_usuario,id_viaje)
+        return $this->database->ejecutar("INSERT INTO reserva(hora_reserva,id_vuelo,id_tipo_servicio,id_cabina, id_usuario,id_viaje, pagado)
                                            VALUES
-                                          ('$hora_reserva','$id_vuelo','$id_tipo_servicio','$id_cabina','$id_usuario','$idViaje')");
+                                          ('$hora_reserva','$id_vuelo','$id_tipo_servicio','$id_cabina','$id_usuario','$idViaje', true)");
     }
 
     public function servicios(){
@@ -88,7 +88,8 @@ class ReservaModel
 
     public function reservarAlojamiento($idAlojamiento, $idUsuario){
         return $this->database->update("UPDATE reserva
-                                            SET id_alojamiento = '$idAlojamiento'
+                                            SET id_alojamiento = '$idAlojamiento',
+                                                pagado = true
                                             WHERE id_usuario = '$idUsuario' AND id_reserva = (SELECT MAX(id_reserva) FROM reserva);");
     }
 
@@ -146,9 +147,7 @@ class ReservaModel
     }
 
     public function getReservasViajes($id_usuario){
-        return $this->database->consulta("SELECT o.descripcion as origen, d.descripcion as destino,
-                                          tv.tipo as tipo, vi.f_partida as fechaDeViaje,
-                                          vi.horario as horario, vi.precio as precio
+        return $this->database->consulta("SELECT *, DATE_FORMAT(f_partida, '%d/%m/%Y') AS 'fechaDeViaje', o.descripcion AS 'origen', d.descripcion AS 'destino',vi.pagado AS 'viaje_pagado', r.pagado AS 'reserva_pagado'
                                           FROM reserva r 
                                           inner join viaje vi on r.id_viaje = vi.id_viaje
                                           inner join vuelo vu on r.id_vuelo = vu.id_vuelo

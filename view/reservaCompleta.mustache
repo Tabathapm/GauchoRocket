@@ -3,7 +3,7 @@
 
 {{#usuarioConReserva}}
 
-<section class="container-fluid w-100 d-flex justify-content-center align-items-center" style="padding-top: 75px; padding-bottom: 339px">
+<section class="container-fluid w-100 d-flex justify-content-center align-items-center" style="padding-top: 75px; padding-bottom: 100px">
     <article class="d-flex justify-content-center d-flex flex-column">
         <h1 class='mt-5 text-center'>VIAJES</h1>
        
@@ -27,18 +27,26 @@
                             <tbody>
 
                             {{#viajes}}
-                                <!--                                <form action="/GauchoRocket/reserva/reservarAlojamiento" method="post">-->
-                                <form action="#" method="post">
+                                <form action="/GauchoRocket/pagoReserva" method="post">
                                     <tr>
                                         <input type='hidden' value='{{id_vuelo}}' name="idVuelo">
+                                        <input type='hidden' value='{{id_reserva}}' name="idReserva">
                                         <td class="text-left">{{origen}}</td>
                                         <td class="text-left">{{destino}}</td>
                                         <td>{{tipo}}</td>
                                         <td>{{fechaDeViaje}}</td>
                                         <td>{{horario}}</td>
                                         <td>${{precio}}</td>
-                                        <td>
-                                            <a class="btn btn-primary w-100" tabindex="-1" role="button" href="/GauchoRocket/pagoReserva">PAGAR</a>
+                                        {{#reserva_pagado}}
+                                            <td>
+                                                <button type="submit" class="btn btn-primary">PAGAR</button>
+                                            </td>
+                                        {{/reserva_pagado}}
+                                        {{^reserva_pagado}}
+                                            <td>
+                                                <button type="submit" class="btn btn-primary" disabled>PAGADO</button>
+                                            </td>
+                                        {{/reserva_pagado}}
                                         </td>
                                     </tr>
                                 </form>
@@ -51,7 +59,7 @@
 
         <br>
 
-            <section class="container-fluid w-100 d-flex justify-content-center align-items-center" style="padding-bottom: 339px">
+            <section class="container-fluid w-100 d-flex justify-content-center align-items-center">
                 <article class="d-flex justify-content-center d-flex flex-column">
                     <h1 class='mt-5 text-center'>ALOJAMIENTOS</h1>
                         <div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
@@ -72,17 +80,24 @@
                                         <tbody>
 
                                         {{#alojamientos}}
-                                            <form action="/GauchoRocket/reserva/reservarAlojamiento" method="post">
-                                                <!--                                <form action="#" method="post">-->
+                                            <form action="/GauchoRocket/pagoReserva" method="post">
                                                 <tr>
                                                     <input type='hidden' value='{{id_alojamiento}}' name="idAlojamiento">
+                                                    <input type='hidden' value='{{id_reserva}}' name="idReserva">
                                                     <td >{{descripcion}}</td>
                                                     <td >{{cant_habitaciones}}</td>
                                                     <td >${{precio}}</td>
                                                     <td >{{nombreAlojamiento}}</td>
+                                                    <{{#pagado}}
                                                     <td>
-                                                        <button type="button" class="btn btn-primary">PAGAR</button>
+                                                        <button type="submit" class="btn btn-primary">PAGAR</button>
                                                     </td>
+                                                {{/pagado}}
+                                                    {{^pagado}}
+                                                        <td>
+                                                            <button type="submit" class="btn btn-primary" disabled>PAGAR</button>
+                                                        </td>
+                                                    {{/pagado}}
                                                 </tr>
                                             </form>
                                         {{/alojamientos}}
@@ -92,12 +107,12 @@
                             </div>
                         </div>
 
-                    
                     <div class="row justify-content-center" style="padding-bottom: 138px;">
                         <div class="col-sm-6" >
                             <a class="btn btn-danger w-100" tabindex="-1" role="button" href="/GauchoRocket/home">Volver</a>
                         </div>
                     </div>
+
                 </article>
             </section>
     </article>

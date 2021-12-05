@@ -57,7 +57,7 @@ class Configuracion{
     public static function getPagoReservaController(){
         $pdf = self::getPDF();
         $render = self::getRender();
-        $reservaModel = self::getReservaModel();
+        $reservaModel = self::getPagoReservaModel();
         $qr = self::getQR();
         $phpMailer = self::getPHPMailer();
         include_once("controller/PagoReservaController.php");
