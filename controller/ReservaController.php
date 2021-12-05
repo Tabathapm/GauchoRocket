@@ -133,22 +133,14 @@ class ReservaController{
         $asientoEncontrado = $this->reservaModel->getAsiento($asiento);
         $vueloEncontrado= $this->reservaModel->getReservaVuelo($id_vuelo);
 
-        $_SESSION["servicio"] = $servicioEncontrado[0]['descripcion_tipo'];
-        $_SESSION["cabina"] = $cabinaEncontrada[0]['tipo'];
-        $_SESSION["viaje"] = $viaje;
-        $_SESSION["horario"]=$horaReserva;
-        $_SESSION["asientoFila"]=$asientoEncontrado[0]['fila'];
-        $_SESSION["asientoDesc"]=$asientoEncontrado[0]['descripcion'];
-        $_SESSION["vuelo"]=$id_vuelo;
-
         $data['horaReserva'] = $horaReserva;
         $data['servicio'] = $servicioEncontrado[0]['descripcion_tipo'];
         $data['cabina'] = $cabinaEncontrada[0]['tipo'];
         $data['vuelo'] = $id_vuelo;
 
-        if($this->reservaModel->asientoReservado($asiento) &&  $this->reservaModel->registrarReserva($horaReserva,$id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario, $viaje)){
+        if($this->reservaModel->asientoReservado($asiento) &&  $this->reservaModel->registrarReserva($horaReserva,$id_vuelo,$asiento,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario, $viaje, $comprobanteReserva)){
 
-            if($this->sendMessageEmail($horaReserva, $cabinaEncontrada[0]['id_cabina'], $servicioEncontrado[0]['id_tipo_servicio'], $vueloEncontrado, $comprobanteReserva) ){
+            if($this->sendMessageEmail($horaReserva, $cabinaEncontrada[0]['id_cabina'],$asientoEncontrado[0]['fila'], $asientoEncontrado[0]['descripcion'], $servicioEncontrado[0]['id_tipo_servicio'], $vueloEncontrado, $comprobanteReserva) ){
 
                 $data['reservaRegistrada']=true;
 
@@ -166,13 +158,11 @@ class ReservaController{
     }
 
 
-    public function sendMessageEmail($horaReserva, $cabina, $servicio, $vuelo, $comprobanteReserva){
+    public function sendMessageEmail($horaReserva, $cabina, $fila, $asiento, $servicio, $vuelo, $comprobanteReserva){
 
         $nombre=$_SESSION['nombre'];
         $apellido=$_SESSION['apellido'];
         $email=$_SESSION['email'];
-        $fila=$_SESSION["asientoFila"];
-        $asiento=$_SESSION["asientoDesc"];
 
         $mailer =  $this->phpMailer->getMail();
 
@@ -208,17 +198,18 @@ class ReservaController{
 
         $nombre= $_SESSION["nombre"];
         $apellido= $_SESSION["apellido"];
-        $horarioReserva= $_SESSION["horario"];
-        $cabina=$_SESSION["cabina"];
-        $servicio=$_SESSION["servicio"];
-        $vuelo=$_SESSION["vuelo"];
-        $comprobanteReserva = $_SESSION['comprobante'];
-        $fila = $_SESSION['asientoFila'];
-        $asiento = $_SESSION['asientoDesc'];
 
+        $reserva = $_POST['reserva'];
+    
+        $reservaEncontrada = $this->reservaModel->getReserva($reserva);
+        $vueloEncontrado= $this->reservaModel->getReservaVuelo($reservaEncontrada[0]['vuelo']);
 
-        $vueloEncontrado= $this->reservaModel->getReservaVuelo($vuelo);
-        $asientoEncontrado = $this->reservaModel->getAsiento($asiento);
+        $horarioReserva= $reservaEncontrada[0]['hora'];
+        $cabina=$reservaEncontrada[0]['cabina'];
+        $servicio=$reservaEncontrada[0]['servicio'];
+        $comprobanteReserva = $reservaEncontrada[0]['comprobante'];
+        $fila = $reservaEncontrada[0]['fila'];
+        $asiento = $reservaEncontrada[0]['asiento'];
 
         $host = "http://".$_SERVER['HTTP_HOST'];
 
@@ -255,14 +246,19 @@ class ReservaController{
 
         $nombre=$_SESSION['nombre'];
         $apellido=$_SESSION['apellido'];
-        $cabina=$_SESSION["cabina"];
-        $servicio=$_SESSION["servicio"];
-        $vuelo=$_SESSION["vuelo"];
-        $fila=$_SESSION["asientoFila"];
-        $asiento=$_SESSION["asientoDesc"];
-        $comprobanteReserva = $_SESSION['comprobante'];
-        $vueloEncontrado= $this->reservaModel->getReservaVuelo($vuelo);
+        
+        $reserva = $_POST['reserva'];
+    
+        $reservaEncontrada = $this->reservaModel->getReserva($reserva);
+        $vueloEncontrado= $this->reservaModel->getReservaVuelo($reservaEncontrada[0]['vuelo']);
 
+        $cabina=$reservaEncontrada[0]['cabina'];
+        $servicio=$reservaEncontrada[0]['servicio'];
+        $comprobanteReserva = $reservaEncontrada[0]['comprobante'];
+        $fila = $reservaEncontrada[0]['fila'];
+        $asiento = $reservaEncontrada[0]['asiento'];
+
+       
         $host = "http://".$_SERVER['HTTP_HOST'];
 
         $message ="

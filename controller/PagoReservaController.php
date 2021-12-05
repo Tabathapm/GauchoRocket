@@ -82,17 +82,22 @@ class PagoReservaController{
             $anioVencimiento = $_POST['anioVencimiento'];
             $codSeguridad = $_POST['codSeguridad'];
 
-                $this->pagoReservaModel->getRegistrarTarjeta($nroTarjeta, $nombreTitular, $mesVencimiento,
-                    $anioVencimiento, $tarjeta, $codSeguridad);
+            $data['id_reserva']=$idReserva;
 
-                $this->pagoReservaModel->actualizarReserva($idReserva);
+            if( $this->pagoReservaModel->getRegistrarTarjeta($nroTarjeta, $nombreTitular, $mesVencimiento,
+                        $anioVencimiento, $tarjeta, $codSeguridad) && $this->pagoReservaModel->actualizarReserva($idReserva)){
 
-                $_SESSION["mensajeDePago"] = "Pago exitoso!";
+                        $data["pagado"] = true;          
 
+                  }else{
+
+                     $data["pagado"] = false;
+
+            }
+
+            echo $this->render->renderizar("view/confirmacionPago.mustache", $data);
 
         }
-
-        header("Location: /GauchoRocket/PagoReserva");
-        exit();
+  
     }
 }

@@ -7,10 +7,10 @@ class ReservaModel
         $this->database=$database;
     }
 
-    public function registrarReserva($hora_reserva,  $id_vuelo,$id_tipo_servicio, $id_cabina, $id_usuario,$idViaje){
-        return $this->database->update("INSERT INTO reserva(hora_reserva,id_vuelo,id_tipo_servicio,id_cabina, id_usuario,id_viaje, pagado)
+    public function registrarReserva($hora_reserva,  $id_vuelo,$id_asiento,$id_tipo_servicio, $id_cabina, $id_usuario,$idViaje, $comprobanteReservaViaje){
+        return $this->database->update("INSERT INTO reserva(hora_reserva,id_vuelo,id_asiento,id_tipo_servicio,id_cabina, id_usuario,id_viaje,comprobanteReservaViaje, pagado)
                                            VALUES
-                                          ('$hora_reserva','$id_vuelo','$id_tipo_servicio','$id_cabina','$id_usuario','$idViaje', true)");
+                                          ('$hora_reserva','$id_vuelo','$id_asiento','$id_tipo_servicio','$id_cabina','$id_usuario','$idViaje','$comprobanteReservaViaje' ,true)");
     }
 
     public function servicios(){
@@ -146,8 +146,27 @@ class ReservaModel
 
     }
 
+    public function getReserva($reserva){
+
+      return $this->database->consulta("SELECT r.hora_reserva as hora,
+                                        c.tipo as cabina, tsb.descripcion_tipo as servicio,
+                                        a.fila as fila, a.descripcion as asiento, vu.id_vuelo as vuelo,
+                                        r.comprobanteReservaViaje as comprobante
+                                        FROM reserva r
+                                        INNER JOIN cabina c
+                                        ON c.id_cabina = r.id_cabina
+                                        INNER JOIN tipo_servicio_a_bordo tsb
+                                        ON tsb.id_tipo_servicio = r.id_tipo_servicio
+                                        INNER JOIN asiento a
+                                        ON r.id_asiento = a.id_asiento
+                                        INNER JOIN vuelo vu 
+                                        ON vu.id_vuelo=r.id_vuelo
+                                        where r.id_reserva = '$reserva'");
+
+    }
+
     public function getReservasViajes($id_usuario){
-        return $this->database->consulta("SELECT *, DATE_FORMAT(f_partida, '%d/%m/%Y') AS 'fechaDeViaje', o.descripcion AS 'origen', d.descripcion AS 'destino',vi.pagado AS 'viaje_pagado', r.pagado AS 'reserva_pagado'
+        return $this->database->consulta("SELECT *, DATE_FORMAT(f_partida, '%d/%m/%Y') AS 'fechaDeViaje', o.descripcion AS 'origen', d.descripcion AS 'destino',vi.pagado AS 'viaje_pagado', r.pagado AS 'reserva_pagado' , r.id_reserva as 'idreserva'
                                           FROM reserva r 
                                           inner join viaje vi on r.id_viaje = vi.id_viaje
                                           inner join vuelo vu on r.id_vuelo = vu.id_vuelo
