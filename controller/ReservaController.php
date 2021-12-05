@@ -49,7 +49,6 @@ class ReservaController{
              $data['servicios'] = $this->reservaModel->servicios();
              $data['cabinas'] = $this->reservaModel->cabinas();
              $data['tipoVuelo'] = $this->reservaModel->getResultadoChequeo($_SESSION["id"]);
-             $data['empresaTarjetas'] = $this->reservaModel->getEmpresasTarjetas();
 
              if(isset($_POST['idViaje']) && isset($_POST['destino'])
                 && isset($_POST['horario']) && isset($_POST['fecha'])
@@ -71,7 +70,7 @@ class ReservaController{
                 $data['vuelo'] = $_POST['vuelo'];
                 $data['viaje'] = $_POST['idViaje'];
              }
-            
+
             echo $this->render->renderizar("view/reservas.mustache", $data);
 
         }else{
@@ -303,7 +302,6 @@ class ReservaController{
 
             $id_usuario = $_SESSION['id'];
 
-
             if($this->reservaModel->getUsuarioConReserva($id_usuario)){
 
                 $reservaViajes= $this->reservaModel->getReservasViajes($id_usuario);
@@ -317,7 +315,8 @@ class ReservaController{
                 $data['usuarioConReserva']=false;
             } 
 
-        }       
+        }
+
         echo $this->render->renderizar("view/reservaCompleta.mustache",$data);
     }
 
