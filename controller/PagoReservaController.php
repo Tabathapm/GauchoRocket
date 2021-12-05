@@ -2,21 +2,20 @@
 
 class PagoReservaController{
     private $render;
-    private $reservaModel;
+    private $pagoReservaModel;
     private $pdf;
     private $qr;
     private $phpMailer;
 
-    public function __construct(\Render $render, \ReservaModel $reservaModel, \PDF $pdf, \QR $qr, \PHPMailerGmail $phpMailer){
+    public function __construct(\Render $render, \PagoReservaModel $pagoReservaModel, \PDF $pdf, \QR $qr, \PHPMailerGmail $phpMailer){
         $this->render = $render;
-        $this->reservaModel = $reservaModel;
+        $this->pagoReservaModel = $pagoReservaModel;
         $this->pdf=$pdf;
         $this->qr=$qr;
         $this->phpMailer = $phpMailer;
     }
 
-    public function execute()
-    {
+    public function execute(){
 
         $data = array();
 
@@ -44,87 +43,56 @@ class PagoReservaController{
             $data["esClient"] = $_SESSION["esClient"];
         }
 
-        if (isset($data["logueado"])) {
-
-            $data = array();
-
-            if (isset($_SESSION["logueado"])) {
-                $data["logueado"] = $_SESSION["logueado"];
-            }
-
-            if (isset($_SESSION["id"])) {
-                $data["id"] = $_SESSION["id"];
-            }
-
-            if (isset($_SESSION["nombre"])) {
-                $data["nombre"] = $_SESSION["nombre"];
-            }
-
-            if (isset($_SESSION["apellido"])) {
-                $data["apellido"] = $_SESSION["apellido"];
-            }
-
-            if (isset($_SESSION["esAdmin"])) {
-                $data["esAdmin"] = $_SESSION["esAdmin"];
-            }
-
-            if (isset($_SESSION["esClient"])) {
-                $data["esClient"] = $_SESSION["esClient"];
-            }
-
-            if (isset($data["logueado"])) {
-
-                $nroTarjeta = $_POST['nroTarjeta'];
-                $nombreTitular = $_POST['nombreTitular'];
-                $mesVencimiento = $_POST['mesVencimiento'];
-                $anoVencimiento = $_POST['anoVencimiento'];
-                $codSeguridad = $_POST['codSeguridad'];
-
-                $data['nroTarjeta'] = $nroTarjeta;
-                $data['nombreTitular'] = $nombreTitular;
-                $data['mesVencimiento'] = $mesVencimiento;
-                $data['anoVencimiento'] = $anoVencimiento;
-                $data['codSeguridad'] = $codSeguridad;
-
-                echo $this->render->renderizar("view/PagoReserva.mustache", $data);
-
-
-//            $data['servicios'] = $this->reservaModel->servicios();
-//            $data['cabinas'] = $this->reservaModel->cabinas();
-//            $data['tipoVuelo'] = $this->reservaModel->getResultadoChequeo($_SESSION["id"]);
-//            $data['empresaTarjetas'] = $this->reservaModel->getEmpresasTarjetas();
-//
-//            if(isset($_POST['idViaje']) && isset($_POST['destino'])
-//                && isset($_POST['horario']) && isset($_POST['fecha'])
-//                && isset($_POST['precio']) && isset($_POST['foto'])
-//                && isset($_POST['duracion']) && isset($_POST['vuelo']) ){
-//
-//                $viaje=$_POST['idViaje'];
-//                $data['viaje'] = $this->reservaModel->getViaje($viaje);
-//                $data['filaA']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'A');
-//                $data['filaB']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'B');
-//                $data['filaC']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'C');
-//                $data['filaD']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'D');
-//                $data['destino'] = $_POST['destino'];
-//                $data['horario'] = $_POST['horario'];
-//                $data['fecha'] = $_POST['fecha'];
-//                $data['precio'] = $_POST['precio'];
-//                $data['foto'] = $_POST['foto'];
-//                $data['duracion'] = $_POST['duracion'];
-//                $data['vuelo'] = $_POST['vuelo'];
-//                $data['viaje'] = $_POST['idViaje'];
-//            }
-//
-//            echo $this->render->renderizar("view/PagoReserva.mustache", $data);
-
-            } else {
-
-
-                header("Location:/GauchoRocket/login");
-                exit();
-            }
+        if(isset($_SESSION["mensajeDePago"])){
+            $data["mensajeDePago"] = $_SESSION["mensajeDePago"];
+            unset($_SESSION["mensajeDePago"]);
         }
 
+        if(isset($_SESSION["mensajeDePagoError"])){
+            $data["mensajeDePagoError"] = $_SESSION["mensajeDePagoError"];
+            unset($_SESSION["mensajeDePagoError"]);
+        }
 
+        if (isset($data["logueado"])) {
+
+            $data['empresaTarjetas'] = $this->pagoReservaModel->getEmpresasTarjetas();
+
+            if (isset($_POST["idReserva"])) {
+                $_SESSION["idReserva"] = $_POST["idReserva"];
+            }
+
+            echo $this->render->renderizar("view/PagoReserva.mustache", $data);
+
+        }else {
+            header("Location:/GauchoRocket/login");
+            exit();
+        }
+    }
+
+    public function pagar(){
+        if (isset($_POST["empresaTarjeta"]) && isset($_POST["nroTarjeta"]) && isset($_POST["nombreTitular"])
+            && isset($_POST["mesVencimiento"]) && isset($_POST["anioVencimiento"]) && isset($_POST["codSeguridad"])
+            && isset($_SESSION["idReserva"])){
+
+            $idReserva = $_SESSION["idReserva"];
+            $tarjeta = $_POST["empresaTarjeta"];
+            $nroTarjeta = $_POST['nroTarjeta'];
+            $nombreTitular = $_POST['nombreTitular'];
+            $mesVencimiento = $_POST['mesVencimiento'];
+            $anioVencimiento = $_POST['anioVencimiento'];
+            $codSeguridad = $_POST['codSeguridad'];
+
+                $this->pagoReservaModel->getRegistrarTarjeta($nroTarjeta, $nombreTitular, $mesVencimiento,
+                    $anioVencimiento, $tarjeta, $codSeguridad);
+
+                $this->pagoReservaModel->actualizarReserva($idReserva);
+
+                $_SESSION["mensajeDePago"] = "Pago exitoso!";
+
+
+        }
+
+        header("Location: /GauchoRocket/PagoReserva");
+        exit();
     }
 }
