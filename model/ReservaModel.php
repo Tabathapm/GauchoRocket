@@ -8,7 +8,7 @@ class ReservaModel
     }
 
     public function registrarReserva($hora_reserva,  $id_vuelo,$id_tipo_servicio, $id_cabina, $id_usuario,$idViaje){
-        return $this->database->ejecutar("INSERT INTO reserva(hora_reserva,id_vuelo,id_tipo_servicio,id_cabina, id_usuario,id_viaje, pagado)
+        return $this->database->update("INSERT INTO reserva(hora_reserva,id_vuelo,id_tipo_servicio,id_cabina, id_usuario,id_viaje, pagado)
                                            VALUES
                                           ('$hora_reserva','$id_vuelo','$id_tipo_servicio','$id_cabina','$id_usuario','$idViaje', true)");
     }
@@ -118,7 +118,7 @@ class ReservaModel
 
     public function asientoReservado($idAsiento){
 
-      return $this->database->ejecutar("UPDATE asiento
+      return $this->database->update("UPDATE asiento
                                       SET disponible = false
                                       WHERE id_asiento='$idAsiento'");
 

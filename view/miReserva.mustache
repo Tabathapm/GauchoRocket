@@ -3,6 +3,7 @@
 
 <div  class="pt-5 pb-5"></div>
 
+{{#reservaRegistrada}}
 <div class="alert alert-success text-center container" role="alert">
     <h4>
     <i class='fas fa-check-circle me-2 text-center'></i>
@@ -29,5 +30,17 @@
     
 </div>
 
+{{/reservaRegistrada}}
+
+{{^reservaRegistrada}}
+
+    <div class="alert alert-danger text-center container" role="alert">
+        <h4>
+        <i class='fas fa-times-circle me-2 text-center'></i>
+        Error intente mas tarde!
+    </h4>
+    </div>
+
+{{/reservaRegistrada}}
 
 {{> footer}}

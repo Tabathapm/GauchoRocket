@@ -131,6 +131,7 @@ class ReservaController{
         $servicioEncontrado= $this->reservaModel->getServicio($servicio);
         $cabinaEncontrada = $this->reservaModel->getCabina($cabina);
         $asientoEncontrado = $this->reservaModel->getAsiento($asiento);
+        $vueloEncontrado= $this->reservaModel->getReservaVuelo($id_vuelo);
 
         $_SESSION["servicio"] = $servicioEncontrado[0]['descripcion_tipo'];
         $_SESSION["cabina"] = $cabinaEncontrada[0]['tipo'];
@@ -145,8 +146,22 @@ class ReservaController{
         $data['cabina'] = $cabinaEncontrada[0]['tipo'];
         $data['vuelo'] = $id_vuelo;
 
-        $this->reservaModel->asientoReservado($asiento);
-        $this->reservaModel->registrarReserva($horaReserva,$id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario, $viaje);
+        #$this->reservaModel->asientoReservado($asiento);
+        #$this->reservaModel->registrarReserva($horaReserva,$id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario, $viaje);
+
+        if($this->reservaModel->asientoReservado($asiento) &&  $this->reservaModel->registrarReserva($horaReserva,$id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario, $viaje)){
+
+            if($this->sendMessageEmail($horaReserva, $cabinaEncontrada[0]['id_cabina'], $servicioEncontrado[0]['id_tipo_servicio'], $vueloEncontrado, $comprobanteReserva) ){
+
+                $data['reservaRegistrada']=true;
+
+            }
+        }else{
+
+            $data['reservaRegistrada']=false;
+        }
+
+        
     }
 
         echo $this->render->renderizar("view/miReserva.mustache", $data);
@@ -207,8 +222,6 @@ class ReservaController{
 
         $vueloEncontrado= $this->reservaModel->getReservaVuelo($vuelo);
         $asientoEncontrado = $this->reservaModel->getAsiento($asiento);
-
-        $this->sendMessageEmail($horarioReserva, $cabina, $servicio, $vueloEncontrado, $comprobanteReserva);
 
         $host = "http://".$_SERVER['HTTP_HOST'];
 
