@@ -146,9 +146,6 @@ class ReservaController{
         $data['cabina'] = $cabinaEncontrada[0]['tipo'];
         $data['vuelo'] = $id_vuelo;
 
-        #$this->reservaModel->asientoReservado($asiento);
-        #$this->reservaModel->registrarReserva($horaReserva,$id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario, $viaje);
-
         if($this->reservaModel->asientoReservado($asiento) &&  $this->reservaModel->registrarReserva($horaReserva,$id_vuelo,$servicioEncontrado[0]['id_tipo_servicio'] ,$cabinaEncontrada[0]['id_cabina'], $usuario, $viaje)){
 
             if($this->sendMessageEmail($horaReserva, $cabinaEncontrada[0]['id_cabina'], $servicioEncontrado[0]['id_tipo_servicio'], $vueloEncontrado, $comprobanteReserva) ){
