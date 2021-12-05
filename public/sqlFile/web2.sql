@@ -8,7 +8,7 @@ nombre varchar(15),
 primary key (id));
 
 create table tarjeta_de_credito(id_tarjeta integer AUTO_INCREMENT,
-								nro_tarjeta integer,
+								nro_tarjeta varchar(20),
                                 titular varchar(20),
                                 vencimientoMes integer,
                                 vencimientoAno integer,
@@ -94,7 +94,7 @@ create table viaje(id_viaje integer AUTO_INCREMENT,
                     cant_vuelos integer,
 					duracion double,
                     id_equipo integer,
-                    pagado bool,
+                    pagado bool NOT NULL DEFAULT '1',
                     disponible bool,
 					primary key(id_viaje),
                     foreign key(dia) references dia(id_dia),
@@ -203,7 +203,7 @@ create table reserva(	id_reserva integer AUTO_INCREMENT,
                         id_usuario integer,
                         id_alojamiento integer,
                         id_viaje integer,
-                        pagado bool,
+                        pagado bool NOT NULL DEFAULT '1',
                         primary key(id_reserva),
                         foreign key(id_vuelo) references vuelo(id_vuelo),
                         foreign key(id_cabina) references cabina(id_cabina),
@@ -788,4 +788,20 @@ select origen.descripcion as origen , destino.descripcion as destino, tipo_viaje
                                         inner join tipo_viaje on viaje.id_tipo_viaje = tipo_viaje.id_tipo_viaje;
                
                
-               
+SELECT *, DATE_FORMAT(f_partida, '%d/%m/%Y') AS 'fechaDeViaje', o.descripcion AS 'origen', d.descripcion AS 'destino', vi.pagado AS 'viaje_pagado', r.pagado AS 'reserva_pagado'
+FROM reserva r 
+inner join viaje vi on r.id_viaje = vi.id_viaje
+inner join vuelo vu on r.id_vuelo = vu.id_vuelo
+inner join origen o on vu.vuelo_origen = o.id_origen
+inner join destino d on vu.vuelo_destino = d.id_destino
+inner join tipo_viaje tv on vi.id_tipo_viaje = tv.id_tipo_viaje
+where r.id_usuario = 6
+group by vi.id_viaje;
+
+SELECT *
+FROM alojamiento
+INNER JOIN reserva
+ON alojamiento.id_alojamiento = reserva.id_alojamiento
+INNER JOIN destino
+ON alojamiento.id_destino  = destino.id_destino
+WHERE reserva.id_usuario = 6;
