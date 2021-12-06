@@ -1,7 +1,6 @@
 <?php
 
-class PagoReservaModel
-{
+class PagoReservaAlojamientoModel{
 
     private $database;
     public function __construct(\Database $database){

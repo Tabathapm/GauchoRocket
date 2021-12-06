@@ -27,7 +27,7 @@
                             <tbody>
 
                             {{#viajes}}
-                                <form action="/GauchoRocket/pagoReserva" method="post">
+                                <form action="/GauchoRocket/pagoReservaViaje" method="post">
                                     <tr>
                                         <input type='hidden' value='{{id_vuelo}}' name="idVuelo">
                                         <input type='hidden' value='{{id_reserva}}' name="idReserva">
@@ -63,10 +63,10 @@
                 <article class="d-flex justify-content-center d-flex flex-column">
                     <h1 class='mt-5 text-center'>ALOJAMIENTOS</h1>
                         <div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
-                            <div class="row justify-content-center align-items-center" >
+                            <div class="row justify-content-center align-items-center">
                                 <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow-lg">
 
-                                    <table class="table text-center" style="width: 877px">
+                                    <table class="table text-center" style="width: 877px;">
                                         <thead>
                                         <tr>
                                             <th scope="col">DESTINO</th>
@@ -80,7 +80,7 @@
                                         <tbody>
 
                                         {{#alojamientos}}
-                                            <form action="/GauchoRocket/pagoReserva" method="post">
+                                            <form action="/GauchoRocket/pagoReservaAlojamiento" method="post">
                                                 <tr>
                                                     <input type='hidden' value='{{id_alojamiento}}' name="idAlojamiento">
                                                     <input type='hidden' value='{{id_reserva}}' name="idReserva">
@@ -88,14 +88,14 @@
                                                     <td >{{cant_habitaciones}}</td>
                                                     <td >${{precio}}</td>
                                                     <td >{{nombreAlojamiento}}</td>
-                                                    <{{#pagado}}
+                                                    {{#pagado}}
                                                     <td>
                                                         <button type="submit" class="btn btn-primary">PAGAR</button>
                                                     </td>
                                                 {{/pagado}}
                                                     {{^pagado}}
                                                         <td>
-                                                            <button type="submit" class="btn btn-primary" disabled>PAGAR</button>
+                                                            <button type="submit" class="btn btn-primary" disabled>PAGADO</button>
                                                         </td>
                                                     {{/pagado}}
                                                 </tr>

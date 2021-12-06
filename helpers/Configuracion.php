@@ -48,20 +48,36 @@ class Configuracion{
         return new ReservaModel($database);
     }
 
-    public static function getPagoReservaModel(){
+    public static function getPagoReservaAlojamientoModel(){
         $database = self::getDatabase();
-        include_once ("model/PagoReservaModel.php");
-        return new PagoReservaModel($database);
+        include_once("model/PagoReservaAlojamientoModel.php");
+        return new PagoReservaAlojamientoModel($database);
     }
 
-    public static function getPagoReservaController(){
+    public static function getPagoReservaAlojamientoController(){
         $pdf = self::getPDF();
         $render = self::getRender();
-        $reservaModel = self::getPagoReservaModel();
+        $reservaModel = self::getPagoReservaAlojamientoModel();
         $qr = self::getQR();
         $phpMailer = self::getPHPMailer();
-        include_once("controller/PagoReservaController.php");
-        return new PagoReservaController($render,$reservaModel, $pdf,$qr, $phpMailer);
+        include_once("controller/PagoReservaAlojamientoController.php");
+        return new PagoReservaAlojamientoController($render,$reservaModel, $pdf,$qr, $phpMailer);
+    }
+
+    public static function getPagoReservaViajeModel(){
+        $database = self::getDatabase();
+        include_once("model/PagoReservaViajeModel.php");
+        return new PagoReservaViajeModel($database);
+    }
+
+    public static function getPagoReservaViajeController(){
+        $pdf = self::getPDF();
+        $render = self::getRender();
+        $reservaModel = self::getPagoReservaViajeModel();
+        $qr = self::getQR();
+        $phpMailer = self::getPHPMailer();
+        include_once("controller/PagoReservaViajeController.php");
+        return new PagoReservaViajeController($render,$reservaModel, $pdf,$qr, $phpMailer);
     }
 
 
