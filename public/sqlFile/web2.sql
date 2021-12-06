@@ -185,7 +185,7 @@ create table tipo_servicio_a_bordo(id_tipo_servicio integer AUTO_INCREMENT,
 									descripcion_tipo varchar(20),
 									primary key(id_tipo_servicio));    
                                     
-                                     create table alojamiento(id_alojamiento integer AUTO_INCREMENT,
+create table alojamiento(id_alojamiento integer AUTO_INCREMENT,
 							cant_habitaciones integer,
                             id_destino integer,
                             nombreAlojamiento varchar(40),

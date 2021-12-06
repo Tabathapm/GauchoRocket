@@ -30,6 +30,7 @@ class ViajeController{
         }
 
         if (isset($data["logueado"])){
+
             if (isset($_POST["origen"]) && isset($_POST["destino"]) && isset($_POST["tipoViaje"]) && isset($_POST["fechaDeViaje"])){
                 $origen = $_POST["origen"];
                 $destino = $_POST["destino"];

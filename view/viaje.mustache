@@ -35,7 +35,6 @@
 
                             {{#viajeElegido}}
                                 <form action="/GauchoRocket/reserva" method="post">
-<!--                                <form action="#" method="post">-->
                                     <tr>
                                         <input type='hidden' value='{{id_vuelo}}' name="idVuelo">
                                         <td>{{origen}}</td>
@@ -44,6 +43,14 @@
                                         <td>{{fechaDeViaje}}</td>
                                         <td>{{horario}}</td>
                                         <td>${{precio}}</td>
+                                        <input type="hidden" name="idViaje" value="{{id_viaje}}">
+                                        <input type="hidden" name="destino" value="{{destino}}">
+                                        <input type="hidden" name="fecha" value="{{f_partida}}">
+                                        <input type="hidden" name="horario" value="{{horario}}">
+                                        <input type="hidden" name="precio" value="{{precio}}">
+                                        <input type="hidden" name="foto" value="{{foto}}">
+                                        <input type="hidden" name="duracion" value="{{duracion}}">
+                                        <input type="hidden" name="vuelo" value="{{id_vuelo}}">
                                         {{#disponible}}
                                             <td> <button type="submit" class="btn btn-secondary">Reservar viaje</button></td>
                                         {{/disponible}}

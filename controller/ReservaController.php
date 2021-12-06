@@ -49,6 +49,8 @@ class ReservaController{
              $data['servicios'] = $this->reservaModel->servicios();
              $data['cabinas'] = $this->reservaModel->cabinas();
              $data['tipoVuelo'] = $this->reservaModel->getResultadoChequeo($_SESSION["id"]);
+             $host = "http://".$_SERVER['HTTP_HOST'];
+             $data['host']=$host;
 
              if(isset($_POST['idViaje']) && isset($_POST['destino'])
                 && isset($_POST['horario']) && isset($_POST['fecha'])
