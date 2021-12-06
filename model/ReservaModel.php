@@ -116,6 +116,22 @@ class ReservaModel
                                         AND a.fila='$fila'");
     }
 
+
+    public function getAsientosPorFilaOrigenDestino($origen,$destino, $fila){
+      return $this->database->consulta("SELECT
+                                        a.id_asiento as 'idAsiento', 
+                                        a.fila, 
+                                        a.descripcion as 'asientos',
+                                        a.disponible as 'asientoDisponible'
+                                        FROM asiento a
+                                        INNER JOIN vuelo v
+                                        ON a.id_asiento = v.id_asiento
+                                        INNER JOIN destino d
+                                        ON d.id_destino = v.vuelo_destino
+                                        WHERE v.vuelo_origen='$origen' and v.vuelo_destino='$destino'
+                                        AND a.fila='$fila'");
+    }
+
     public function asientoReservado($idAsiento){
 
       return $this->database->update("UPDATE asiento

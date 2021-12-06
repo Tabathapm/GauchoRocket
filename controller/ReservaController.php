@@ -55,14 +55,32 @@ class ReservaController{
              if(isset($_POST['idViaje']) && isset($_POST['destino'])
                 && isset($_POST['horario']) && isset($_POST['fecha'])
                 && isset($_POST['precio']) && isset($_POST['foto'])
-                && isset($_POST['duracion']) && isset($_POST['vuelo']) ){
+                && isset($_POST['duracion']) && isset($_POST['vuelo'])
+                || ( isset($_POST['origenid']) && isset($_POST['destinoid']) ) ){
+
+                $origen=$_POST['origenid'];
+                $destino=$_POST['destinoid'];
 
                 $viaje=$_POST['idViaje'];
                 $data['viaje'] = $this->reservaModel->getViaje($viaje);
-                $data['filaA']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'A');
-                $data['filaB']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'B');
-                $data['filaC']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'C');
-                $data['filaD']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'D');
+
+
+                if( ($origen== 5 || $origen== 6 || $origen== 9) && ($destino=2) ){
+
+                    $data['filaA']=$this->reservaModel->getAsientosPorFilaOrigenDestino($origen,$destino, 'A');
+                    $data['filaB']=$this->reservaModel->getAsientosPorFilaOrigenDestino($origen,$destino, 'B');
+                    $data['filaC']=$this->reservaModel->getAsientosPorFilaOrigenDestino($origen,$destino, 'C');
+                    $data['filaD']=$this->reservaModel->getAsientosPorFilaOrigenDestino($origen,$destino, 'D');
+
+                }else{
+
+                    $data['filaA']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'A');
+                    $data['filaB']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'B');
+                    $data['filaC']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'C');
+                    $data['filaD']=$this->reservaModel->getAsientosPorFila($_POST['destino'], 'D');
+
+                }
+               
                 $data['destino'] = $_POST['destino'];
                 $data['horario'] = $_POST['horario'];
                 $data['fecha'] = $_POST['fecha'];

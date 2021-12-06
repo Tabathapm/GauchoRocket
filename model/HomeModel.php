@@ -25,7 +25,9 @@ class HomeModel{
                                           vi.horario,
                                           vi.precio,
                                           vi.duracion,
-                                          vu.id_vuelo
+                                          vu.id_vuelo,
+                                          vu.vuelo_origen as origenid,
+                                          vu.vuelo_destino as destinoid
                                           FROM vuelo vu
                                           INNER JOIN destino d 
                                           on d.id_destino=vu.vuelo_destino

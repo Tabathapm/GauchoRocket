@@ -491,7 +491,7 @@ values
 
 insert into asiento(fila, descripcion, disponible)
 values
--- OrbitelHotel
+-- OrbitelHotel BA
 ('A','A1',true),
 ('A','A2',true),
 ('A','A3', true),
@@ -507,7 +507,7 @@ values
 
 insert into asiento(fila, descripcion, disponible)
 values
--- Luna
+-- Luna BA 
 ('A','A10', true),
 ('A','A11', true),
 ('A','A12', true),
@@ -523,7 +523,7 @@ values
 
 insert into asiento(fila, descripcion, disponible)
 values
--- Marte
+-- Marte BA 
 ('A','A20', false),
 ('A','A21', false),
 ('A','A22', false),
@@ -539,7 +539,7 @@ values
 
 insert into asiento(fila, descripcion, disponible)
 values
--- Ganimedes
+-- Ganimedes BA 
 ('A','A30', true),
 ('A','A31', true),
 ('A','A32', true),
@@ -552,6 +552,59 @@ values
 ('D','D30', true),
 ('D','D31', true),
 ('D','D32', true);
+
+-- -------------------------------------------
+-- AK
+insert into asiento(fila, descripcion, disponible)
+values
+-- Ganimedes AK 
+('A','A40', true),
+('A','A41', true),
+('A','A42', true),
+('B','B50', true),
+('B','B51', true),
+('B','B52', true),
+('C','C60', true),
+('C','C61', true),
+('C','C62', true),
+('D','D70', true),
+('D','D71', true),
+('D','D72', true);
+
+insert into asiento(fila, descripcion, disponible)
+values
+-- Europa AK 
+('A','A80', true),
+('A','A81', true),
+('A','A82', true),
+('B','B90', true),
+('B','B91', true),
+('B','B92', true),
+('C','C93', true),
+('C','C94', true),
+('C','C95', true),
+('D','D96', true),
+('D','D97', true),
+('D','D98', true);
+
+insert into asiento(fila, descripcion, disponible)
+values
+-- Encedalo AK 
+('A','A99', true),
+('A','A100', true),
+('A','A102', true),
+('B','B103', true),
+('B','B104', true),
+('B','B105', true),
+('C','C106', true),
+('C','C107', true),
+('C','C108', true),
+('D','D109', true),
+('D','D110', true),
+('D','D111', true);
+
+
+-- -------------------------------------------
 
 insert into vuelo(duracion,capacidad_vuelo,id_cabina,id_nivel_vuelo,id_viaje,id_asiento,vuelo_origen,vuelo_destino)
 values
@@ -583,8 +636,33 @@ values
 (30.00,300,2,2,8,35,1,4),
 (30.00,300,2,2,42,36,1,4),
 
-(30.00,300,3,3,1,null,2,6),
-(26.00,120,1,1,1,null,2,9),
+-- europa  
+(30.00,300,3,3,1,37,2,6),
+(30.00,300,3,3,1,38,2,6),
+(30.00,300,3,3,1,39,2,6),
+(30.00,300,3,3,1,40,2,6),
+(30.00,300,3,3,1,41,2,6),
+(30.00,300,3,3,1,42,2,6),
+(30.00,300,3,3,1,43,2,6),
+(30.00,300,3,3,1,44,2,6),
+(30.00,300,3,3,1,45,2,6),
+(30.00,300,3,3,1,46,2,6),
+(30.00,300,3,3,1,47,2,6),
+(30.00,300,3,3,1,48,2,6),
+
+-- encedalo
+(26.00,120,1,1,1,49,2,9),
+(26.00,120,1,1,1,50,2,9),
+(26.00,120,1,1,1,51,2,9),
+(26.00,120,1,1,1,52,2,9),
+(26.00,120,1,1,1,53,2,9),
+(26.00,120,1,1,1,54,2,9),
+(26.00,120,1,1,1,55,2,9),
+(26.00,120,1,1,1,56,2,9),
+(26.00,120,1,1,1,57,2,9),
+(26.00,120,1,1,1,58,2,9),
+(26.00,120,1,1,1,59,2,9),
+(26.00,120,1,1,1,60,2,9),
 
 -- orbitel hotel
 (26.00,120,2,2,5,1,1,2),
@@ -601,17 +679,17 @@ values
 (26.00,120,2,2,20,12,1,2),
 -- gaminedes
 (26.00,120,3,3,18,37,2,5), 
-(26.00,120,3,3,14,38,2,5), 
-(26.00,120,3,3,12,39,2,5), 
-(26.00,120,3,3,10,40,2,5), 
-(26.00,120,3,3,21,41,2,5), 
-(26.00,120,3,3,31,42,2,5), 
-(26.00,120,3,3,19,43,2,5), 
-(26.00,120,3,3,41,44,2,5), 
-(26.00,120,3,3,34,45,2,5), 
-(26.00,120,3,3,25,46,2,5), 
-(26.00,120,3,3,5,47,2,5),
-(26.00,120,3,3,10,48,2,5);
+(26.00,120,3,3,18,38,2,5), 
+(26.00,120,3,3,18,39,2,5), 
+(26.00,120,3,3,18,40,2,5), 
+(26.00,120,3,3,18,41,2,5), 
+(26.00,120,3,3,18,42,2,5), 
+(26.00,120,3,3,18,43,2,5), 
+(26.00,120,3,3,18,44,2,5), 
+(26.00,120,3,3,18,45,2,5), 
+(26.00,120,3,3,18,46,2,5), 
+(26.00,120,3,3,18,47,2,5),
+(26.00,120,3,3,18,48,2,5);
       
 INSERT INTO usuario (rol_usuario, clave, email, nombre_usuario, apellido_usuario, activo)
 VALUES 

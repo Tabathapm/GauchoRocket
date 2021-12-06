@@ -147,7 +147,7 @@ class ViajeModel{
 
     public function getTodosLosViajes(){
         return $this->database->consulta("SELECT *, DATE_FORMAT(f_partida, '%d/%m/%Y') AS 'fechaDeViaje', origen.descripcion AS 'origen', destino.descripcion AS 'destino' , destino.foto as foto, viaje.precio as precio,
-          viaje.id_viaje as id_viaje, viaje.f_partida as f_partida, viaje.horario as horario, viaje.duracion as duracion,  vuelo.id_vuelo as id_vuelo
+          viaje.id_viaje as id_viaje, viaje.f_partida as f_partida, viaje.horario as horario, viaje.duracion as duracion,  vuelo.id_vuelo as id_vuelo, vuelo.vuelo_origen as origenid , vuelo.vuelo_destino as destinoid
                                               FROM origen
                                               INNER JOIN vuelo
                                               ON origen.id_origen = vuelo.vuelo_origen
@@ -156,7 +156,8 @@ class ViajeModel{
                                               INNER  JOIN viaje
                                               ON vuelo.id_viaje = viaje.id_viaje
                                               INNER JOIN tipo_viaje
-                                              ON viaje.id_tipo_viaje = tipo_viaje.id_tipo_viaje;");
+                                              ON viaje.id_tipo_viaje = tipo_viaje.id_tipo_viaje
+                                              #group by vuelo.vuelo_destino;");
     }
 
   
