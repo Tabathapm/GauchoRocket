@@ -524,18 +524,18 @@ values
 insert into asiento(fila, descripcion, disponible)
 values
 -- Marte BA 
-('A','A20', false),
-('A','A21', false),
-('A','A22', false),
-('B','B20', false),
-('B','B21', false),
-('B','B22', false),
-('C','C20', false),
-('C','C21', false),
-('C','C22', false),
-('D','D20', false),
-('D','D21', false),
-('D','D22', false);
+('A','A20', true),
+('A','A21', true),
+('A','A22', true),
+('B','B20', true),
+('B','B21', true),
+('B','B22', true),
+('C','C20', true),
+('C','C21', true),
+('C','C22', true),
+('D','D20', true),
+('D','D21', true),
+('D','D22', true);
 
 insert into asiento(fila, descripcion, disponible)
 values

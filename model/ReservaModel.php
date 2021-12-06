@@ -182,7 +182,7 @@ class ReservaModel
     }
 
     public function getReservasViajes($id_usuario){
-        return $this->database->consulta("SELECT *, DATE_FORMAT(f_partida, '%d/%m/%Y') AS 'fechaDeViaje', o.descripcion AS 'origen', d.descripcion AS 'destino',vi.pagado AS 'viaje_pagado', r.pagado AS 'reserva_pagado' , r.id_reserva as 'idreserva'
+        return $this->database->consulta("SELECT *, DATE_FORMAT(f_partida, '%d/%m/%Y') AS 'fechaDeViaje', o.descripcion AS 'origen', d.descripcion AS 'destino',vi.pagado AS 'viaje_pagado', r.pagado AS 'reserva_pagado' , r.id_reserva as 'idreserva', r.id_viaje as idViaje
                                           FROM reserva r 
                                           inner join viaje vi on r.id_viaje = vi.id_viaje
                                           inner join vuelo vu on r.id_vuelo = vu.id_vuelo
@@ -208,7 +208,7 @@ class ReservaModel
                                         WHERE id_asiento='$idAsiento'");
     }
 
-     public function getUsuarioConReserva($usuario){
+    public function getUsuarioConReserva($usuario){
       return $this->database->consulta("SELECT distinct u.id_usuario 
                                         FROM usuario u
                                         inner join reserva r 
@@ -222,6 +222,13 @@ class ReservaModel
                                               INNER JOIN destino
                                               ON alojamiento.id_destino = destino.id_destino
                                               WHERE id_alojamiento = '$idAlojamiento';");
+    }
+
+
+    public function cancelarReserva($reserva){
+
+        return $this->database->update("DELETE FROM reserva
+                                        WHERE id_reserva = '$reserva'");
     }
 
 }

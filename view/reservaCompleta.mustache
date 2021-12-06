@@ -21,13 +21,14 @@
                                     <th scope="col">HORARIO</th>
                                     <th scope="col">PRECIO</th>
                                     <th scope="col">PAGAR</th>
+                                    <th scope="col">CANCELAR</th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
                             {{#viajes}}
-                                <form action="/GauchoRocket/pagoReservaViaje" method="post">
+                                <form action="/GauchoRocket/pagoReservaViaje" method="post" id="formPagoViaje">
                                     <tr>
                                         <input type='hidden' value='{{id_vuelo}}' name="idVuelo">
                                         <input type='hidden' value='{{id_reserva}}' name="idReserva">
@@ -41,15 +42,25 @@
                                             <td>
                                                 <button type="submit" class="btn btn-primary">PAGAR</button>
                                             </td>
+                                        </form>
+                                            <td>
+                                            <form action="/GauchoRocket/reserva/reservaCompleta" method="post">
+                                                <input type='hidden' value='{{id_reserva}}' name="idReserva">
+                                                <button type="submit" class="btn btn-danger" name="cancelarReserva">CANCELAR</button>
+                                             </form>
+                                            </td>
                                         {{/reserva_pagado}}
                                         {{^reserva_pagado}}
                                             <td>
-                                                <button type="submit" class="btn btn-primary" disabled>PAGADO</button>
+                                                <button type="submit" class="btn btn-primary" form="formPagoViaje" disabled>PAGADO</button>
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-danger" disabled>CANCELAR</button>
                                             </td>
                                         {{/reserva_pagado}}
                                         </td>
                                     </tr>
-                                </form>
+                                
                             {{/viajes}}
                             </tbody>
                         </table>
@@ -92,14 +103,24 @@
                                                     <td>
                                                         <button type="submit" class="btn btn-primary">PAGAR</button>
                                                     </td>
+                                                    </form>
+                                                    <td>
+                                                        <form action="/GauchoRocket/reserva/reservaCompleta" method="post">
+                                                            <input type='hidden' value='{{id_reserva}}' name="idReserva">
+                                                            <button type="submit" class="btn btn-danger" name="cancelarReserva">CANCELAR</button>
+                                                         </form>
+                                                    </td>
                                                 {{/pagado}}
+                                                  
                                                     {{^pagado}}
                                                         <td>
                                                             <button type="submit" class="btn btn-primary" disabled>PAGADO</button>
                                                         </td>
+                                                        <td>
+                                                            <button type="submit" class="btn btn-danger" disabled>CANCELAR</button>
+                                                        </td>
                                                     {{/pagado}}
                                                 </tr>
-                                            </form>
                                         {{/alojamientos}}
                                         </tbody>
                                     </table>
